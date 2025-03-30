@@ -69,7 +69,7 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
                 for (let i=0;i<data.movie.category["2"]["list"].length;i++){
                     console.log(data.movie.category["2"]["list"][i]);
                     let cate = data.movie.category["2"]["list"][i]["name"];
-                        str += `<a href="/webHuy/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="tag">${cate}</a>`;
+                        str += `<a href="/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="tag">${cate}</a>`;
 
                 }
                 genreTag.innerHTML=str;
@@ -108,7 +108,7 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
                     for (let i=0;i<data.movie.category["2"]["list"].length;i++){
                         console.log(data.movie.category["2"]["list"][i]);
                         let cate = data.movie.category["2"]["list"][i]["name"];
-                            str += `<a href="/webHuy/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="tag">${cate}</a>`;
+                            str += `<a href="/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="tag">${cate}</a>`;
     
                     }
                     genreTag.innerHTML=str;
@@ -175,5 +175,5 @@ function prevSlide() {
 //example
 const infor = document.querySelector(".info-btn");
 infor.addEventListener("click", ()=>{
-    window.location = "/webHuy/pages/chi-tiet.html";
+    window.location = "/pages/chi-tiet.html";
 })
