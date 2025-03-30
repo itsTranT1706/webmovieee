@@ -166,3 +166,14 @@ function prevSlide() {
         list.style.transform = `translateX(-${currentIndex * 220}px)`;
     }
 }
+
+
+
+
+
+
+//example
+const infor = document.querySelector(".info-btn");
+infor.addEventListener("click", ()=>{
+    window.location = "/webHuy/pages/chi-tiet.html";
+})
