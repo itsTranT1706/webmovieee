@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhePhim</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="/" class="logo">
+                    <img id = "logo" src="./image/logo.webp" alt="RoPhim Logo">
+                    <div id="style">
+                        <span class="logo-text">Phê phim</span>
+                        <small>Phim hay vl</small>
+                    </div>
+                </a>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Tìm kiếm phim, diễn viên...">
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="./pages/chu-de.html">Chủ Đề</a></li>
+                    <li><a href="#">Duyệt tìm</a></li>
+                    <li><a href="#">Phim Lẻ</a></li>
+                    <li><a href="#">Phim Bộ</a></li>
+                    <li class="dropdown">
+                        <a href="#">Quốc gia <i class="fas fa-caret-down"></i></a>
+                    </li>
+                    <li><a href="#">Diễn Viên</a></li>
+                    <li><a href="#">Lịch chiếu</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="#" class="app-download">
+                    <img src="/api/placeholder/32/32" alt="App Icon">
+                    <span>Tải ứng dụng<br>RoPhim</span>
+                </a>
+                <a href="#" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Đăng nhập
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="#" class="login-btn">
+                <i class="fas fa-user"></i>
+                Thành viên
+            </a>
+        </div>
+        <a href="#" class="app-download mobile-app-download">
+            <img src="/api/placeholder/32/32" alt="App Icon">
+            <span>Tải ứng dụng RoPhim</span>
+        </a>
+        <nav class="mobile-nav">
+            <a href="#">Chủ Đề</a>
+            <a href="#">Duyệt tìm</a>
+            <a href="#">Phim Lẻ</a>
+            <a href="#">Phim Bộ</a>
+            <a href="#" class="has-dropdown">
+                Quốc gia
+                <i class="fas fa-chevron-down"></i>
+            </a>
+            <a href="#">Diễn Viên</a>
+            <a href="#">Lịch chiếu</a>
+        </nav>
+    </div>
+
+    <main>
+        <section class="hero-section">
+            <!-- <img id="background" src="https://phim.nguonc.com/public/images/Film/gsQJOfeW45KLiQeEIsom94QPQwb.jpg" alt=""> -->
+            <div id="banner">
+                
+                <div class="hero-content">
+                    <div class="hero-title">
+                        <h1>Daredevil: Tái Xuất</h1>
+                    </div>
+                    <div class="hero-meta">
+                        <span class="rating">IMDb 8.7</span>
+                        <span class="age-rating">T18</span>
+                        <span class="year">2025</span>
+                        
+                        <span class="season">Phần 1</span>
+                        <span class="episode">Tập 5</span>
+                    </div>
+                    <div class="genre-tags">
+                        <a href="#" class="tag">Chính Kịch</a>
+                        <a href="#" class="tag">Hình Sự</a>
+                        <a href="#" class="tag">Siêu Anh Hùng</a>
+                        <a href="#" class="tag">Marvel</a>
+                    </div>
+                    <div class="hero-description">
+                        <p>Matt Murdock, một luật sư mù với khả năng đặc biệt, chiến đấu cho công lý thông qua công ty luật sáng lập của mình. Trong khi cựu trùm mafia Wilson Fisk theo đuổi những nỗ lực chính trị của riêng mình ở New York. Khi quá khứ của họ bắt đầu lộ diện, cả hai người đều thấy...</p>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="like-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="info-btn">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                </div>
+
+                    <div class="thumbnails">
+                    
+                </div>
+            </img>
+            </div>
+        </section>
+
+
+        <!-- CATEGORY  -->
+        <section class="interest-section">
+            <h2>Bạn đang quan tâm gì?</h2>
+            <div class="category-grid">
+            </div>
+        </section>
+
+
+
+        <!-- PHIM TUNG QUỐC GIA -->
+        <section class="korean-drama-section">
+            <div class="section-header">
+                <h2>Phim Hàn Quốc mới</h2>
+                <a href="./pages/danh-sach.html?quoc-gia=han-quoc" class="view-all">Xem toàn bộ <i class="fas fa-angle-right"></i></a>
+            </div>
+
+        <div class="movie-container">
+            
+            <button class="nav-button" onclick="prevSlide()">&#10094;</button>
+
+            <div class="movie-list">
+
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Film/4JOCooFc5M8w4EoSn3o8hZcKdyO.jpg" alt="Movie 1">
+                <div class="movie-hover">
+                    <div class="movie-title">Điệp Vụ Thanh Xuân</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Film/4JOCooFc5M8w4EoSn3o8hZcKdyO.jpg" alt="Movie 1">
+                <div class="movie-hover">
+                    <div class="movie-title">Điệp Vụ Thanh Xuân</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Film/4JOCooFc5M8w4EoSn3o8hZcKdyO.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            <button class="nav-button" onclick="nextSlide()">&#10095;</button>
+  
+        </div>
+    </section>
+        <section class="korean-drama-section">
+            <div class="section-header">
+                <h2>Phim Âu Mỹ mới</h2>
+                <a href="./pages/danh-sach.html?quoc-gia=au-my" class="view-all">Xem toàn bộ <i class="fas fa-angle-right"></i></a>
+            </div>
+
+        <div class="movie-container">
+            
+            <button class="nav-button" onclick="prevSlide()">&#10094;</button>
+
+            <div class="movie-list">
+
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Film/7YI3LxKLTxHjes9OaBUYrKdXqh3.jpg" alt="Movie 1">
+                <div class="movie-hover">
+                    <div class="movie-title">Điệp Vụ Thanh Xuân</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Film/h8TPPusskiVqwiQGEiUP7f0z8v6.jpg" alt="Movie 1">
+                <div class="movie-hover">
+                    <div class="movie-title">Điệp Vụ Thanh Xuân</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Film/4JOCooFc5M8w4EoSn3o8hZcKdyO.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            <button class="nav-button" onclick="nextSlide()">&#10095;</button>
+  
+        </div>
+    </section>
+        <section class="korean-drama-section">
+            <div class="section-header">
+                <h2>Phim Trung Quốc mới</h2>
+                <a href="./pages/danh-sach.html?quoc-gia=trung-quoc" class="view-all">Xem toàn bộ <i class="fas fa-angle-right"></i></a>
+            </div>
+
+        <div class="movie-container">
+            
+            <button class="nav-button" onclick="prevSlide()">&#10094;</button>
+
+            <div class="movie-list">
+
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Film/4frrYwamVG0eXhdMTy3cpNNcCBp.jpg" alt="Movie 1">
+                <div class="movie-hover">
+                    <div class="movie-title">Điệp Vụ Thanh Xuân</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/1/niem-vo-song-1.jpg" alt="Movie 1">
+                <div class="movie-hover">
+                    <div class="movie-title">Điệp Vụ Thanh Xuân</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Film/4JOCooFc5M8w4EoSn3o8hZcKdyO.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            <div class="movie-item">
+                <img src="https://phim.nguonc.com/public/images/Post/3/trai-tim-chon-vui-1.jpg" alt="Movie 2">
+                <div class="movie-hover">
+                    <div class="movie-title">Lưỡi Dao Hiểm Hóc</div>
+                    <div class="movie-actions">
+                        <button>Xem ngay</button>
+                        <button>Thích</button>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            <button class="nav-button" onclick="nextSlide()">&#10095;</button>
+  
+        </div>
+    </section>
+    </main>
+
+    <div class="overlay-bg" id="overlayBg"></div>
+
+    <script src="./main/script.js"></script>
+    <script src="./main/chu-de.js"></script>
+</body>
+</html>
