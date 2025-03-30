@@ -1,6 +1,14 @@
 
 
-
+function removeVietnameseTones(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Loại bỏ dấu
+              .replace(/đ/g, "d").replace(/Đ/g, "D") // Chuyển đ -> d, Đ -> D
+              .toLowerCase() // Chuyển thành chữ thường
+              .replace(/\s+/g, '-') // Thay khoảng trắng bằng "-"
+              .replace(/[^a-z0-9-]/g, '') // Loại bỏ ký tự đặc biệt (chỉ giữ a-z, 0-9, "-")
+              .replace(/-+/g, '-') // Xóa dấu "-" dư thừa
+              .trim(); // Xóa khoảng trắng đầu/cuối
+}
 
 // DOM Elements
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -33,7 +41,7 @@ const banner = document.querySelector("#banner");
 fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        console.log(`https://phim.nguonc.com/api/film/${data.items[0].slug}`);
         let img = data.items[0].poster_url;
         const thumb = document.querySelector(".thumbnails");
         let str = "";
@@ -47,28 +55,71 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
                         <img src="${data.items[i].poster_url}">
                     </div>`;
         }
+        fetch(`https://phim.nguonc.com/api/film/${data.items[0].slug}`)
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector(".hero-title").innerHTML = `<h1>${data.movie.name}</h1>`;
+                document.querySelector(".rating").textContent = data.movie.quality;
+                document.querySelector(".age-rating").textContent = data.movie.language;
+                document.querySelector(".year").textContent = data.movie.created.split("-")[0];
+                document.querySelector(".season").textContent = data.movie.current_episode;
+                document.querySelector(".episode").textContent = data.movie.time;
+                const genreTag = document.querySelector(".genre-tags");
+                let str = "";
+                for (let i=0;i<data.movie.category["2"]["list"].length;i++){
+                    console.log(data.movie.category["2"]["list"][i]);
+                    let cate = data.movie.category["2"]["list"][i]["name"];
+                        str += `<a href="/webHuy/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="tag">${cate}</a>`;
+
+                }
+                genreTag.innerHTML=str;
+                document.querySelector(".hero-description").innerHTML = `<p>${data.movie.description}</p>`;
+            })
+            .catch(error => console.error("Lỗi:", error));
+
+
         thumb.innerHTML = str;
-        // console.log("asdcasdc", str);
 
         // Thumbnail Selection
         const thumbnails = document.querySelectorAll('.thumbnail');
-        console.log(thumbnails);
+        // console.log(thumbnails);
         thumbnails.forEach(thumb => {
             thumb.addEventListener('click', () => {
-                // console.log("asdvnjasv")
                 // Remove active class from all thumbnails
                 thumbnails.forEach(t => t.classList.remove('active'));
                 // Add active class to clicked thumbnail
                 thumb.classList.add('active');
                 let img = thumb.querySelector("img").src;
-                // console.log(img);
+
+                console.log(thumb.id)
                 document.querySelector("#banner").style.background = `url(${img}) no-repeat center center/cover `;
 
+                fetch(`https://phim.nguonc.com/api/film/${thumb.id}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector(".hero-title").innerHTML = `<h1>${data.movie.name}</h1>`;
+                    document.querySelector(".rating").textContent = data.movie.quality;
+                    document.querySelector(".age-rating").textContent = data.movie.language;
+                    document.querySelector(".year").textContent = data.movie.created.split("-")[0];
+                    document.querySelector(".season").textContent = data.movie.current_episode;
+                    document.querySelector(".episode").textContent = data.movie.time;
+                    const genreTag = document.querySelector(".genre-tags");
+                    let str = "";
+                    for (let i=0;i<data.movie.category["2"]["list"].length;i++){
+                        console.log(data.movie.category["2"]["list"][i]);
+                        let cate = data.movie.category["2"]["list"][i]["name"];
+                            str += `<a href="/webHuy/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="tag">${cate}</a>`;
+    
+                    }
+                    genreTag.innerHTML=str;
+                    document.querySelector(".hero-description").innerHTML = `<p>${data.movie.description}</p>`;
+                })
+                .catch(error => console.error("Lỗi:", error));
 
                 // Here you would typically update the hero background
                 // For a full implementation, this would change the hero image
                 // const imgSrc = thumb.querySelector('img').src;
-                document.querySelector('.hero-section').style.backgroundImage = `linear-gradient(to right, rgba(14, 17, 23, 0.9), rgba(14, 17, 23, 0.8), transparent), url('${imgSrc}')`;
+                // document.querySelector('.hero-section').style.backgroundImage = `linear-gradient(to right, rgba(14, 17, 23, 0.9), rgba(14, 17, 23, 0.8), transparent), url('${imgSrc}')`;
             });
         });
 

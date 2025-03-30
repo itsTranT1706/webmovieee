@@ -22,7 +22,6 @@ for (let i = 0; i < length; i++) {
 
 }
 if (length<7){
-
     str += `<a href="/webHuy/pages/chu-de.html" class="category-card more">
     <h3>chủ đề khác</h3>
     </a>`;

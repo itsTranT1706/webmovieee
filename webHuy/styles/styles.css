@@ -277,6 +277,7 @@ header{
     align-items: center;
     padding: 0 5%;
     margin-top: var(--header-height);
+
 }
 
 .hero-content {
@@ -367,7 +368,9 @@ header{
     gap: 10px;
     justify-content: right;
     margin: 30px 50px;
+
 }
+
 
 .thumbnail {
     width: 60px;
