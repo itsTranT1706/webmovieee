@@ -1,0 +1,158 @@
+/* Basic Reset & Dark Theme */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #141414; /* Dark background */
+    color: #fff;
+    line-height: 1.6;
+}
+
+.movie-page {
+    max-width: 1200px; /* Adjust as needed */
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Video Section */
+.video-section { margin-bottom: 30px; }
+.iframe-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    background-color: #000; /* Background while iframe loads */
+}
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* Ensure no border */
+}
+
+/* Info Section Styling */
+.info-section {
+    display: flex;
+    gap: 30px; /* Space between poster and details */
+}
+
+.poster-area {
+    flex-basis: 150px; /* Adjust poster width */
+    flex-shrink: 0;
+}
+
+.poster-area img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+.details-area {
+    flex-grow: 1;
+}
+
+.title-vn {
+    font-size: 2.2em;
+    margin-bottom: 5px;
+}
+
+.title-en {
+    font-size: 1.2em;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+.metadata span {
+    margin-right: 15px;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.action-buttons {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.action-buttons button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+.action-buttons button:hover {
+    background-color: #555;
+}
+
+.description {
+    margin-bottom: 20px;
+    font-size: 1em;
+    color: #ddd;
+}
+
+.genres span {
+    display: inline-block;
+    background-color: #333;
+    padding: 4px 10px;
+    border-radius: 15px; /* Pill shape */
+    font-size: 0.85em;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.rating-area {
+    flex-basis: 100px; /* Adjust width */
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.rating-box {
+    background-color: #0a1e3c; /* Example color */
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.rating-value {
+    display: block;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #4ca1ff; /* Example color */
+}
+
+.rating-label {
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+/* Basic Fullscreen Styling */
+.video-container:-webkit-full-screen { /* Safari/Chrome */
+    width: 100%;
+    height: 100%;
+}
+.video-container:-moz-full-screen { /* Firefox */
+    width: 100%;
+    height: 100%;
+}
+.video-container:-ms-fullscreen { /* IE/Edge */
+     width: 100%;
+     height: 100%;
+}
+.video-container:fullscreen { /* Standard */
+    width: 100%;
+    height: 100%;
+}
