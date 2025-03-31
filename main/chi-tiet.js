@@ -35,7 +35,11 @@
     const watchButton = document.querySelector('.btn-primary');
     
     watchButton.addEventListener('click', function() {
-        alert('Starting playback of The Potato Lab');
+        // alert('Starting playback of The Potato Lab');
+        
+        //DEMOOO
+        window.location = "/pages/watch.html";
+
     });
     
     // Other buttons functionality
@@ -48,3 +52,10 @@
         });
     });
 });
+
+
+
+// const watch = document.querySelector("#xem-ngay");
+// watch.addEventListener("click", ()=>{
+//     window.location = "/pages/watch.html";
+// })

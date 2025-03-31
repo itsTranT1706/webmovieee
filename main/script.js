@@ -102,7 +102,7 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
                     document.querySelector(".age-rating").textContent = data.movie.language;
                     document.querySelector(".year").textContent = data.movie.created.split("-")[0];
                     document.querySelector(".season").textContent = data.movie.current_episode;
-                    document.querySelector(".episode").textContent = data.movie.time;
+                    document.querySelector(".episode").innerHTML = `<i style='font-size:15px' class='far'>&#xf017;</i> ${data.movie.time}`;
                     const genreTag = document.querySelector(".genre-tags");
                     let str = "";
                     for (let i=0;i<data.movie.category["2"]["list"].length;i++){
@@ -116,10 +116,6 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
                 })
                 .catch(error => console.error("Lỗi:", error));
 
-                // Here you would typically update the hero background
-                // For a full implementation, this would change the hero image
-                // const imgSrc = thumb.querySelector('img').src;
-                // document.querySelector('.hero-section').style.backgroundImage = `linear-gradient(to right, rgba(14, 17, 23, 0.9), rgba(14, 17, 23, 0.8), transparent), url('${imgSrc}')`;
             });
         });
 
@@ -128,9 +124,6 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
 
     })
     .catch(error => console.error("Lỗi:", error));
-
-
-
 
 
 
@@ -144,10 +137,6 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
 //         behavior: 'smooth'
 //     });
 // });
-
-
-
-
 
 
 

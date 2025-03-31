@@ -32,7 +32,7 @@ body {
     padding: 0 15px;
 }
 
-img#logo{
+img#logo {
     border-radius: 20% 50%;
 }
 
@@ -52,19 +52,20 @@ button {
     color: var(--text-color);
 }
 
-#banner{
+#banner {
     position: relative;
     width: 100%;
     height: 85vh;
     background: url(https://phim.nguonc.com/public/images/Film/h8TPPusskiVqwiQGEiUP7f0z8v6.jpg) no-repeat center center/cover;
     /* filter: blur(10px); */
 }
+
 .banner::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
-        filter: blur(10px);
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+    filter: blur(10px);
 
 }
 
@@ -88,11 +89,12 @@ button {
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    
+
 }
-header{
+
+header {
     background: transparent;
-    background-color: rgba(255, 255, 255, 0.5); 
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .header-left {
@@ -115,6 +117,7 @@ header{
     display: flex;
     flex-direction: column;
 }
+
 .logo img {
     height: 40px;
     margin-right: 5px;
@@ -127,7 +130,7 @@ header{
 }
 
 .logo small {
-    
+
     font-size: 12px;
     color: var(--text-secondary);
 }
@@ -288,6 +291,8 @@ header{
 .hero-title h1 {
     font-size: 48px;
     margin-bottom: 20px;
+    min-height: 2.55em;
+    /* line-height: 1.5em; */
 }
 
 .hero-meta {
@@ -327,11 +332,26 @@ header{
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.description-container {
+    position: relative;
+    max-width: 600px;
+}
+
 .hero-description {
     margin-bottom: 25px;
     font-size: 16px;
     line-height: 1.6;
     color: #e0e0e0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Giới hạn 3 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+    max-width: 600px;
+    min-height: 4.5em;
+    /* Đảm bảo đúng 3 dòng */
+    text-overflow: ellipsis;
 }
 
 .hero-actions {
@@ -352,7 +372,8 @@ header{
     color: #000;
 }
 
-.like-btn, .info-btn {
+.like-btn,
+.info-btn {
     width: 45px;
     height: 45px;
     background-color: rgba(255, 255, 255, 0.1);
@@ -363,11 +384,20 @@ header{
     font-size: 20px;
 }
 
+.like-btn,
+.info-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+
+}
+
+
 .thumbnails {
     display: flex;
     gap: 10px;
     justify-content: right;
     margin: 30px 50px;
+
+
 
 }
 
@@ -385,9 +415,11 @@ header{
     width: 100%;
     height: 100%;
     object-fit: cover;
+
 }
 
-.thumbnail.active, .thumbnail:hover {
+.thumbnail.active,
+.thumbnail:hover {
     opacity: 1;
 }
 
@@ -483,12 +515,14 @@ header{
     gap: 10px;
 }
 
-.quality, .rating {
+.quality,
+.rating {
     padding: 3px 8px;
     border-radius: 4px;
     font-size: 12px;
     background-color: rgba(0, 0, 0, 0.7);
 }
+
 /* section phim quoc gia */
 .korean-drama-section {
     padding: 40px 5%;
@@ -516,7 +550,7 @@ header{
     margin-left: 5px;
 }
 
- 
+
 .movie-container {
     display: flex;
     gap: 20px;
@@ -525,23 +559,28 @@ header{
     width: 600px;
     position: relative;
 }
+
 .movie-list {
     display: flex;
     transition: transform 0.3s ease-in-out;
 }
+
 .movie-item {
     position: relative;
     width: 200px;
     cursor: pointer;
 }
+
 .movie-item img {
     width: 100%;
     border-radius: 10px;
     transition: transform 0.3s;
 }
+
 .movie-item:hover img {
     transform: scale(1.1);
 }
+
 .movie-hover {
     position: absolute;
     top: 0;
@@ -555,18 +594,22 @@ header{
     justify-content: flex-end;
     border-radius: 10px;
 }
+
 .movie-item:hover .movie-hover {
     display: flex;
 }
+
 .movie-title {
     font-size: 16px;
     font-weight: bold;
 }
+
 .movie-actions {
     margin-top: 10px;
     display: flex;
     gap: 10px;
 }
+
 .movie-actions button {
     background-color: rgb(209, 209, 83);
     border: none;
@@ -574,6 +617,7 @@ header{
     cursor: pointer;
     border-radius: 5px;
 }
+
 /* .movie-list {
     display: flex;
     justify-content: space-between;
@@ -600,21 +644,21 @@ header{
     .main-nav {
         display: none;
     }
-    
+
     .mobile-menu-btn {
         display: block;
     }
-    
+
     .search-bar {
         flex: 1;
         max-width: 200px;
     }
-    
+
     .hero-section {
         height: auto;
         padding: 60px 5%;
     }
-    
+
     .category-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
@@ -624,68 +668,69 @@ header{
     .header-container {
         padding: 0 10px;
     }
-    
+
     .logo small {
         display: none;
     }
-    
+
     .app-download span {
         display: none;
     }
-    
+
     .hero-content {
         max-width: 100%;
     }
-    
+
     .hero-title h1 {
         font-size: 28px;
     }
-    
+
     .hero-meta {
         flex-wrap: wrap;
     }
-    
+
     .category-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
-   
+
+
 }
 
 @media (max-width: 576px) {
     .header-right .app-download {
         display: none;
     }
-    
+
     .search-bar {
         max-width: 150px;
     }
-    
+
     .hero-actions {
         gap: 10px;
     }
-    
+
     .play-btn {
         width: 50px;
         height: 50px;
         font-size: 20px;
     }
-    
-    .like-btn, .info-btn {
+
+    .like-btn,
+    .info-btn {
         width: 40px;
         height: 40px;
         font-size: 18px;
     }
-    
+
     .thumbnails {
         flex-wrap: wrap;
     }
-    
+
     .category-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
-    
+
     .category-card {
         height: 100px;
     }
