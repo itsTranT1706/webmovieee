@@ -5,15 +5,16 @@ const param1 = url.match(/\?([^=]*)=/);
 const param2 = urlParams.get(param1[1]); 
 console.log(`https://phim.nguonc.com/api/films/${param1[1]}/${param2}`);
 // console.log("Hành ê".normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, "-"));
-document.querySelector("header").innerHTML=`<h1>${param2}</h1>`
 
 fetch(`https://phim.nguonc.com/api/films/${param1[1]}/${param2}`)
-  .then(response => response.json())
-  .then(data =>{
+.then(response => response.json())
+.then(data =>{
     console.log(data);
     data.items.map((movie)=>{ 
         console.log()
     });
+    
+    document.querySelector("header").innerHTML=`<h1>${data.cat.title}</h1>`
 
     let moveList = document.querySelector("#move-list");
     console.log(moveList);

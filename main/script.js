@@ -1,5 +1,5 @@
 
-
+//chuyển tiếng việt sang không dấu
 function removeVietnameseTones(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Loại bỏ dấu
               .replace(/đ/g, "d").replace(/Đ/g, "D") // Chuyển đ -> d, Đ -> D
