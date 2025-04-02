@@ -14,8 +14,10 @@ fetch(`https://phim.nguonc.com/api/films/${param1[1]}/${param2}`)
     //     console.log() 
     // });
     
-
-    document.querySelector("header").innerHTML=`<h1>${param2??data.cat.name}</h1>`
+    if (param2!= ""){
+        document.querySelector("header").innerHTML=`<h1>${data.cat.title}</h1>`;
+        
+    }
 
     let moveList = document.querySelector("#move-list");
     // console.log(moveList);
