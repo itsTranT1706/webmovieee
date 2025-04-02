@@ -10,14 +10,15 @@ fetch(`https://phim.nguonc.com/api/films/${param1[1]}/${param2}`)
 .then(response => response.json())
 .then(data =>{
     console.log(data);
-    data.items.map((movie)=>{ 
-        console.log()
-    });
+    // data.items.map((movie)=>{ 
+    //     console.log() 
+    // });
     
-    document.querySelector("header").innerHTML=`<h1>${data.cat.title}</h1>`
+
+    document.querySelector("header").innerHTML=`<h1>${param2??data.cat.name}</h1>`
 
     let moveList = document.querySelector("#move-list");
-    console.log(moveList);
+    // console.log(moveList);
     
     let arr = data.items.map((movie)=>{
         return ` <div class="movie-card" data-genre="drama">
