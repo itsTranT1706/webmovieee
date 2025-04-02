@@ -166,3 +166,9 @@ const infor = document.querySelector(".info-btn");
 infor.addEventListener("click", ()=>{
     window.location = "/pages/chi-tiet.html";
 })
+
+//demo watch
+const play = document.querySelector(".play-btn");
+play.addEventListener("click", ()=>{
+    window.location = "/pages/watch.html";
+})

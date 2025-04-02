@@ -92,6 +92,10 @@ button {
 
 }
 
+.flag {
+    margin-left: 15px;
+}
+
 header {
     background: transparent;
     background-color: rgba(255, 255, 255, 0.5);
@@ -370,6 +374,13 @@ header {
     justify-content: center;
     font-size: 24px;
     color: #000;
+}
+.play-btn:hover {
+    /* box-shadow: yellow;
+    background-color: #ebe0be; */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Viền sáng mạnh hơn khi hover */
+
+
 }
 
 .like-btn,

@@ -38,7 +38,7 @@
         // alert('Starting playback of The Potato Lab');
         
         //DEMOOO
-        window.location = "/pages/watch-v2.html";
+        window.location = "/pages/watch.html";
 
     });
     
