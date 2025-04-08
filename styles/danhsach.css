@@ -1,3 +1,13 @@
+:root {
+  --primary-color: #e50914;
+  --primary-hover: #f40612;
+  --text-color: #ffffff;
+  --bg-color: #141414;
+  --button-bg: #2a2a2a;
+  --button-hover: #333333;
+  --transition: all 0.3s ease;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -91,6 +101,73 @@ body {
     margin: 0 10px 10px;
     color: #ccc;
 }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .pagination li {
+    margin: 5px 2px;
+  }
+  
+  .pagination button {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: none;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 14px;
+    padding: 0 10px;
+  }
+  
+  .pagination button:hover {
+    background-color: var(--button-hover);
+  }
+  
+  .pagination button.active {
+    background-color: var(--primary-color);
+    font-weight: bold;
+  }
+  
+  .pagination button.active:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  .pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .pagination .nav-button {
+    font-size: 18px;
+    padding: 0 15px;
+  }
+  
+  .pagination .ellipsis {
+    pointer-events: none;
+  }
+
 
 /* Footer */
 footer {
