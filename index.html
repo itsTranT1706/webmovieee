@@ -40,102 +40,77 @@
                 </ul>
             </nav>
             <div class="header-right">
-                <a href="#" class="app-download">
-                    <img src="./image/logo.webp" alt="App Icon">
-                    <span>Tải ứng dụng<br>PhePhim</span>
-                </a>
+               
                 <a href="#" class="login-btn">
                     <i class="fas fa-user"></i>
                     Đăng nhập
                 </a>
-                <img src="https://www.rophim.me/images/event_304/vn-flag-full.gif" alt="Computer man" class = "flag" style="width:48px;height:48px;">
+                <!-- <img src="https://www.rophim.me/images/event_304/vn-flag-full.gif" alt="Computer man" class = "flag" style="width:48px;height:48px;"> -->
 
             </div>
         </div>
     </header>
 
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-header">
-            <a href="#" class="login-btn">
-                <i class="fas fa-user"></i>
-                Thành viên
-            </a>
-        </div>
-        <a href="#" class="app-download mobile-app-download">
-            <img src="/api/placeholder/32/32" alt="App Icon">
-            <span>Tải ứng dụng RoPhim</span>
-        </a>
-        <nav class="mobile-nav">
-            <a href="#">Chủ Đề</a>
-            <a href="#">Duyệt tìm</a>
-            <a href="#">Phim Lẻ</a>
-            <a href="#">Phim Bộ</a>
-            <a href="#" class="has-dropdown">
-                Quốc gia
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <a href="#">Diễn Viên</a>
-            <a href="#">Lịch chiếu</a>
-        </nav>
-    </div>
-
     <main>
-        <section class="hero-section">
-            <!-- <img id="background" src="https://phim.nguonc.com/public/images/Film/gsQJOfeW45KLiQeEIsom94QPQwb.jpg" alt=""> -->
-            <div id="banner">
-                
-                <div class="hero-content">
+        <section class="hero">
+                <div class="movie-details">
+                    <h1 class="movie-title-hero"></h1>
 
-                    <div class="hero-title">
-
+                    <div class="movie-info-hero">
+                        <span class="imdb-rating"></span>
+                        <span class="info-pill language" ></span>
+                        <span class="info-pill created" ></span>
+                        <span class="info-pill current_episode" ></span>
+                        <span class="info-pill time" ></span>
                     </div>
 
-                    <div class="hero-meta">
-                        <span class="rating"></span>
-                        <span class="age-rating"></span>
-                        <span class="year"></span>
-                        
-                        <span class="season"></span>
-                        <span class="episode"></span>
-                    </div>
-
-                    <div class="genre-tags">
+                    <div class="categories">
                      
                     </div>
 
-                    <div class="description-container">
-                    <div class="hero-description">
+                    <p class="hero-description">
 
-                    </div>
+                    </p>
+                   
+                    <div class="controls">
+                        <div class="play-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="action-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="action-btn info-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2V6h-2v3z"/>
+                            </svg>
+                        </div>
                     </div>
 
-                    <div class="hero-actions">
-                        <button class="play-btn">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <button class="like-btn-1">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <button class="info-btn">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </div>
                 </div>
-
                 <div class="thumbnails">
                 
                 </div>
-            </img>
+            
         </div>
-        </section>
 
+    </section>
+    
+    <!-- <div class="overlay"></div> -->
+    
+    <!-- CATEGORY  -->
+    <section class="interest-section">
 
-        <!-- CATEGORY  -->
-        <section class="interest-section">
-            <h2>Bạn đang quan tâm gì?</h2>
-            <div class="category-grid">
-            </div>
-        </section>
+        <h2>Bạn đang quan tâm gì?</h2>
+        <div class="category-grid">
+        </div>
+    </section>
+
 
 
 

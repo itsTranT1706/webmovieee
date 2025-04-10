@@ -10,66 +10,40 @@ function removeVietnameseTones(str) {
               .trim(); // Xóa khoảng trắng đầu/cuối
 }
 
-// DOM Elements
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-const overlayBg = document.getElementById('overlayBg');
-
-// Mobile Menu Toggle
-function toggleMobileMenu() {
-    mobileMenu.classList.toggle('active');
-    overlayBg.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-}
-
-// Event Listeners
-mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-overlayBg.addEventListener('click', toggleMobileMenu);
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (mobileMenu.classList.contains('active') &&
-        !mobileMenu.contains(e.target) &&
-        e.target !== mobileMenuBtn) {
-        toggleMobileMenu();
-    }
-});
-
 
 //banner
-const banner = document.querySelector("#banner");
-fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
+const banner = document.querySelector(".hero");
+fetch(`https://phim.nguonc.com/api/films/the-loai/hanh-dong?page=2`)
     .then(response => response.json())
     .then(data => {
         console.log(`https://phim.nguonc.com/api/film/${data.items[0].slug}`);
         let img = data.items[0].poster_url;
         const thumb = document.querySelector(".thumbnails");
         let str = "";
-        banner.style.background = `url(${img}) no-repeat center center/cover `;
+        banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${img}) center/cover`;
         for (let i = 0; i < 7; i++) {
             let temp = "";
             if (i == 0) {
                 temp = " active";
             }
-            str += `<div class="thumbnail${temp}" id = "${data.items[i].slug}">
-                        <img src="${data.items[i].poster_url}">
-                    </div>`;
+            str += `<img class="thumbnail${temp}" id = "${data.items[i].slug}" src="${data.items[i].poster_url}"  ></img>`;
+                    
         }
         fetch(`https://phim.nguonc.com/api/film/${data.items[0].slug}`)
             .then(response => response.json())
             .then(data => {
-                document.querySelector(".hero-title").innerHTML = `<h1>${data.movie.name}</h1>`;
-                document.querySelector(".rating").textContent = data.movie.quality;
-                document.querySelector(".age-rating").textContent = data.movie.language;
-                document.querySelector(".year").textContent = data.movie.created.split("-")[0];
-                document.querySelector(".season").textContent = data.movie.current_episode;
-                document.querySelector(".episode").textContent = data.movie.time;
-                const genreTag = document.querySelector(".genre-tags");
+                document.querySelector(".movie-title-hero").innerHTML = data.movie.name;
+                document.querySelector(".imdb-rating").textContent = data.movie.quality;
+                document.querySelector(".language").textContent = data.movie.language;
+                document.querySelector(".created").textContent = data.movie.created.split("-")[0];
+                document.querySelector(".current_episode").textContent = data.movie.current_episode;
+                document.querySelector(".time").textContent = data.movie.time;
+                const genreTag = document.querySelector(".categories");
                 let str = "";
                 for (let i=0;i<data.movie.category["2"]["list"].length;i++){
                     console.log(data.movie.category["2"]["list"][i]);
                     let cate = data.movie.category["2"]["list"][i]["name"];
-                        str += `<a href="/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="tag">${cate}</a>`;
+                        str += `<a href="/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="category">${cate}</a>`;
 
                 }
                 genreTag.innerHTML=str;
@@ -82,33 +56,33 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
 
         // Thumbnail Selection
         const thumbnails = document.querySelectorAll('.thumbnail');
-        // console.log(thumbnails);
+        console.log("hi",thumbnails);
         thumbnails.forEach(thumb => {
             thumb.addEventListener('click', () => {
+              // console.log(thumb.src);
                 // Remove active class from all thumbnails
                 thumbnails.forEach(t => t.classList.remove('active'));
                 // Add active class to clicked thumbnail
                 thumb.classList.add('active');
-                let img = thumb.querySelector("img").src;
+                let img = thumb.src;
 
-                console.log(thumb.id)
-                document.querySelector("#banner").style.background = `url(${img}) no-repeat center center/cover `;
+                document.querySelector(".hero").style.background = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${img}) center/cover`;
 
                 fetch(`https://phim.nguonc.com/api/film/${thumb.id}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.querySelector(".hero-title").innerHTML = `<h1>${data.movie.name}</h1>`;
-                    document.querySelector(".rating").textContent = data.movie.quality;
-                    document.querySelector(".age-rating").textContent = data.movie.language;
-                    document.querySelector(".year").textContent = data.movie.created.split("-")[0];
-                    document.querySelector(".season").textContent = data.movie.current_episode;
-                    document.querySelector(".episode").innerHTML = `<i style='font-size:15px' class='far'>&#xf017;</i> ${data.movie.time}`;
-                    const genreTag = document.querySelector(".genre-tags");
-                    let str = "";
+                  document.querySelector(".movie-title-hero").innerHTML = data.movie.name;
+                  document.querySelector(".imdb-rating").textContent = data.movie.quality;
+                  document.querySelector(".language").textContent = data.movie.language;
+                  document.querySelector(".created").textContent = data.movie.created.split("-")[0];
+                  document.querySelector(".current_episode").textContent = data.movie.current_episode;
+                  document.querySelector(".time").textContent = data.movie.time;
+                  const genreTag = document.querySelector(".categories");
+                  let str = "";
                     for (let i=0;i<data.movie.category["2"]["list"].length;i++){
                         console.log(data.movie.category["2"]["list"][i]);
                         let cate = data.movie.category["2"]["list"][i]["name"];
-                            str += `<a href="/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="tag">${cate}</a>`;
+                            str += `<a href="/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate)}" class="category">${cate}</a>`;
     
                     }
                     genreTag.innerHTML=str;
@@ -125,18 +99,6 @@ fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
     })
     .catch(error => console.error("Lỗi:", error));
 
-
-
-// Carousel Navigation
-// const carousel = document.querySelector('.carousel');
-// const nextButton = document.querySelector('.carousel-arrow.next');
-
-// nextButton.addEventListener('click', () => {
-//     carousel.scrollBy({
-//         left: 400,
-//         behavior: 'smooth'
-//     });
-// });
 
 
 
