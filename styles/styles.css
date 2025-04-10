@@ -488,27 +488,27 @@ header {
 }
 
 .category-card.marvel {
-    background: linear-gradient(to bottom right, #8d1b1b, #350808);
+    background: linear-gradient(to bottom right, #e96b6b, #ca1313);
 }
 
 .category-card.fantasy {
-    background: linear-gradient(to bottom right, #6d2fcb, #2f1866);
+    background: linear-gradient(to bottom right, #9d67ee, #4410be);
 }
 
 .category-card.sitcom {
-    background: linear-gradient(to bottom right, #25a56a, #127245);
+    background: linear-gradient(to bottom right, #4deba1, #04ca0e);
 }
 
 .category-card.action {
-    background: linear-gradient(to bottom right, #5b6bca, #293677);
+    background: linear-gradient(to bottom right, #8392e9, #293677);
 }
 
 .category-card.scifi {
-    background: linear-gradient(to bottom right, #a86f3e, #5c3922);
+    background: linear-gradient(to bottom right, #ebaa71, #c06c0d);
 }
 
 .category-card.mature {
-    background: linear-gradient(to bottom right, #c7a91c, #7a6611);
+    background: linear-gradient(to bottom right, #ebd46e, #f0c60b);
 }
 
 .category-card.more {
@@ -582,7 +582,7 @@ header {
 }
 
 .section-title h2 {
-    font-size: 24px;
+    font-size: 30px;
     color: white;
 }
 
@@ -607,38 +607,31 @@ header {
     padding: 20px 0 40px;
 }
 
-#movie-container{
-    display: flex;
-  gap: 1rem;
-  background: linear-gradient(to bottom, #1c1c2b, #1a1a26); /* hiệu ứng mờ mờ */
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* đổ bóng mềm */
-  overflow: visible;
-  margin: 30px;
+#movie-container {
+    /* display: flex; */
+    gap: 1rem;
+    background: linear-gradient(to bottom, #1c1c2b, #1a1a26);/* hiệu ứng mờ mờ */
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);/* đổ bóng mềm */
+    margin: 0 50px ;
 }
 
 .movie-container {
     display: flex;
     transition: transform 0.5s ease;
-
-    /* gap: 20px; */
     padding: 10px;
-    overflow: hidden;
-    width: 100%;
-    /* margin: 20px; */
-    position: relative;
-    background: linear-gradient(to bottom, #1c1c2b, #1a1a26);  /* hiệu ứng mờ mờ */
+    background: linear-gradient(to bottom, #1c1c2b, #1a1a26);
+    /* hiệu ứng mờ mờ */
     border-radius: 1rem;
     padding: 2rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* đổ bóng mềm */
-    overflow: visible;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    /* đổ bóng mềm */
 }
 
 .movie-card {
     flex: 0 0 auto;
     width: 250px;
-    /* height: 350px; */
     margin-right: 15px;
     border-radius: 8px;
     overflow: visible;
