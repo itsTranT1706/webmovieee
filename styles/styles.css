@@ -21,7 +21,9 @@
 }
 
 body {
-    background-color: #0a0a0a;
+    /* background-color: #0f0f0f; */
+    background: linear-gradient(to bottom, #1a1a26, #1a1a26);
+
     color: white;
 }
 
@@ -59,14 +61,24 @@ button {
 /* Header styles */
 .site-header {
     height: var(--header-height);
-    background-color: var(--primary-bg);
+    /* background-color: var(--primary-bg); */
+    background-color: rgba(0, 0, 0, 0); 
+    transition: background-color 0.4s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+    border-bottom: none !important;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
+    /* border-bottom: 1px solid var(--border-color); */
     /* opacity: 0.1; */
+}
+
+.site-header.scrolled {
+        background-color: var(--primary-bg);/* màu sau khi scroll */
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.4s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+
 }
 
 .header-container {
@@ -130,16 +142,23 @@ header {
     position: relative;
     margin-left: 20px;
     flex: 0 1 300px;
+
 }
 
 .search-bar input {
     width: 100%;
     padding: 10px 10px 10px 35px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: none;
-    background-color: var(--secondary-bg);
+    /* background-color: var(--secondary-bg); */
+    background-color: rgba(255, 255, 255, 0.2); 
     color: var(--text-color);
 }
+
+.search-bar input::placeholder {
+    color: #ffffff;
+
+  }
 
 .search-bar i {
     position: absolute;
@@ -193,9 +212,9 @@ header {
 .login-btn {
     display: flex;
     align-items: center;
-    background-color: #fff;
+    background-color: #e4e3e3;
     color: var(--primary-bg);
-    padding: 8px 15px;
+    padding: 13px 25px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: 500;
@@ -207,13 +226,34 @@ header {
 
 .hero {
     position: relative;
-    height: 70vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url('https://phim.nguonc.com/public/images/Post/2/daredevil-tai-sinh-phan-1-1.jpg') center/cover;
+    height: 120vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('https://phim.nguonc.com/public/images/Post/2/daredevil-tai-sinh-phan-1-1.jpg') center/cover;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 30px;
+    padding: 140px 40px;
+    overflow: hidden;
+    z-index: 20;
+
 }
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0; /* top, right, bottom, left = 0 */
+    pointer-events: none;
+    background: 
+    linear-gradient(to top,  rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
+    linear-gradient(to bottom,  rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
+    linear-gradient(to left,  rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
+    linear-gradient(to right,  rgba(0, 0, 0, 0) 0%, #1a1a26 180%);
+    background-repeat: no-repeat;
+    background-size: 100% 50px, 100% 50px , 150px 100%, 50px 100%;
+    background-position: top, bottom, left, right;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+
 
 .movie-details {
     max-width: 70%;
@@ -330,7 +370,7 @@ header {
     display: flex;
     position: absolute;
     right: 30px;
-    bottom: 30px;
+    bottom: 160px;
 }
 
 .thumbnail {
@@ -346,9 +386,28 @@ header {
     border-color: white;
 }
 
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 145px;
+    /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #0f0f0f 100%); */
+    background: linear-gradient(to bottom,  rgba(0, 0, 0, 0) 0%, #1a1a26 100%);
+    z-index: 10;
+  }
+
 /* Interest Section */
 .interest-section {
-    padding: 40px 5%;
+    position: relative;
+    z-index: 20;
+    padding: 10px 5%;
+    margin-top: -20vh;
+    padding: 2rem 4%;   /* padding 2 bên không bị dính viền */
+    /* background-color: #0f0f0f;  */
+    background-color: rgba(0, 0, 0, 0); 
+
+
 }
 
 .interest-section h2 {
@@ -786,7 +845,7 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8));
     opacity: 0;
     transition: opacity 0.3s ease;
 }

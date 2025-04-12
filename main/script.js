@@ -13,14 +13,14 @@ function removeVietnameseTones(str) {
 
 //banner
 const banner = document.querySelector(".hero");
-fetch(`https://phim.nguonc.com/api/films/the-loai/hanh-dong?page=2`)
+fetch(`https://phim.nguonc.com/api/films/the-loai/kinh-di`)
     .then(response => response.json())
     .then(data => {
         console.log(`https://phim.nguonc.com/api/film/${data.items[0].slug}`);
         let img = data.items[0].poster_url;
         const thumb = document.querySelector(".thumbnails");
         let str = "";
-        banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${img}) center/cover`;
+        banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${img}) center/cover`;
         for (let i = 0; i < 7; i++) {
             let temp = "";
             if (i == 0) {
@@ -118,7 +118,14 @@ function prevSlide() {
     }
 }
 
-
+window.addEventListener('scroll', function () {
+    const header = document.querySelector('.site-header');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
 
 
 
@@ -134,3 +141,5 @@ const play = document.querySelector(".play-btn");
 play.addEventListener("click", ()=>{
     window.location = "/pages/watch.html";
 })
+
+
