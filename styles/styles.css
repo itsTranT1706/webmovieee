@@ -21,7 +21,9 @@
 }
 
 body {
-    background-color: #0a0a0a;
+    /* background-color: #0f0f0f; */
+    background: linear-gradient(to bottom, #1a1a26, #1a1a26);
+
     color: white;
 }
 
@@ -59,14 +61,25 @@ button {
 /* Header styles */
 .site-header {
     height: var(--header-height);
-    background-color: var(--primary-bg);
+    /* background-color: var(--primary-bg); */
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.4s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+    border-bottom: none !important;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
+    /* border-bottom: 1px solid var(--border-color); */
     /* opacity: 0.1; */
+}
+
+.site-header.scrolled {
+    background-color: var(--primary-bg);
+    /* màu sau khi scroll */
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.4s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+
 }
 
 .header-container {
@@ -75,7 +88,7 @@ button {
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    
+
 
 }
 
@@ -130,15 +143,22 @@ header {
     position: relative;
     margin-left: 20px;
     flex: 0 1 300px;
+
 }
 
 .search-bar input {
     width: 100%;
     padding: 10px 10px 10px 35px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: none;
-    background-color: var(--secondary-bg);
+    /* background-color: var(--secondary-bg); */
+    background-color: rgba(255, 255, 255, 0.2);
     color: var(--text-color);
+}
+
+.search-bar input::placeholder {
+    color: #ffffff;
+
 }
 
 .search-bar i {
@@ -146,7 +166,7 @@ header {
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-secondary);
+    color: var(--text-color);
 }
 
 .main-nav ul {
@@ -193,9 +213,9 @@ header {
 .login-btn {
     display: flex;
     align-items: center;
-    background-color: #fff;
+    background-color: #e4e3e3;
     color: var(--primary-bg);
-    padding: 8px 15px;
+    padding: 13px 25px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: 500;
@@ -207,16 +227,49 @@ header {
 
 .hero {
     position: relative;
-    height: 70vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url('https://phim.nguonc.com/public/images/Post/2/daredevil-tai-sinh-phan-1-1.jpg') center/cover;
+    height: 120vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('https://phim.nguonc.com/public/images/Post/2/daredevil-tai-sinh-phan-1-1.jpg') center/cover;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 30px;
+    padding: 140px 40px;
+    overflow: hidden;
+    /* z-index: 20; */
+
 }
+
+.dot-overlay {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(#575656 1px, transparent 1px);
+    background-size: 5px 5px;
+    opacity: 0.4;
+    z-index: 10;
+
+}
+
+.fade-overlay {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* top, right, bottom, left = 0; */
+    background:
+        linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
+        linear-gradient(to left, rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
+        linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #1a1a26 180%);
+    background-repeat: no-repeat;
+    background-size: 100% 50px, 100% 50px, 150px 100%, 50px 100%;
+    background-position: top, bottom, left, right;
+    z-index: 20;
+    pointer-events: none;
+}
+
 
 .movie-details {
     max-width: 70%;
+    z-index: 30;
 }
 
 .movie-title-hero {
@@ -262,8 +315,9 @@ header {
     font-size: 14px;
 }
 
-.category:hover{
-    background-color: rgba(255, 255, 255, 0.4);;
+.category:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    ;
 }
 
 .description-container {
@@ -322,15 +376,17 @@ header {
     margin-right: 15px;
 }
 
-.action-btn:hover{
-    background-color: rgba(255, 255, 255, 0.4);;
+.action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    ;
 }
 
 .thumbnails {
     display: flex;
     position: absolute;
     right: 30px;
-    bottom: 30px;
+    bottom: 160px;
+    z-index: 30;
 }
 
 .thumbnail {
@@ -346,12 +402,30 @@ header {
     border-color: white;
 }
 
-/* Interest Section */
-.interest-section {
-    padding: 40px 5%;
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 145px;
+    /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #0f0f0f 100%); */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #1a1a26 100%);
+    z-index: 10;
 }
 
-.interest-section h2 {
+/* Interest Section */
+.interest-section {
+    position: relative;
+    z-index: 20;
+    padding: 10px 5%;
+    margin-top: -20vh;
+    padding: 2rem 4%;
+
+    background-color: rgba(0, 0, 0, 0);
+
+}
+
+.interest-section h2{
     margin-bottom: 25px;
     font-size: 24px;
 }
@@ -383,7 +457,7 @@ header {
 
 .view-more {
     font-size: 14px;
-    color: var(--text-secondary);
+    color: var(--text-color);
     display: flex;
     align-items: center;
 }
@@ -394,31 +468,33 @@ header {
 }
 
 .category-card.marvel {
-    background: linear-gradient(to bottom right, #e96b6b, #ca1313);
+    /* background: linear-gradient(to bottom right, #e96b6b, #ca1313); */
+    background: linear-gradient(to bottom right, rgb(119, 97, 180), #AB7B80) ;
+    /* background: #9C86A0; */
 }
 
 .category-card.fantasy {
-    background: linear-gradient(to bottom right, #9d67ee, #4410be);
+    background: linear-gradient(to bottom right, #9d67ee, #AB7B80);
 }
 
 .category-card.sitcom {
-    background: linear-gradient(to bottom right, #4deba1, #04ca0e);
+    background: linear-gradient(to bottom right, rgb(0 247 87), #AB7B80);
 }
 
 .category-card.action {
-    background: linear-gradient(to bottom right, #8392e9, #293677);
+    background: linear-gradient(to bottom right, rgb(50, 79, 209), #AB7B80);
 }
 
 .category-card.scifi {
-    background: linear-gradient(to bottom right, #ebaa71, #c06c0d);
+    background: linear-gradient(to bottom right, rgb(102, 102, 153), #AB7B80);
 }
 
 .category-card.mature {
-    background: linear-gradient(to bottom right, #ebd46e, #f0c60b);
+    background: linear-gradient(to bottom right, rgb(205, 126, 95), #AB7B80);
 }
 
 .category-card.more {
-    background: linear-gradient(to bottom right, #4a4e5a, #2c2f36);
+    background: linear-gradient(to bottom right, #4a4e5a, #AB7B80);
     justify-content: center;
     align-items: center;
 }
@@ -517,11 +593,13 @@ header {
 #movie-container {
     /* display: flex; */
     gap: 1rem;
-    background: linear-gradient(to bottom, #1c1c2b, #1a1a26);/* hiệu ứng mờ mờ */
+    background: linear-gradient(to bottom, #1c1c2b, #1a1a26);
+    /* hiệu ứng mờ mờ */
     border-radius: 1rem;
     padding: 2rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);/* đổ bóng mềm */
-    margin: 0 50px ;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    /* đổ bóng mềm */
+    margin: 0 50px;
 }
 
 .movie-container {
@@ -786,7 +864,7 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8));
     opacity: 0;
     transition: opacity 0.3s ease;
 }
