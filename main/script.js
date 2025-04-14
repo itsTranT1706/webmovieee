@@ -59,7 +59,7 @@ async function updateHero(slug) {
   // Navigation buttons
   document.querySelector(".info-btn")?.addEventListener("click", () => {
     // alert(`${slug}`);
-    window.location = "/pages/chi-tiet.html";
+    window.location = `/pages/chi-tiet.html?phim=${slug}`;
   });
   document.querySelector(".play-btn")?.addEventListener("click", () => {
     // alert(`${slug}`);
