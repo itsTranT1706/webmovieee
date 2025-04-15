@@ -118,6 +118,9 @@ window.addEventListener('scroll', () => {
 setupBanner();
 
 
+
+
+//CAROUSEL
 async function updateCarousel(country, title, subtitle) {
   const movieData = await fetchData(`https://phim.nguonc.com/api/films/quoc-gia/${country}`);
   if (!movieData?.items?.length) return;
@@ -201,7 +204,19 @@ async function updateCarousel(country, title, subtitle) {
       genres.appendChild(g);
     });
 
+    const action = card.querySelector(".action-buttons");
+    const watch  = action.querySelector(".watch-btn");
+    watch.addEventListener("click",()=>{
+      console.log(film.slug);
+      window.location = `/pages/watch.html?phim=${film.slug}`;
+    });
+    const infor = action.querySelector(".details-btn");
+    infor.addEventListener("click",()=>{
+      console.log(film.slug);
+      window.location = `/pages/chi-tiet.html?phim=${film.slug}`;
+    });
     container.appendChild(card);
+    
   }
 
   // Điều khiển điều hướng
