@@ -169,12 +169,28 @@ async function renderDetail() {
     `;
     content.innerHTML = contentHTML+cateHTML+current_episode+control;
 
+    const episode = document.querySelector(".episodes-grid");
+    episode.innerHTML = movieDetail.episodes[0]["items"].map((episode)=>{
+        return `  <div class="episode">
+                    <div class="episode-number">Tập ${episode.name}</div>
+                </div>`
+    }).join("");
+
+
     //demo
     const watch = document.querySelector("#xem-ngay");
     watch.addEventListener("click", ()=>{
-        window.location = "/pages/watch.html";
+        window.location = `/pages/watch.html?phim=${movieDetail.slug}`;
         
     })
+
+    const episodes = document.querySelectorAll('.episode');
+
+    episodes.forEach(episode => {
+        episode.addEventListener('click', function () {
+            alert("bấm xem ngay đê, trang này chưa làm chức năng này");
+        });
+    });
 
 }
 document.addEventListener("DOMContentLoaded", renderDetail());

@@ -63,7 +63,7 @@ async function updateHero(slug) {
   });
   document.querySelector(".play-btn")?.addEventListener("click", () => {
     // alert(`${slug}`);
-    window.location = "/pages/watch.html";
+    window.location = `/pages/watch.html?phim=${slug}`;
   });
 
 }
