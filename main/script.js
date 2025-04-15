@@ -59,11 +59,11 @@ async function updateHero(slug) {
   // Navigation buttons
   document.querySelector(".info-btn")?.addEventListener("click", () => {
     // alert(`${slug}`);
-    window.location = "/pages/chi-tiet.html";
+    window.location = `/pages/chi-tiet.html?phim=${slug}`;
   });
   document.querySelector(".play-btn")?.addEventListener("click", () => {
     // alert(`${slug}`);
-    window.location = "/pages/watch.html";
+    window.location = `/pages/watch.html?phim=${slug}`;
   });
 
 }
@@ -107,23 +107,6 @@ function setupThumbnailEvents() {
   });
 }
 
-// Slide functionality
-let currentIndex = 0;
-function nextSlide() {
-  const list = document.querySelector(".movie-list");
-  if (currentIndex < list.children.length - 2) {
-    currentIndex++;
-    list.style.transform = `translateX(-${currentIndex * 220}px)`;
-  }
-}
-function prevSlide() {
-  const list = document.querySelector(".movie-list");
-  if (currentIndex > 0) {
-    currentIndex--;
-    list.style.transform = `translateX(-${currentIndex * 220}px)`;
-  }
-}
-
 // Header scroll effect
 window.addEventListener('scroll', () => {
   const header = document.querySelector('.site-header');
@@ -135,6 +118,9 @@ window.addEventListener('scroll', () => {
 setupBanner();
 
 
+
+
+//CAROUSEL
 async function updateCarousel(country, title, subtitle) {
   const movieData = await fetchData(`https://phim.nguonc.com/api/films/quoc-gia/${country}`);
   if (!movieData?.items?.length) return;
@@ -218,7 +204,19 @@ async function updateCarousel(country, title, subtitle) {
       genres.appendChild(g);
     });
 
+    const action = card.querySelector(".action-buttons");
+    const watch  = action.querySelector(".watch-btn");
+    watch.addEventListener("click",()=>{
+      console.log(film.slug);
+      window.location = `/pages/watch.html?phim=${film.slug}`;
+    });
+    const infor = action.querySelector(".details-btn");
+    infor.addEventListener("click",()=>{
+      console.log(film.slug);
+      window.location = `/pages/chi-tiet.html?phim=${film.slug}`;
+    });
     container.appendChild(card);
+    
   }
 
   // Điều khiển điều hướng
@@ -257,7 +255,7 @@ async function updateCarousel(country, title, subtitle) {
     }, { passive: true });
   }
 }
-document.addEventListener("DOMContentLoaded", updateCarousel("han-quoc", "Phim Hàn Quốc", "Drama nảy lửa"));
+document.addEventListener("DOMContentLoaded", updateCarousel("han-quoc", "Phim Hàn ", "Drama nảy lửa"));
 document.addEventListener("DOMContentLoaded", updateCarousel("trung-quoc", "Phim Trung", "Ngôn tình hấp dẫn"));
 document.addEventListener("DOMContentLoaded", updateCarousel("nhat-ban", "Phim Nhật", "Anime học đường"));
 
