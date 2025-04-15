@@ -59,3 +59,28 @@
 // watch.addEventListener("click", ()=>{
 //     window.location = "/pages/watch.html";
 // })
+
+async function fetchData(url){
+    try {
+        const response = await fetch(url);
+        return await response.json();
+      } catch (err) {
+        console.error("Fetch error:", err);
+        return null;
+      }
+}
+
+async function renderDetail() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
+    const param2 = urlParams.get(param1) || "";
+    const apiBase = `https://phim.nguonc.com/api/film/${param2}`;
+    const data = await fetchData(apiBase);
+    const movieDetail = data.movie;
+    console.log(movieDetail);
+    const heroBackground = document.querySelector(".hero-container");
+    const  img = heroBackground.querySelector("img");
+    img.src = movieDetail.poster_url;
+
+}
+document.addEventListener("DOMContentLoaded", renderDetail());
