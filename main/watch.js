@@ -1,3 +1,15 @@
+function removeVietnameseTones(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d").replace(/Đ/g, "D")
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+      .replace(/-+/g, '-')
+      .trim();
+  }
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const playPauseBtn = document.getElementById('playPauseBtn');
     const videoPlayer = document.getElementById('videoPlayer');
@@ -68,6 +80,11 @@ async function renderWatch() {
     const movieDetail = data.movie;
     console.log(movieDetail);
 
+    const poster = document.querySelector(".movie-poster");
+    const img = poster.querySelector("img");
+    // console.log(img);
+    img.src = movieDetail.thumb_url;
+
     const iframe = document.querySelector("iframe");
     console.log(iframe);
     iframe.src = movieDetail.episodes[0]["items"][0]["embed"];
@@ -88,7 +105,7 @@ async function renderWatch() {
     des.innerHTML= movieDetail.description;
     const gens = document.querySelector(".movie-categories");
     gens.innerHTML = movieDetail.category["2"]["list"].map((cate)=>{
-            return ` <div class="category">${cate.name}</div> `;
+            return ` <a  href= "/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate.name)}" class="category">${cate.name}</a> `;
     }).join("");
 
     const episode = document.querySelector(".episode-grid");
