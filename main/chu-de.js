@@ -6,7 +6,7 @@ const cates = ["hanh-dong", "phieu-luu", "hoat-hinh", "hinh-su", "tai-lieu", "ch
 let str = "";
 // console.log(window.location.pathname);
 let length =arrCate.length;
-if (window.location.pathname!=="/pages/chu-de.html") {
+if (!window.location.pathname.includes("/chu-de.html")) {
     length -= 15; 
 }
 // console.log(length);
@@ -23,7 +23,7 @@ for (let i = 0; i < length; i++) {
 
 }
 if (length<7){
-    str += `<a href="/pages/chu-de.html" class="category-card more">
+    str += `<a href="/webmovieee/pages/chu-de.html" class="category-card more">
     <h3>chủ đề khác</h3>
     </a>`;
     }

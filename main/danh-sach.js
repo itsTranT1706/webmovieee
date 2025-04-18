@@ -54,7 +54,7 @@ if (window.location.pathname !== "/index.html") {
     action.forEach((movie)=>{
         movie.addEventListener("click", ()=>{
           console.log(movie.id);
-          window.location = `/pages/chi-tiet.html?phim=${movie.id}`;
+          window.location = `/webmovieee/pages/chi-tiet.html?phim=${movie.id}`;
         })
     })
 

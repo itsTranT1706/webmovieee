@@ -43,7 +43,7 @@ async function updateHero(slug) {
                         </svg>
                     </div>
                     
-                    <div class="action-btn info-btn" href = "/pages/chi-tiet.html">
+                    <div class="action-btn info-btn" href = "/webmovieee/pages/chi-tiet.html">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                             <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2V6h-2v3z"/>
                         </svg>
@@ -59,11 +59,11 @@ async function updateHero(slug) {
   // Navigation buttons
   document.querySelector(".info-btn")?.addEventListener("click", () => {
     // alert(`${slug}`);
-    window.location = `/pages/chi-tiet.html?phim=${slug}`;
+    window.location = `/webmovieee/pages/chi-tiet.html?phim=${slug}`;
   });
   document.querySelector(".play-btn")?.addEventListener("click", () => {
     // alert(`${slug}`);
-    window.location = `/pages/watch.html?phim=${slug}`;
+    window.location = `/webmovieee/pages/watch.html?phim=${slug}`;
   });
 
 }
@@ -136,7 +136,7 @@ async function updateCarousel(country, title, subtitle) {
         <h2>${title}</h2>
         <span>${subtitle}</span>
       </div>
-      <a href="/pages/danh-sach.html?quoc-gia=${country}" class="view-all">
+      <a href="/webmovieee/pages/danh-sach.html?quoc-gia=${country}" class="view-all">
         Xem toàn bộ →
       </a>
     </div>
@@ -208,12 +208,12 @@ async function updateCarousel(country, title, subtitle) {
     const watch  = action.querySelector(".watch-btn");
     watch.addEventListener("click",()=>{
       console.log(film.slug);
-      window.location = `/pages/watch.html?phim=${film.slug}`;
+      window.location = `/webmovieee/pages/watch.html?phim=${film.slug}`;
     });
     const infor = action.querySelector(".details-btn");
     infor.addEventListener("click",()=>{
       console.log(film.slug);
-      window.location = `/pages/chi-tiet.html?phim=${film.slug}`;
+      window.location = `/webmovieee/pages/chi-tiet.html?phim=${film.slug}`;
     });
     container.appendChild(card);
     
