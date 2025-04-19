@@ -20,13 +20,20 @@
     --shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
     --border-radius: 8px;
     --transition-default: all 0.3s ease;
+
+    --hover-bg: rgba(255, 255, 255, 0.08);
+    --dropdown-bg: rgba(18, 20, 30, 0.95);
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 
 }
 
@@ -37,13 +44,6 @@ body {
     color: white;
 }
 
-.container {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 15px;
-
-}
 
 img#logo {
     border-radius: 20% 50%;
@@ -54,9 +54,9 @@ a {
     color: var(--text-color);
 }
 
-ul {
+/* ul {
     list-style: none;
-}
+} */
 
 button {
     cursor: pointer;
@@ -98,12 +98,9 @@ button {
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    
+    
 
-
-}
-
-.flag {
-    margin-left: 15px;
 }
 
 header {
@@ -179,46 +176,154 @@ header {
     color: var(--text-color);
 }
 
-.main-nav ul {
-    display: flex;
-}
-
-.main-nav li {
-    margin: 0 10px;
-}
-
-.main-nav a {
-    font-size: 14px;
-    padding: 5px 0;
-    position: relative;
-}
-
-.main-nav a:hover {
-    color: var(--accent-color);
-}
-
-.dropdown i {
-    font-size: 12px;
-    margin-left: 3px;
-}
-
 .header-right {
     display: flex;
     align-items: center;
 }
 
-.app-download {
+/* dropdown country */
+.nav-tabs {
+    /* margin-bottom: auto; */
+    display: flex;
+    gap: 24px;
+    
+  }
+  
+  .nav-tab {
+    position: relative;
+    color: var(--text-secondary);
+    padding: 8px 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    user-select: none;
+  }
+  
+  .nav-tab:hover {
+    color: var(--text-color);
+  }
+  
+  .nav-tab.active {
+    color: var(--text-color);
+  }
+  
+  .nav-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color);
+  }
+  
+  .country-tab {
+    position: relative;
+    /* font-size: 14px; */
+    margin-top : -5px;
+
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 560px;
+    background-color: var(--dropdown-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    margin-top: 8px;
+    z-index: 200;
+  }
+  
+  .dropdown.active {
+    display: block;
+    opacity: 1;
+    background-color: #1A1A26;
+  }
+  
+  .dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--dropdown-bg);
+  }
+  
+  .dropdown-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-color);
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .countries-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-height: 380px;
+    overflow-y: auto;
+  }
+  
+  .country-item {
     display: flex;
     align-items: center;
-    margin-right: 15px;
-    font-size: 12px;
-}
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  
+  .country-item:hover {
+    background-color: var(--hover-bg);
+  }
+  
+  .country-item.selected {
+    background-color: rgba(54, 148, 255, 0.1);
+    color: var(--accent-color);
+  }
+  
+  .country-flag {
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    border-radius: 2px;
+    object-fit: cover;
+  }
+  
+  .country-name {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Custom scrollbar */
+  .countries-grid::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .countries-grid::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+  }
+  
+  .countries-grid::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
 
-.app-download img {
-    width: 24px;
-    height: 24px;
-    margin-right: 5px;
-}
+
 
 .login-btn {
     display: flex;

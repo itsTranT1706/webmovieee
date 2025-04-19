@@ -8,6 +8,72 @@ function removeVietnameseTones(str) {
     .trim();
 }
 
+//dropdown country
+const countries = [
+  { code: 'us', name: 'Âu Mỹ' }, // Custom region, may need a custom flag
+{ code: 'gb', name: 'Anh' },
+{ code: 'cn', name: 'Trung Quốc' },
+{ code: 'id', name: 'Indonesia' },
+{ code: 'vn', name: 'Việt Nam' },
+{ code: 'fr', name: 'Pháp' },
+{ code: 'hk', name: 'Hồng Kông' },
+{ code: 'kr', name: 'Hàn Quốc' },
+{ code: 'jp', name: 'Nhật Bản' },
+{ code: 'th', name: 'Thái Lan' },
+{ code: 'tw', name: 'Đài Loan' },
+{ code: 'ru', name: 'Nga' },
+{ code: 'nl', name: 'Hà Lan' },
+{ code: 'ph', name: 'Philippines' },
+{ code: 'in', name: 'Ấn Độ' }
+  ];
+
+  const countryTab = document.querySelector('.country-tab');
+  const dropdown = document.getElementById('countryDropdown');
+  const countriesGrid = document.getElementById('countriesGrid');
+  
+  // Populate countries grid
+  countries.forEach(country => {
+    const countryItem = document.createElement('div');
+    countryItem.className = 'country-item';
+    countryItem.innerHTML = `
+      <img class="country-flag" src="https://flagcdn.com/w40/${country.code}.png" alt="${country.name} flag">
+      <span class="country-name">${country.name}</span>
+    `;
+    
+    countryItem.addEventListener('click', () => {
+      // Remove selected class from all items
+      document.querySelectorAll('.country-item').forEach(item => {
+        item.classList.remove('selected');
+      });
+      
+      // Add selected class to this item
+      countryItem.classList.add('selected');
+      
+      // You would typically trigger a filter/navigation action here
+      console.log(`Selected country: ${country.name}`);
+      window.location = `/pages/danh-sach.html?quoc-gia=${removeVietnameseTones(country.name)}`;
+      
+      // Close dropdown after selection
+      dropdown.classList.remove('active');
+    });
+    
+    countriesGrid.appendChild(countryItem);
+  });
+  
+  // Toggle dropdown
+  countryTab.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('active');
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!countryTab.contains(e.target)) {
+      dropdown.classList.remove('active');
+    }
+  });
+
+
 // API helpers
 async function fetchData(url) {
   try {
