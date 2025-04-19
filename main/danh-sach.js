@@ -36,7 +36,7 @@ if (window.location.pathname !== "/index.html") {
 
     const html = data.items.map(movie => `
         <div class="movie-card" data-genre="drama" id="${movie.slug}">
-          <img src="${movie.poster_url}" alt="${movie.name}">
+          <img src="${movie.thumb_url}" alt="${movie.name}">
           <div class="movie-info">
             <span class="rating">PD: 4</span>
             <span class="episodes">TM: 4</span>

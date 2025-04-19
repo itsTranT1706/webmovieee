@@ -169,6 +169,11 @@ async function renderDetail() {
     `;
     content.innerHTML = contentHTML+cateHTML+current_episode+control;
 
+    const des = document.querySelector(".des");
+    const description = des.querySelector("#description");
+    description.innerHTML = movieDetail.description;
+
+
     const episode = document.querySelector(".episodes-grid");
     episode.innerHTML = movieDetail.episodes[0]["items"].map((episode)=>{
         return `  <div class="episode">
@@ -191,6 +196,8 @@ async function renderDetail() {
             alert("bấm xem ngay đê, trang này chưa làm chức năng này");
         });
     });
+
+    
 
 }
 document.addEventListener("DOMContentLoaded", renderDetail());

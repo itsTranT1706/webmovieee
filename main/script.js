@@ -15,15 +15,22 @@ async function fetchData(url) {
     return await response.json();
   } catch (err) {
     console.error("Fetch error:", err);
+
     return null;
   }
+}
+
+function loading(content) {
+    content.classList.add("loader");
 }
 
 // Update Hero section
 async function updateHero(slug) {
   // console.log("api", `https://phim.nguonc.com/api/film/${slug}`);
   const data = await fetchData(`https://phim.nguonc.com/api/film/${slug}`);
-  if (!data) return;
+  // const data = await fetchData(`https://ophim1.com/phim/${slug}`);
+  console.log(`https://ophim1.com/phim/${slug}`);
+  if (!data) return ;
 
   document.querySelector(".movie-title-hero").textContent = data.movie.name;
   document.querySelector(".imdb-rating").textContent = data.movie.quality;
@@ -73,8 +80,8 @@ async function setupBanner() {
   const banner = document.querySelector(".hero");
   const thumbContainer = document.querySelector(".thumbnails");
 
-  const filmList = await fetchData("https://phim.nguonc.com/api/films/the-loai/kinh-di");
-  if (!filmList || !filmList.items.length) return;
+  const filmList = await fetchData("https://phim.nguonc.com/api/films/the-loai/khoa-hoc-vien-tuong?page=155");
+  if (!filmList || !filmList.items.length) return ;
 
   const thumbnailsHTML = filmList.items.slice(0, 7).map((film, index) => {
     const activeClass = index === 0 ? "active" : "";
@@ -82,6 +89,7 @@ async function setupBanner() {
   }).join('');
 
   banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${filmList.items[0].poster_url}) center/cover`;
+  // banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(https://static.nutscdn.com/vimg/1920-0/b4fd3fdce37b78a0ef03953dce061771.jpg) center/cover`;
   thumbContainer.innerHTML = thumbnailsHTML;
 
   // console.log(filmList);
