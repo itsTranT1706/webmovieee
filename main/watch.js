@@ -1,21 +1,21 @@
 function removeVietnameseTones(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/đ/g, "d").replace(/Đ/g, "D")
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
-      .replace(/-+/g, '-')
-      .trim();
-  }
+        .replace(/đ/g, "d").replace(/Đ/g, "D")
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '')
+        .replace(/-+/g, '-')
+        .trim();
+}
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const playPauseBtn = document.getElementById('playPauseBtn');
     const videoPlayer = document.getElementById('videoPlayer');
     let isPlaying = false;
-    
-    playPauseBtn.addEventListener('click', function() {
+
+    playPauseBtn.addEventListener('click', function () {
         if (isPlaying) {
             playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
             // If this was a real video player, we would pause the video here
@@ -27,24 +27,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         isPlaying = !isPlaying;
     });
-    
+
     // For handling embedded video
     function setupEmbeddedVideo(embedCode) {
         // This is where you would integrate your embedded video code
         // For example:
         // videoPlayer.innerHTML = embedCode;
     }
-    
+
     // Function to handle episode selection
     const episodeItems = document.querySelectorAll('.episode-item');
     episodeItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             episodeItems.forEach(ep => ep.classList.remove('active'));
             this.classList.add('active');
             // Here you would load the selected episode
             const episodeNumber = this.querySelector('.episode-number').textContent;
             console.log(`Loading ${episodeNumber}`);
-            
+
             // Scroll to top of player
             window.scrollTo({
                 top: videoPlayer.getBoundingClientRect().top + window.scrollY - 80,
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-    
+
     // Add custom controls for embedded videos
     function addCustomControls() {
         // This would add custom controls overlay to embedded videos
@@ -61,14 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-async function fetchData(url){
+async function fetchData(url) {
     try {
         const response = await fetch(url);
         return await response.json();
-      } catch (err) {
+    } catch (err) {
         console.error("Fetch error:", err);
         return null;
-      }
+    }
 }
 async function renderWatch() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -90,7 +90,7 @@ async function renderWatch() {
     iframe.src = movieDetail.episodes[0]["items"][0]["embed"];
 
     const movie_title = document.querySelector(".movie-title");
-    const movie_subtitle= document.querySelector(".movie-subtitle");
+    const movie_subtitle = document.querySelector(".movie-subtitle");
     movie_title.textContent = movieDetail.name;
     movie_subtitle.textContent = movieDetail.original_name;
 
@@ -102,35 +102,35 @@ async function renderWatch() {
                     <div class="meta-item">Đã chiếu ${movieDetail.current_episode}/${movieDetail.total_episodes}</div>
                     `;
     const des = document.querySelector(".movie-description");
-    des.innerHTML= movieDetail.description;
+    des.innerHTML = movieDetail.description;
     const gens = document.querySelector(".movie-categories");
-    gens.innerHTML = movieDetail.category["2"]["list"].map((cate)=>{
-            return ` <a  href= "/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate.name)}" class="category">${cate.name}</a> `;
+    gens.innerHTML = movieDetail.category["2"]["list"].map((cate) => {
+        return ` <a  href= "/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate.name)}" class="category">${cate.name}</a> `;
     }).join("");
 
     const episode = document.querySelector(".episode-grid");
-    episode.innerHTML = movieDetail.episodes[0]["items"].map((episode)=>{
+    episode.innerHTML = movieDetail.episodes[0]["items"].map((episode) => {
         return `  <div class="episode-item">
                     <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
                 </div>`
     }).join("");
 
-     // Function to handle episode selection
-     const episodeItems = document.querySelectorAll('.episode-item');
-     episodeItems.forEach(item => {
-         item.addEventListener('click', function() {
-             episodeItems.forEach(ep => ep.classList.remove('active'));
-             this.classList.add('active');
-             // Here you would load the selected episode
-             const episodeNumber = this.querySelector('.episode-number').id;
-             console.log(movieDetail.episodes[0]["items"][episodeNumber-1]["embed"]);
-             iframe.src = movieDetail.episodes[0]["items"][episodeNumber-1]["embed"];
+    // Function to handle episode selection
+    const episodeItems = document.querySelectorAll('.episode-item');
+    episodeItems.forEach(item => {
+        item.addEventListener('click', function () {
+            episodeItems.forEach(ep => ep.classList.remove('active'));
+            this.classList.add('active');
+            // Here you would load the selected episode
+            const episodeNumber = this.querySelector('.episode-number').id;
+            console.log(movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"]);
+            iframe.src = movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"];
 
-             // Scroll to top of player
-             window.scrollTo({ top: 0, behavior: "smooth" });
+            // Scroll to top of player
+            window.scrollTo({ top: 0, behavior: "smooth" });
 
-         });
-     });
+        });
+    });
 
 }
 
