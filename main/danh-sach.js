@@ -1,8 +1,3 @@
-if (window.location.pathname === "/index.html") {
-  console.log("Chào bạn đến với danh sách phim");
-  //    await loadMovies(1);
-}
-if (window.location.pathname !== "/index.html") {
   const urlParams = new URLSearchParams(window.location.search);
   const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
   const param2 = urlParams.get(param1) || "";
@@ -139,4 +134,3 @@ if (window.location.pathname !== "/index.html") {
   loadMovies(currentPage);
 
 
-}
