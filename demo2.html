@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search</title>
+    <style>
+        :root {
+            --primary-bg: #13151f;
+            --secondary-bg: #1c202b;
+            --border-color: #2a2f3d;
+            --text-color: #ffffff;
+            --highlight-color: #3a6cf4;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px 24px;
+            background-color: rgba(19, 21, 31, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .logo span {
+            margin-left: 8px;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 400px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 0 2px rgba(58, 108, 244, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            transform: translateY(-50%);
+            color: #8f96a3;
+        }
+        
+        .search-input {
+            padding-left: 40px;
+        }
+        
+        .suggestion-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+            margin-top: 8px;
+        }
+        
+        .suggestion-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-item:hover {
+            background-color: rgba(58, 108, 244, 0.1);
+        }
+        
+        .suggestion-poster {
+            width: 40px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+        
+        .suggestion-info {
+            flex: 1;
+        }
+        
+        .suggestion-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .suggestion-year {
+            font-size: 12px;
+            color: #8f96a3;
+        }
+        
+        .nav-links {
+            display: flex;
+            margin-left: 24px;
+        }
+        
+        .nav-link {
+            color: var(--text-color);
+            margin-right: 24px;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            opacity: 1;
+        }
+        
+        /* Animation for suggestion box */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .suggestion-box.visible {
+            display: block;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        /* Custom scrollbar for suggestion box */
+        .suggestion-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .suggestion-box::-webkit-scrollbar-track {
+            background: var(--secondary-bg);
+            border-radius: 8px;
+        }
+        
+        .suggestion-box::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 8px;
+        }
+        
+        .suggestion-box::-webkit-scrollbar-thumb:hover {
+            background: #3a3f4d;
+        }
+        
+        /* Loading animation */
+        .loading-container {
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loading-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(58, 108, 244, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--highlight-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        .loading-pulse {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading-pulse div {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--highlight-color);
+            margin: 0 3px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        
+        .loading-pulse div:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .loading-pulse div:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(0.5);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Shimmer loading effect for suggestion items */
+        .loading-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--border-color);
+        }
+        
+        .shimmer::after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateX(-100%);
+            background-image: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0,
+                rgba(255, 255, 255, 0.1) 20%,
+                rgba(255, 255, 255, 0.2) 60%,
+                rgba(255, 255, 255, 0)
+            );
+            animation: shimmer 2s infinite;
+            content: '';
+        }
+        
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .loading-poster {
+            width: 40px;
+            height: 60px;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+        
+        .loading-lines {
+            flex: 1;
+        }
+        
+        .loading-title {
+            height: 14px;
+            width: 70%;
+            margin-bottom: 8px;
+            border-radius: 2px;
+        }
+        
+        .loading-year {
+            height: 10px;
+            width: 40%;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 16.5V7.5L16 12L10 16.5Z" fill="#3a6cf4"/>
+            </svg>
+            <span>Phê phim</span>
+        </div>
+        
+        <div class="search-container">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="#8f96a3"/>
+            </svg>
+            <input type="text" class="search-input" placeholder="Tìm kiếm phim, diễn viên...">
+            <div class="suggestion-box"></div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#" class="nav-link">Chủ Đề</a>
+            <a href="#" class="nav-link">Duyệt tìm</a>
+            <a href="#" class="nav-link">Phim Lẻ</a>
+            <a href="#" class="nav-link">Phim Bộ</a>
+            <a href="#" class="nav-link">TV Shows</a>
+        </div>
+    </div>
+    TRANG ĐẤY ĐẸP VCL ẤYYYY, NHƯNG MÀ TỪ TỪ ...
+    <script>
+        // Sample movie data
+        const movies = [
+            { id: 1, title: "Đừng Nhìn Lên", year: 2023, poster: "https://via.placeholder.com/300x450" },
+            { id: 2, title: "Người Nhện: Không Còn Nhà", year: 2021, poster: "https://via.placeholder.com/300x450" },
+            { id: 3, title: "Ma Trận: Hồi Sinh", year: 2022, poster: "https://via.placeholder.com/300x450" },
+            { id: 4, title: "Biệt Đội Siêu Anh Hùng", year: 2012, poster: "https://via.placeholder.com/300x450" },
+            { id: 5, title: "Bố Già", year: 2021, poster: "https://via.placeholder.com/300x450" },
+            { id: 6, title: "Dune: Hành Tinh Cát", year: 2021, poster: "https://via.placeholder.com/300x450" },
+            { id: 7, title: "Tàn Tích Quỷ Ám", year: 2022, poster: "https://via.placeholder.com/300x450" },
+            { id: 8, title: "Truy Sát", year: 2020, poster: "https://via.placeholder.com/300x450" },
+            { id: 9, title: "Nhà Bà Nữ", year: 2023, poster: "https://via.placeholder.com/300x450" },
+            { id: 10, title: "Nắng 3", year: 2022, poster: "https://via.placeholder.com/300x450" },
+            { id: 11, title: "Đào, Phở Và Piano", year: 2023, poster: "https://via.placeholder.com/300x450" },
+            { id: 12, title: "Nhân Duyên Tiền Định", year: 2021, poster: "https://via.placeholder.com/300x450" },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.querySelector('.search-input');
+            const suggestionBox = document.querySelector('.suggestion-box');
+            let debounceTimer;
+            let loadingTimer;
+            let isLoading = false;
+
+            // Function to show loading state
+            function showLoading() {
+                isLoading = true;
+                suggestionBox.innerHTML = '';
+                
+                // Create loading animation
+                const loadingContainer = document.createElement('div');
+                loadingContainer.className = 'loading-container';
+                
+                // Create pulse loading
+                const loadingPulse = document.createElement('div');
+                loadingPulse.className = 'loading-pulse';
+                loadingPulse.innerHTML = '<div></div><div></div><div></div>';
+                
+                loadingContainer.appendChild(loadingPulse);
+                suggestionBox.appendChild(loadingContainer);
+                
+                // Add shimmer loading items
+                for (let i = 0; i < 3; i++) {
+                    const loadingItem = document.createElement('div');
+                    loadingItem.className = 'loading-item';
+                    loadingItem.innerHTML = `
+                        <div class="loading-poster shimmer"></div>
+                        <div class="loading-lines">
+                            <div class="loading-title shimmer"></div>
+                            <div class="loading-year shimmer"></div>
+                        </div>
+                    `;
+                    suggestionBox.appendChild(loadingItem);
+                }
+                
+                suggestionBox.classList.add('visible');
+            }
+
+            // Function to filter movies based on search term
+            function filterMovies(searchTerm) {
+                if (!searchTerm) return [];
+                searchTerm = searchTerm.toLowerCase();
+                return movies.filter(movie => 
+                    movie.title.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Function to render suggestion items
+            function renderSuggestions(suggestions) {
+                isLoading = false;
+                suggestionBox.innerHTML = '';
+                
+                if (suggestions.length === 0) {
+                    suggestionBox.innerHTML = '<div class="suggestion-item">Không tìm thấy kết quả phù hợp</div>';
+                    return;
+                }
+
+                suggestions.forEach(movie => {
+                    const item = document.createElement('div');
+                    item.className = 'suggestion-item';
+                    item.innerHTML = `
+                        <img class="suggestion-poster" src="${movie.poster}" alt="${movie.title}">
+                        <div class="suggestion-info">
+                            <div class="suggestion-title">${movie.title}</div>
+                            <div class="suggestion-year">${movie.year}</div>
+                        </div>
+                    `;
+                    
+                    // Add click event to suggestion item
+                    item.addEventListener('click', () => {
+                        searchInput.value = movie.title;
+                        suggestionBox.classList.remove('visible');
+                        console.log(movie.title);
+                    });
+                    
+                    suggestionBox.appendChild(item);
+                });
+            }
+
+            // Event listener for input changes with debounce and loading
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                clearTimeout(loadingTimer);
+                
+                if (searchInput.value.trim() === '') {
+                    suggestionBox.classList.remove('visible');
+                    isLoading = false;
+                    return;
+                }
+                
+                // Show loading after a short delay
+                loadingTimer = setTimeout(() => {
+                    if (searchInput.value.trim() !== '') {
+                        showLoading();
+                    }
+                }, 300);
+                
+                // Actual search with debounce
+                debounceTimer = setTimeout(() => {
+                    if (searchInput.value.trim() !== '') {
+                        const filteredMovies = filterMovies(searchInput.value);
+                        renderSuggestions(filteredMovies);
+                        suggestionBox.classList.add('visible');
+                    }
+                }, 2000); // 2 second delay as requested
+            });
+            
+            // Event listener for Enter key press
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    console.log(searchInput.value);
+                    clearTimeout(debounceTimer);
+                    clearTimeout(loadingTimer);
+                    suggestionBox.classList.remove('visible');
+                    isLoading = false;
+                }
+            });
+            
+            // Close suggestion box when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !suggestionBox.contains(e.target)) {
+                    suggestionBox.classList.remove('visible');
+                    clearTimeout(debounceTimer);
+                    clearTimeout(loadingTimer);
+                    isLoading = false;
+                }
+            });
+            
+            // Focus in search input
+            searchInput.addEventListener('focus', () => {
+                if (searchInput.value.trim() !== '' && !isLoading) {
+                    const filteredMovies = filterMovies(searchInput.value);
+                    renderSuggestions(filteredMovies);
+                    suggestionBox.classList.add('visible');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

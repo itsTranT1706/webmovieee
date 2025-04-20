@@ -278,3 +278,14 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(20px);
 }
+
+.dot-overlay {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(#575656 1px, transparent 1px);
+    background-size: 5px 5px;
+    opacity: 0.4;
+    z-index: 0;
+
+}

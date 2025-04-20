@@ -1,3 +1,4 @@
+
 function removeVietnameseTones(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     .replace(/đ/g, "d").replace(/Đ/g, "D")
@@ -15,14 +16,251 @@ async function fetchData(url) {
     return await response.json();
   } catch (err) {
     console.error("Fetch error:", err);
+
     return null;
   }
+}
+
+async function filterMovies(searchTerm) {
+  if (!searchTerm) return [];
+  searchTerm = searchTerm.toLowerCase();
+  console.log("alo", searchTerm);
+  const movieRaw = await fetchData(`https://phim.nguonc.com/api/films/search?keyword=${searchTerm}`);
+  // console.log(movieRaw.items);
+  return movieRaw.items;
+
+}
+
+
+//search
+const searchInput = document.querySelector('.search-input');
+const suggestionBox = document.querySelector('.suggestion-box');
+let debounceTimer;
+let loadingTimer;
+let isLoading = false;
+
+// Function to show loading state
+function showLoading() {
+  isLoading = true;
+  suggestionBox.innerHTML = '';
+
+  // Create loading animation
+  const loadingContainer = document.createElement('div');
+  loadingContainer.className = 'loading-container';
+
+  // Create pulse loading
+  const loadingPulse = document.createElement('div');
+  loadingPulse.className = 'loading-pulse';
+  loadingPulse.innerHTML = '<div></div><div></div><div></div>';
+
+  loadingContainer.appendChild(loadingPulse);
+  suggestionBox.appendChild(loadingContainer);
+
+  // Add shimmer loading items
+  for (let i = 0; i < 3; i++) {
+    const loadingItem = document.createElement('div');
+    loadingItem.className = 'loading-item';
+    loadingItem.innerHTML = `
+              <div class="loading-poster shimmer"></div>
+              <div class="loading-lines">
+                  <div class="loading-title shimmer"></div>
+                  <div class="loading-year shimmer"></div>
+              </div>
+          `;
+    suggestionBox.appendChild(loadingItem);
+  }
+
+  suggestionBox.classList.add('visible');
+}
+
+// Function to filter movies based on search term
+
+// Function to render suggestion items
+function renderSuggestions(suggestions) {
+  isLoading = false;
+  suggestionBox.innerHTML = '';
+  console.log(suggestions)
+  if (suggestions.length === 0) {
+    suggestionBox.innerHTML = '<div class="suggestion-item">Không tìm thấy kết quả phù hợp</div>';
+    return;
+  }
+
+  suggestions.forEach(movie => {
+    const item = document.createElement('div');
+    // const cate = movie.cate
+    item.className = 'suggestion-item';
+
+    item.innerHTML = `
+              <img class="suggestion-poster" src="${movie.thumb_url}" alt="${movie.name}">
+              <div class="suggestion-info">
+                  <div class="suggestion-title">${movie.name}</div>
+                  <div class="suggestion-year">${movie.original_name}</div>
+                  <div class="suggestion-year">
+                                                   <span class="genre-tag">${movie.quality}</span>
+                                                   <span class="genre-tag">${movie.language}</span>
+                                                   <span class="genre-tag">${movie.current_episode}</span>
+                                                   
+                          </div>
+          `;
+
+    // Add click event to suggestion item
+    item.addEventListener('click', () => {
+      searchInput.value = movie.name;
+      suggestionBox.classList.remove('visible');
+      window.location = `/pages/chi-tiet.html?phim=${removeVietnameseTones(movie.slug)}`
+      // console.log(movie.slug);
+    });
+
+    suggestionBox.appendChild(item);
+  });
+}
+
+// Event listener for input changes with debounce and loading
+searchInput.addEventListener('input', () => {
+  clearTimeout(debounceTimer);
+  clearTimeout(loadingTimer);
+
+  if (searchInput.value.trim() === '') {
+    suggestionBox.classList.remove('visible');
+    isLoading = false;
+    return;
+  }
+
+  // Show loading after a short delay
+  loadingTimer = setTimeout(() => {
+    if (searchInput.value.trim() !== '') {
+      showLoading();
+    }
+  }, 300);
+
+  // Actual search with debounce
+  debounceTimer = setTimeout(async () => {
+    if (searchInput.value.trim() !== '') {
+      const filteredMovies = await filterMovies(searchInput.value);
+      renderSuggestions(filteredMovies);
+      suggestionBox.classList.add('visible');
+    }
+  }, 1000);
+});
+
+// Event listener for Enter key press
+searchInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    console.log(searchInput.value);
+    window.location = `/pages/danh-sach.html?search=${removeVietnameseTones(removeVietnameseTones(searchInput.value))}`
+    // window.location = `/demo2.html`
+
+    clearTimeout(debounceTimer);
+    clearTimeout(loadingTimer);
+    suggestionBox.classList.remove('visible');
+    isLoading = false;
+  }
+});
+
+// Close suggestion box when clicking outside
+document.addEventListener('click', (e) => {
+  if (!searchInput.contains(e.target) && !suggestionBox.contains(e.target)) {
+    suggestionBox.classList.remove('visible');
+    clearTimeout(debounceTimer);
+    clearTimeout(loadingTimer);
+    isLoading = false;
+  }
+});
+
+
+// Focus in search input
+
+
+searchInput.addEventListener('focus', async () => {
+  if (searchInput.value.trim() !== '' && !isLoading) {
+    const filteredMovies = await filterMovies(searchInput.value);
+    renderSuggestions(filteredMovies);
+    suggestionBox.classList.add('visible');
+  }
+});
+
+
+
+
+//dropdown country
+const countries = [
+  { code: 'us', name: 'Âu Mỹ' }, 
+  { code: 'gb', name: 'Anh' },
+  { code: 'cn', name: 'Trung Quốc' },
+  { code: 'id', name: 'Indonesia' },
+  { code: 'vn', name: 'Việt Nam' },
+  { code: 'fr', name: 'Pháp' },
+  { code: 'hk', name: 'Hồng Kông' },
+  { code: 'kr', name: 'Hàn Quốc' },
+  { code: 'jp', name: 'Nhật Bản' },
+  { code: 'th', name: 'Thái Lan' },
+  { code: 'tw', name: 'Đài Loan' },
+  { code: 'ru', name: 'Nga' },
+  { code: 'nl', name: 'Hà Lan' },
+  { code: 'ph', name: 'Philippines' },
+  { code: 'in', name: 'Ấn Độ' }
+];
+
+const countryTab = document.querySelector('.country-tab');
+const dropdown = document.getElementById('countryDropdown');
+const countriesGrid = document.getElementById('countriesGrid');
+
+// Populate countries grid
+countries.forEach(country => {
+  const countryItem = document.createElement('div');
+  countryItem.className = 'country-item';
+  countryItem.innerHTML = `
+      <img class="country-flag" src="https://flagcdn.com/w40/${country.code}.png" alt="${country.name} flag">
+      <span class="country-name">${country.name}</span>
+    `;
+
+  countryItem.addEventListener('click', () => {
+    // Remove selected class from all items
+    document.querySelectorAll('.country-item').forEach(item => {
+      item.classList.remove('selected');
+    });
+
+    // Add selected class to this item
+    countryItem.classList.add('selected');
+
+    // You would typically trigger a filter/navigation action here
+    console.log(`Selected country: ${country.name}`);
+    window.location = `/pages/danh-sach.html?quoc-gia=${removeVietnameseTones(country.name)}`;
+
+    // Close dropdown after selection
+    dropdown.classList.remove('active');
+  });
+
+  countriesGrid.appendChild(countryItem);
+});
+
+// Toggle dropdown
+countryTab.addEventListener('click', (e) => {
+  e.stopPropagation();
+  dropdown.classList.toggle('active');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if (!countryTab.contains(e.target)) {
+    dropdown.classList.remove('active');
+  }
+});
+
+
+
+
+function loading(content) {
+  content.classList.add("loader");
 }
 
 // Update Hero section
 async function updateHero(slug) {
   // console.log("api", `https://phim.nguonc.com/api/film/${slug}`);
   const data = await fetchData(`https://phim.nguonc.com/api/film/${slug}`);
+  // const data = await fetchData(`https://ophim1.com/phim/${slug}`);
+  console.log(`https://ophim1.com/phim/${slug}`);
   if (!data) return;
 
   document.querySelector(".movie-title-hero").textContent = data.movie.name;
@@ -73,7 +311,7 @@ async function setupBanner() {
   const banner = document.querySelector(".hero");
   const thumbContainer = document.querySelector(".thumbnails");
 
-  const filmList = await fetchData("https://phim.nguonc.com/api/films/the-loai/kinh-di");
+  const filmList = await fetchData("https://phim.nguonc.com/api/films/the-loai/khoa-hoc-vien-tuong?page=155");
   if (!filmList || !filmList.items.length) return;
 
   const thumbnailsHTML = filmList.items.slice(0, 7).map((film, index) => {
@@ -82,6 +320,7 @@ async function setupBanner() {
   }).join('');
 
   banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${filmList.items[0].poster_url}) center/cover`;
+  // banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(https://static.nutscdn.com/vimg/1920-0/b4fd3fdce37b78a0ef03953dce061771.jpg) center/cover`;
   thumbContainer.innerHTML = thumbnailsHTML;
 
   // console.log(filmList);
@@ -205,18 +444,18 @@ async function updateCarousel(country, title, subtitle) {
     });
 
     const action = card.querySelector(".action-buttons");
-    const watch  = action.querySelector(".watch-btn");
-    watch.addEventListener("click",()=>{
+    const watch = action.querySelector(".watch-btn");
+    watch.addEventListener("click", () => {
       console.log(film.slug);
       window.location = `/pages/watch.html?phim=${film.slug}`;
     });
     const infor = action.querySelector(".details-btn");
-    infor.addEventListener("click",()=>{
+    infor.addEventListener("click", () => {
       console.log(film.slug);
       window.location = `/pages/chi-tiet.html?phim=${film.slug}`;
     });
     container.appendChild(card);
-    
+
   }
 
   // Điều khiển điều hướng
