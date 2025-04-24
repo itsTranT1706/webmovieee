@@ -27,7 +27,7 @@ async function fetchMovieData(page = 1) {
     return await res.json();
   } catch (err) {
     console.error("Lỗi khi fetch dữ liệu:", err);
-    alert("Đợi xíu bạn ơii");
+    // alert("Đợi xíu bạn ơii");
     return null;
   }
 }

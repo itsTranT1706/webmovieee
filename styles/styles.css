@@ -157,7 +157,7 @@ header {
     width: 100%;
     padding: 10px 16px;
     border-radius: 30px;
-    border: 1px solid var(--border-color);
+    border: none;
     /* background-color: var(--secondary-bg); */
     background-color: rgba(255, 255, 255, 0.2);
     color: var(--text-color);
@@ -665,6 +665,9 @@ header {
     font-size: 48px;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    word-wrap: break-word;
+    white-space: normal;
+    width: 550px;
 
 }
 
@@ -748,7 +751,9 @@ header {
     justify-content: center;
     cursor: pointer;
     margin-right: 20px;
+
 }
+
 
 .play-btn:hover {
     background-color: rgba(255, 255, 255, 0.3);
@@ -810,7 +815,6 @@ header {
     padding: 10px 5%;
     margin-top: -35vh;
     padding: 2rem 4%;
-
     background-color: rgba(0, 0, 0, 0);
 
 }
@@ -822,7 +826,7 @@ header {
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
 }
 
@@ -869,7 +873,7 @@ header {
 }
 
 .category-card.sitcom {
-    background: linear-gradient(to bottom right, rgb(0 247 87), #AB7B80);
+    background: linear-gradient(to bottom right, rgb(78, 244, 136), #AB7B80);
 }
 
 .category-card.action {

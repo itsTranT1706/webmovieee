@@ -26,7 +26,7 @@ async function filterMovies(searchTerm) {
   searchTerm = searchTerm.toLowerCase();
   console.log("alo", searchTerm);
   const movieRaw = await fetchData(`https://phim.nguonc.com/api/films/search?keyword=${searchTerm}`);
-  // console.log(movieRaw.items);
+  console.log(`https://phim.nguonc.com/api/films/search?keyword=${searchTerm}`);
   return movieRaw.items;
 
 }
@@ -107,7 +107,7 @@ function renderSuggestions(suggestions) {
     item.addEventListener('click', () => {
       searchInput.value = movie.name;
       suggestionBox.classList.remove('visible');
-      window.location = `/pages/chi-tiet.html?phim=${removeVietnameseTones(movie.slug)}`
+      window.location = `/pages/chi-tiet.html?phim=${movie.slug}`
       // console.log(movie.slug);
     });
 
@@ -137,6 +137,7 @@ searchInput.addEventListener('input', () => {
   debounceTimer = setTimeout(async () => {
     if (searchInput.value.trim() !== '') {
       const filteredMovies = await filterMovies(searchInput.value);
+      // console.log(filteredMovies);
       renderSuggestions(filteredMovies);
       suggestionBox.classList.add('visible');
     }
@@ -148,7 +149,7 @@ searchInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
     console.log(searchInput.value);
-    window.location = `/pages/danh-sach.html?search=${removeVietnameseTones(removeVietnameseTones(searchInput.value))}`
+    window.location = `/pages/danh-sach.html?search=${searchInput.value}`
     // window.location = `/demo2.html`
 
     clearTimeout(debounceTimer);
@@ -249,12 +250,6 @@ document.addEventListener('click', (e) => {
 });
 
 
-
-
-function loading(content) {
-  content.classList.add("loader");
-}
-
 // Update Hero section
 async function updateHero(slug) {
   // console.log("api", `https://phim.nguonc.com/api/film/${slug}`);
@@ -311,7 +306,7 @@ async function setupBanner() {
   const banner = document.querySelector(".hero");
   const thumbContainer = document.querySelector(".thumbnails");
 
-  const filmList = await fetchData("https://phim.nguonc.com/api/films/the-loai/khoa-hoc-vien-tuong?page=155");
+  const filmList = await fetchData("https://phim.nguonc.com/api/films/the-loai/khoa-hoc-vien-tuong?page=156");
   if (!filmList || !filmList.items.length) return;
 
   const thumbnailsHTML = filmList.items.slice(0, 7).map((film, index) => {
@@ -320,7 +315,6 @@ async function setupBanner() {
   }).join('');
 
   banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${filmList.items[0].poster_url}) center/cover`;
-  // banner.style.background = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(https://static.nutscdn.com/vimg/1920-0/b4fd3fdce37b78a0ef03953dce061771.jpg) center/cover`;
   thumbContainer.innerHTML = thumbnailsHTML;
 
   // console.log(filmList);
@@ -357,9 +351,7 @@ window.addEventListener('scroll', () => {
 setupBanner();
 
 
-
-
-//CAROUSEL
+// //CAROUSEL
 async function updateCarousel(country, title, subtitle) {
   const movieData = await fetchData(`https://phim.nguonc.com/api/films/quoc-gia/${country}`);
   if (!movieData?.items?.length) return;
