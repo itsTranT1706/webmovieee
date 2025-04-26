@@ -407,34 +407,7 @@ header {
     width: 40%;
     border-radius: 2px;
 }
-/* .search-bar {
-    position: relative;
-    margin-left: 20px;
-    flex: 0 1 300px;
 
-}
-
-.search-bar input {
-    width: 100%;
-    padding: 10px 10px 10px 35px;
-    border-radius: 10px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: var(--text-color);
-}
-
-.search-bar input::placeholder {
-    color: #ffffff;
-
-}
-
-.search-bar i {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-color);
-} */
 
 .header-right {
     display: flex;

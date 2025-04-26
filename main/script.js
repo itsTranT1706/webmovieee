@@ -399,8 +399,9 @@ async function updateCarousel(country, title, subtitle) {
 
     const cardTemplate = document.getElementById("movie-card-template");
     const card = document.importNode(cardTemplate.content, true);
-    // console.log(card)
-    // document.querySelector(".movie-modal").querySelector("img").src = movie.poster_url;
+    // card.id = movie.slug;
+    // console.log("as",card);
+  //  card.setAttribute("id", movie.slug);
     const img = card.querySelector('img');
     // console.log(img);
     img.src = movie.poster_url;
@@ -439,7 +440,11 @@ async function updateCarousel(country, title, subtitle) {
     //   genres.appendChild(g);
     // });
 
-    // const action = card.querySelector(".action-buttons");
+    const action = card.querySelector(".movie-card");
+    action.addEventListener("click", ()=>{
+        console.log(movie.slug);
+        window.location = `/pages/chi-tiet.html?phim=${film.slug}`;
+    })
 
     // const watch = action.querySelector(".watch-btn");
     // watch.addEventListener("click", () => {
@@ -455,17 +460,15 @@ async function updateCarousel(country, title, subtitle) {
     container.appendChild(card);
     // console.log(card);
     
-    document.querySelector(".movie-card").addEventListener("click",()=>{
-      console.log("addca");
-    })
-
+    
   }
-
+  
+  
   // Điều khiển điều hướng
   const visibleCards = Math.floor(carousel.clientWidth / cardWidth);
   console.log("visible",visibleCards);
   const totalCards = container.children.length;
-  const maxPosition = Math.min(0, carousel.clientWidth - (totalCards-1) * cardWidth)+35;
+  const maxPosition = Math.min(0, carousel.clientWidth - (totalCards-2) * cardWidth)-5;
   console.log("max",maxPosition)
 
   function updateNavButtons() {

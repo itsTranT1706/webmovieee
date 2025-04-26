@@ -1,3 +1,4 @@
+
 // JavaScript for interactive elements
 document.addEventListener('DOMContentLoaded', function () {
     // Tab switching
@@ -70,7 +71,7 @@ async function fetchData(url){
       }
 }
 
-async function renderDetail() {
+ async function renderDetail() {
     const urlParams = new URLSearchParams(window.location.search);
     const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
     const param2 = urlParams.get(param1) || "";
@@ -177,7 +178,7 @@ async function renderDetail() {
     const episode = document.querySelector(".episodes-grid");
     episode.innerHTML = movieDetail.episodes[0]["items"].map((episode)=>{
         return `  <div class="episode">
-                    <div class="episode-number">Tập ${episode.name}</div>
+                    <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
                 </div>`
     }).join("");
 
@@ -193,7 +194,17 @@ async function renderDetail() {
 
     episodes.forEach(episode => {
         episode.addEventListener('click', function () {
-            alert("bấm xem ngay đê, trang này chưa làm chức năng này");
+            console.log(episode);
+
+            const episodeNumber = this.querySelector('.episode-number').id;
+            console.log(episodeNumber);
+            window.location=`/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber}`;
+            // console.log(movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"]);
+            // iframe.src = movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"];
+            // watch.renderWatch(movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"])
+            // Scroll to top of player
+            // window.scrollTo({ top: 0, behavior: "smooth" });
+            // alert("bấm xem ngay đê, trang này chưa làm chức năng này");
         });
     });
 

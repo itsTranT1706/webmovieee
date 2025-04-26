@@ -10,6 +10,15 @@ function removeVietnameseTones(str) {
 
 
 
+// const urlParams = new URLSearchParams(window.location.search);
+// const param1 = window.location.search.match(/\?([^=]*)=/)[1] ;
+// const param3 = window.location.search.match(/\&\&([^=]*)=/)[1]; 
+// console.log(param1);
+// const param2 = urlParams.get(param1) || "";
+// const param4 = urlParams.get(param3) || "";
+// console.log(param4);
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const playPauseBtn = document.getElementById('playPauseBtn');
     const videoPlayer = document.getElementById('videoPlayer');
@@ -70,10 +79,17 @@ async function fetchData(url) {
         return null;
     }
 }
-async function renderWatch() {
+
+
+
+renderWatch = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
     const param2 = urlParams.get(param1) || "";
+    const param3 = window.location.search.match(/\&\&([^=]*)=/)[1] || "";
+    console.log(param1);
+    const param4 = urlParams.get(param3) || "";
+    console.log(param4);
     const apiBase = `https://phim.nguonc.com/api/film/${param2}`;
     console.log(apiBase);
     const data = await fetchData(apiBase);
@@ -87,7 +103,14 @@ async function renderWatch() {
 
     const iframe = document.querySelector("iframe");
     console.log(iframe);
-    iframe.src = movieDetail.episodes[0]["items"][0]["embed"];
+
+    if (param4=="Full"){
+        iframe.src = movieDetail.episodes[0]["items"][0]["embed"];
+    }
+    else{
+
+        iframe.src = param4 ? movieDetail.episodes[0]["items"][param4-1]["embed"] : movieDetail.episodes[0]["items"][0]["embed"];
+    }
 
     const movie_title = document.querySelector(".movie-title");
     const movie_subtitle = document.querySelector(".movie-subtitle");
