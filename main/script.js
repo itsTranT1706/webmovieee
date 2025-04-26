@@ -389,26 +389,29 @@ async function updateCarousel(country, title, subtitle) {
   const carousel = wrapper.querySelector(".movie-carousel");
 
   let position = 0;
-  const cardWidth = 265;
+  const cardWidth = 486;
 
   for (const film of movieData.items) {
-    const detail = await fetchData(`https://phim.nguonc.com/api/film/${film.slug}`);
-    const movie = detail.movie;
+    // const detail = await fetchData(`https://phim.nguonc.com/api/film/${film.slug}`);
+    // const movie = detail.movie;
+    const movie = film;
+    // console.log(movie.poster_url);
 
     const cardTemplate = document.getElementById("movie-card-template");
     const card = document.importNode(cardTemplate.content, true);
-
+    // console.log(card)
+    // document.querySelector(".movie-modal").querySelector("img").src = movie.poster_url;
     const img = card.querySelector('img');
-    console.log(img);
-    img.src = movie.thumb_url;
-    img.alt = movie.name;
+    // console.log(img);
+    img.src = movie.poster_url;
+    // img.alt = movie.name;
 
     card.querySelector('.movie-title').textContent = movie.name;
     card.querySelector('.movie-info h3').textContent = movie.name;
-    card.querySelector('.imdb-rating').textContent = movie.quality || '';
-    card.querySelector('.movie-episode').textContent = movie.time || '';
-    card.querySelector('.movie-description').textContent = movie.description || '';
-    card.querySelector('.movie-year').textContent = movie?.category?.["3"]?.list?.name || '';
+    // card.querySelector('.imdb-rating').textContent = movie.quality || '';
+    // card.querySelector('.movie-episode').textContent = movie.time || '';
+    // card.querySelector('.movie-description').textContent = movie.description || '';
+    // card.querySelector('.movie-year').textContent = movie?.category?.["3"]?.list?.name || '';
 
     const tags = card.querySelector(".movie-tags");
     tags.innerHTML = "";
@@ -426,34 +429,44 @@ async function updateCarousel(country, title, subtitle) {
       tags.appendChild(tagEp);
     }
 
-    const genres = card.querySelector(".movie-genres");
-    genres.innerHTML = "";
-    movie.category?.["2"]?.list?.forEach(genre => {
-      const g = document.createElement("span");
-      g.className = "genre-tag";
-      g.textContent = genre.name;
-      genres.appendChild(g);
-    });
+    
+    // const genres = card.querySelector(".movie-genres");
+    // genres.innerHTML = "";
+    // movie.category?.["2"]?.list?.forEach(genre => {
+    //   const g = document.createElement("span");
+    //   g.className = "genre-tag";
+    //   g.textContent = genre.name;
+    //   genres.appendChild(g);
+    // });
 
-    const action = card.querySelector(".action-buttons");
-    const watch = action.querySelector(".watch-btn");
-    watch.addEventListener("click", () => {
-      console.log(film.slug);
-      window.location = `/pages/watch.html?phim=${film.slug}`;
-    });
-    const infor = action.querySelector(".details-btn");
-    infor.addEventListener("click", () => {
-      console.log(film.slug);
-      window.location = `/pages/chi-tiet.html?phim=${film.slug}`;
-    });
+    // const action = card.querySelector(".action-buttons");
+
+    // const watch = action.querySelector(".watch-btn");
+    // watch.addEventListener("click", () => {
+    //   console.log(film.slug);
+    //   window.location = `/pages/watch.html?phim=${film.slug}`;
+    // });
+
+    // const infor = action.querySelector(".details-btn");
+    // infor.addEventListener("click", () => {
+    //   console.log(film.slug);
+    //   window.location = `/pages/chi-tiet.html?phim=${film.slug}`;
+    // });
     container.appendChild(card);
+    // console.log(card);
+    
+    document.querySelector(".movie-card").addEventListener("click",()=>{
+      console.log("addca");
+    })
 
   }
 
   // Điều khiển điều hướng
   const visibleCards = Math.floor(carousel.clientWidth / cardWidth);
+  console.log("visible",visibleCards);
   const totalCards = container.children.length;
-  const maxPosition = Math.min(0, carousel.clientWidth - totalCards * cardWidth);
+  const maxPosition = Math.min(0, carousel.clientWidth - (totalCards-1) * cardWidth)+35;
+  console.log("max",maxPosition)
 
   function updateNavButtons() {
     prevBtn.disabled = position >= 0;
@@ -464,29 +477,25 @@ async function updateCarousel(country, title, subtitle) {
 
   function moveCarousel(delta) {
     const newPosition = Math.max(Math.min(position + delta, 0), maxPosition);
+    // console.log(newPosition)
     if (newPosition !== position) {
       position = newPosition;
+      console.log("pos",  position)
       container.style.transform = `translateX(${position}px)`;
       updateNavButtons();
     }
   }
 
-  prevBtn.addEventListener("click", () => moveCarousel(cardWidth * visibleCards));
-  nextBtn.addEventListener("click", () => moveCarousel(-cardWidth * visibleCards));
+  prevBtn.addEventListener("click", () => {
+    // console.log(visibleCards);
+    return moveCarousel(cardWidth * visibleCards)});
+  nextBtn.addEventListener("click", () => {
+    // console.log(visibleCards);
+    return moveCarousel(-cardWidth * visibleCards)});
   updateNavButtons();
 
-  if ('ontouchstart' in window) {
-    let startX = 0;
-    container.addEventListener("touchstart", e => startX = e.touches[0].clientX, { passive: true });
-    container.addEventListener("touchend", e => {
-      const diff = e.changedTouches[0].clientX - startX;
-      if (Math.abs(diff) > 50) {
-        moveCarousel(diff > 0 ? cardWidth * visibleCards : -cardWidth * visibleCards);
-      }
-    }, { passive: true });
-  }
 }
+document.addEventListener("DOMContentLoaded", updateCarousel("viet-nam", "Phim Việt Nam", "Khung giờ vàng"));
 document.addEventListener("DOMContentLoaded", updateCarousel("han-quoc", "Phim Hàn ", "Drama nảy lửa"));
 document.addEventListener("DOMContentLoaded", updateCarousel("trung-quoc", "Phim Trung", "Ngôn tình hấp dẫn"));
-document.addEventListener("DOMContentLoaded", updateCarousel("nhat-ban", "Phim Nhật", "Anime học đường"));
 

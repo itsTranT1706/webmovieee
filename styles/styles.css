@@ -826,20 +826,24 @@ header {
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
 }
 
 .category-card {
-    height: 145px;
+    height: 160px;
     border-radius: 10px;
-    padding: 20px;
+    padding: 60px 20px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: linear-gradient(to bottom right, var(--card-bg), rgba(31, 35, 48, 0.7));
     transition: transform 0.3s;
 
+}
+
+.category-card.more{
+    padding: 60px;
 }
 
 .category-card:hover {
@@ -941,6 +945,7 @@ header {
 .movie-section {
     margin-bottom: 40px;
     width: 100%;
+    
 }
 
 .section-header {
@@ -975,8 +980,10 @@ header {
 .movie-carousel {
     position: relative;
     width: 100%;
-    overflow: hidden;
+    overflow-y: visible;
+    overflow-x: hidden;
     padding: 20px 0 40px;
+    z-index: 20;
 }
 
 .movie-container {
@@ -986,7 +993,7 @@ header {
 
 .movie-card {
     flex: 0 0 auto;
-    width: 250px;
+    width: 45vh;
     margin-right: 15px;
     border-radius: var(--border-radius);
     overflow: visible;
@@ -1074,21 +1081,24 @@ header {
 }
 
 .movie-modal {
-    position: absolute;
-    top: -220px;
+    position: fixed;
+    top: -120px;
     left: 60%;
     transform: translateX(-50%);
-    width: 300px;
+    width: 400px;
+    height: 500px;
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
-    padding: 15px;
-    z-index: 20;
+    padding: 10px;
+    z-index: 40;
     opacity: 0;
-    visibility: hidden;
+    display: none;
+    visibility: visible;
     transition: var(--transition-default);
     box-shadow: var(--shadow);
     pointer-events: none;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('') center/cover;
+    /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('') center/cover; */
+    background-color: red;
 
 
 }
@@ -1106,7 +1116,7 @@ header {
     background-repeat: no-repeat;
     background-size: 100% 50px, 100% 80px, 30px 100%, 30px 100%;
     background-position: top, bottom, left, right;
-    z-index: 10;
+    z-index: 40;
     pointer-events: none;
 }
 
@@ -1115,7 +1125,7 @@ header {
 .movie-card:hover .movie-modal {
     opacity: 1;
     visibility: visible;
-    top: -10px;
+    /* top: -10px; */
     pointer-events: auto;
     z-index: 100;
 }
@@ -1213,7 +1223,7 @@ header {
 }
 
 .watch-btn:hover {
-    background-color: #e0b30e;
+    background-color: #efef84;
 
 }
 
@@ -1242,20 +1252,6 @@ header {
 .like-btn:hover,
 .details-btn:hover {
     background-color: #3a4060;
-}
-
-.modal-arrow {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid var(--card-bg);
-    z-index: 20;
-
 }
 
 .movie-description {
@@ -1337,6 +1333,15 @@ header {
         font-size: 36px;
     }
 }
+@media (min-width: 1401px) {
+    #more {
+        width: minmax(225px,1fr);
+        height: 5px !important;
+        border-radius: 10px;
+        padding: 30px !important ;
+        background: #272728 !important ;
+    }
+}
 
 @media (max-width: 992px) {
     .main-nav {
@@ -1357,9 +1362,6 @@ header {
         padding: 60px 5%;
     }
 
-    .category-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
 }
 
 @media (max-width: 768px) {
@@ -1387,9 +1389,9 @@ header {
         flex-wrap: wrap;
     }
 
-    .category-grid {
+    /* .category-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
+    } */
 
 
 }
@@ -1434,18 +1436,3 @@ header {
     }
 }
 
-
-
-/* HTML: <div class="loader"></div> */
-.loader {
-    width: 50px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: #514b82;
-    -webkit-mask: radial-gradient(circle closest-side at 50% 40%,#0000 94%, #000);
-    transform-origin: 50% 40%;
-    animation: l25 1s infinite linear;
-  }
-  @keyframes l25 {
-    100% {transform: rotate(1turn)}
-  }
