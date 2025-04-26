@@ -10,19 +10,12 @@
     --header-height: 70px;
     --sidebar-width: 240px;
 
-    /* carousel */
-    --tag-bg: #2c3149;
-    --action-bg: #f5c518;
-    --secondary-tag: #1a7d4c;
-    --text-light: #a4a7b5;
-    --text-primary: white;
-    --shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
-    --border-radius: 8px;
-    --transition-default: all 0.3s ease;
-
-    --hover-bg: rgba(255, 255, 255, 0.08);
-    --dropdown-bg: rgba(18, 20, 30, 0.95);
-    --shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    --primary-color: #f5c518;
+    --dark-bg: #181818;
+    --darker-bg: #121212;
+    --light-text: #ffffff;
+    --gray-text: #9b9b9b;
+    --header-height: 60px;
 
 }
 

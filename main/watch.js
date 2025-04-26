@@ -86,7 +86,7 @@ renderWatch = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
     const param2 = urlParams.get(param1) || "";
-    const param3 = window.location.search.match(/\&\&([^=]*)=/)[1] || "";
+    const param3 = window.location.search.match(/\&\&([^=]*)=/)?.[1] || "";
     console.log(param1);
     const param4 = urlParams.get(param3) || "";
     console.log(param4);
@@ -156,5 +156,12 @@ renderWatch = async () => {
     });
 
 }
+
+// Header scroll effect
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('.site-header');
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
 
 document.addEventListener("DOMContentLoaded", renderWatch());
