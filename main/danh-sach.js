@@ -27,7 +27,7 @@ async function fetchMovieData(page = 1) {
     return await res.json();
   } catch (err) {
     console.error("Lỗi khi fetch dữ liệu:", err);
-    alert("Đợi xíu bạn ơii");
+    // alert("Đợi xíu bạn ơii");
     return null;
   }
 }
@@ -42,7 +42,7 @@ async function loadMovies(page = 1) {
     if (temp == null){
        temp = `Tìm kiếm cho ${param2}` ;
     }
-    document.querySelector("header").innerHTML = `<h1>${temp}</h1>`;
+    document.querySelector(".header").innerHTML = `<h1>${temp}</h1>`;
 
   }
 
