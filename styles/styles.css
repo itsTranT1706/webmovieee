@@ -2,7 +2,7 @@
 :root {
     --primary-bg: #0e1117;
     --secondary-bg: #1a1d29;
-    --accent-color: #ffc107;
+    --accent-color: #c8a7d9;
     --text-color: #ffffff;
     --text-secondary: #a0a0a0;
     --border-color: #2a2e39;
@@ -188,7 +188,7 @@ header {
     top: 100%;
     left: 0;
     width: 100%;
-    max-height: 300px;
+    max-height: 410px;
     overflow-y: auto;
     background-color: var(--secondary-bg);
     border-radius: 8px;
@@ -242,6 +242,28 @@ header {
     gap: 8px; /* Hoặc nhiều hơn nếu cần cách đều hơn */
     align-items: center;
 }
+
+.show-all-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: rgba(58, 108, 244, 0.1);
+    color: var(--highlight-color);
+    font-weight: 500;
+    cursor: pointer;
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.show-all-btn:hover {
+    background-color: rgba(58, 108, 244, 0.2);
+}
+
+.show-all-btn svg {
+    margin-right: 6px;
+}
+
 
 .nav-links {
     display: flex;
@@ -577,15 +599,24 @@ header {
     position: relative;
     height: 120vh;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('') center/cover;
-    /* transition: background-image 0.5s ease-in-out; */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: 40vh 40px;
     overflow: hidden;
+    
     /* z-index: 20; */
+    opacity: 1;
+    /* transition: opacity 10s; */
+}
+
+.fade{
+    opacity: 0 !important;
+    transition: opacity 0.5s ;
+    /* transition:  0.5s ease-in-out; */
 
 }
+
 
 .dot-overlay {
     content: '';
@@ -616,23 +647,24 @@ header {
 
 }
 
-.fade {
-    transition: opacity 0.3s ease;
-    /* hiệu ứng chuyển mượt trong 0.4s */
-    opacity: 1;
-    /* trạng thái mặc định là hiển thị */
-}
 
-.fade.hidden {
-    opacity: 0;
-    /* khi có class .hidden thì opacity thành 0 (ẩn dần) */
-}
 
 .movie-details {
     max-width: 70%;
     z-index: 30;
-
+   
 }
+
+.trans{
+    position: relative;
+    animation: mymove 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes mymove {
+    from {left: -20px;}
+    to {left: 0.1%;}
+  }
 
 .movie-title-hero {
     font-size: 48px;
@@ -642,12 +674,15 @@ header {
     white-space: normal;
     width: 550px;
 
+  
+
 }
 
 .movie-info-hero {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+
 }
 
 .imdb-rating {
@@ -785,9 +820,9 @@ header {
 .interest-section {
     position: relative;
     z-index: 20;
-    padding: 10px 5%;
+    /* padding: 10px 5%; */
     margin-top: -35vh;
-    padding: 2rem 4%;
+    padding: 2rem 2%;
     background-color: rgba(0, 0, 0, 0);
 
 }
@@ -910,9 +945,9 @@ header {
     gap: 1rem;
     background: linear-gradient(to bottom, #1c1c2b, #1a1a26);
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 2rem 2%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    margin: 0 50px;
+    margin: 0 30px;
 }
 
 .movie-section {
@@ -934,7 +969,10 @@ header {
 }
 
 .section-title h2 {
-    font-size: 24px;
+    font-size: 32px;
+    background: linear-gradient(to right, #e9f1f1 0%, #7832ce 100%); 
+    background-clip: text;
+    color: transparent;
 }
 
 .section-title span {
@@ -960,7 +998,7 @@ header {
 }
 
 .movie-container {
-    display: flex;
+    display: flex ;
     transition: transform 0.5s ease;
 }
 
@@ -1306,7 +1344,7 @@ header {
         font-size: 36px;
     }
 }
-@media (min-width: 1401px) {
+@media (min-width: 1329px) and (max-width: 1553px){
     #more {
         width: minmax(225px,1fr);
         height: 5px !important;

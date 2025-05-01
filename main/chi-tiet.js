@@ -20,17 +20,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Toggle switch functionality
-    const toggleSwitch = document.querySelector('.toggle-switch input');
-    const episodesGrid = document.querySelector('.episodes-grid');
+    // // Toggle switch functionality
+    // const toggleSwitch = document.querySelector('.toggle-switch input');
+    // const episodesGrid = document.querySelector('.episodes-grid');
 
-    toggleSwitch.addEventListener('change', function () {
-        if (this.checked) {
-            episodesGrid.style.display = 'grid';
-        } else {
-            episodesGrid.style.display = 'none';
-        }
-    });
+    // toggleSwitch.addEventListener('change', function () {
+    //     if (this.checked) {
+    //         episodesGrid.style.display = 'grid';
+    //     } else {
+    //         episodesGrid.style.display = 'none';
+    //     }
+    // });
 
     // Watch now button
     const watchButton = document.querySelector('.btn-primary');
@@ -103,16 +103,16 @@ async function fetchData(url){
                         <span>${movieDetail.quality}</span>
                     </div>
                     <div class="info-item">
+                        <i class="fas fa-film"></i>
+                        <span>${movieDetail.language}</span>
+                    </div>
+                    <div class="info-item">
                         <i class="fas fa-calendar"></i>
                         <span>${movieDetail.category["3"]["list"][0]["name"]}</span>
                     </div>
                     <div class="info-item">
-                        <i class="fas fa-film"></i>
-                        <span>${movieDetail.time}</span>
-                    </div>
-                    <div class="info-item">
                         <i class="fas fa-list"></i>
-                        <span>${movieDetail.current_episode}</span>
+                        <span>${movieDetail.time}</span>
                     </div>
                 </div>
                 `;
@@ -199,12 +199,7 @@ async function fetchData(url){
             const episodeNumber = this.querySelector('.episode-number').id;
             console.log(episodeNumber);
             window.location=`/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber}`;
-            // console.log(movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"]);
-            // iframe.src = movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"];
-            // watch.renderWatch(movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"])
-            // Scroll to top of player
-            // window.scrollTo({ top: 0, behavior: "smooth" });
-            // alert("bấm xem ngay đê, trang này chưa làm chức năng này");
+            
         });
     });
 
