@@ -6,7 +6,7 @@ const cates = ["hanh-dong", "phieu-luu", "hoat-hinh", "hinh-su", "tai-lieu", "ch
 let str = "";
 // console.log(window.location.pathname);
 let length = arrCate.length;
-if (window.location.pathname !== "/pages/chu-de.html") {
+if (!window.location.pathname.includes("/pages/chu-de.html")>0) {
     length -= 15;
 }
 // console.log(length);
