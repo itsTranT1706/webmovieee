@@ -61,17 +61,17 @@ document.addEventListener('DOMContentLoaded', function () {
 //     window.location = "/pages/watch.html";
 // })
 
-async function fetchData(url){
+async function fetchData(url) {
     try {
         const response = await fetch(url);
         return await response.json();
-      } catch (err) {
+    } catch (err) {
         console.error("Fetch error:", err);
         return null;
-      }
+    }
 }
 
- async function renderDetail() {
+async function renderDetail() {
     const urlParams = new URLSearchParams(window.location.search);
     const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
     const param2 = urlParams.get(param1) || "";
@@ -137,7 +137,7 @@ async function fetchData(url){
                     <span> ${movieDetail.current_episode} </span>
                 </div>`;
     }
-     console.log(current_episode);
+    console.log(current_episode);
     const control = `<div class="action-buttons">
                     <button class="btn btn-primary" id= "xem-ngay">
                         <i class="fas fa-play"></i>
@@ -168,26 +168,66 @@ async function fetchData(url){
             </div>
         </div>        
     `;
-    content.innerHTML = contentHTML+cateHTML+current_episode+control;
+    content.innerHTML = contentHTML + cateHTML + current_episode + control;
 
     const des = document.querySelector(".des");
     const description = des.querySelector("#description");
     description.innerHTML = movieDetail.description;
 
+    // console.log(movieDetail.episode)
+    const controlLang = document.querySelector(".controls-container")
+    controlLang.innerHTML = movieDetail.episodes.map((server, index) => {
+
+        return `<div class="control-btn" id ="${index}">
+                        <span>${server["server_name"]}</span>
+                    </div>`
+    }).join("");
+
+    controlLang.querySelector(".control-btn").classList.add("active");
+    controlLang.querySelectorAll(".control-btn").forEach((controlBtn) => {
+        controlBtn.addEventListener("click", () => {
+            controlLang.querySelectorAll(".control-btn").forEach(ep => ep.classList.remove('active'));
+            controlBtn.classList.add("active");
+
+            const episode = document.querySelector(".episodes-grid");
+            episode.innerHTML = movieDetail.episodes[controlBtn.id]["items"].map((episode) => {
+                return `  <div class="episode">
+                    <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
+                </div>`
+            }).join("");
+
+            const episodes = document.querySelectorAll('.episode');
+
+    episodes.forEach(episode => {
+        episode.addEventListener('click', function () {
+            console.log(episode);
+
+            const episodeNumber = this.querySelector('.episode-number').id;
+            console.log(episodeNumber);
+            window.location = `/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber}&&server=${controlBtn.id}`;
+
+        });
+    });
+        })
+    })
+
+    //    controlLang.querySelectorAll(".control-btn").forEach(ep => ep.classList.remove('active'));
+
 
     const episode = document.querySelector(".episodes-grid");
-    episode.innerHTML = movieDetail.episodes[0]["items"].map((episode)=>{
+    episode.innerHTML = movieDetail.episodes[0]["items"].map((episode) => {
         return `  <div class="episode">
                     <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
                 </div>`
     }).join("");
 
 
+
     //demo
     const watch = document.querySelector("#xem-ngay");
-    watch.addEventListener("click", ()=>{
-        window.location = `/pages/watch.html?phim=${movieDetail.slug}`;
-        
+    watch.addEventListener("click", () => {
+        window.location = `/pages/watch.html?phim=${movieDetail.slug}&&tap=1&&server=0`;
+
     })
 
     const episodes = document.querySelectorAll('.episode');
@@ -198,12 +238,11 @@ async function fetchData(url){
 
             const episodeNumber = this.querySelector('.episode-number').id;
             console.log(episodeNumber);
-            window.location=`/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber}`;
-            
+            window.location = `/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber}&&server=0`;
+
         });
     });
 
-    
 
 }
 document.addEventListener("DOMContentLoaded", renderDetail());

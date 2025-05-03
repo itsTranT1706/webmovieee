@@ -10,12 +10,14 @@
     --header-height: 70px;
     --sidebar-width: 240px;
 
-    --primary-color: #f5c518;
+    --primary-color: #fade0f;
     --dark-bg: #181818;
     --darker-bg: #121212;
     --light-text: #ffffff;
     --gray-text: #9b9b9b;
     --header-height: 60px;
+
+    --highlight-color: #3a6cf4;
 
 }
 
@@ -153,7 +155,7 @@ header {
     top: 100%;
     left: 0;
     width: 100%;
-    max-height: 300px;
+    max-height: 410px;
     overflow-y: auto;
     background-color: var(--secondary-bg);
     border-radius: 8px;
@@ -206,6 +208,27 @@ header {
     color: #8f96a3;
     gap: 8px; /* Hoặc nhiều hơn nếu cần cách đều hơn */
     align-items: center;
+}
+
+.show-all-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: rgba(58, 108, 244, 0.1);
+    color: var(--highlight-color);
+    font-weight: 500;
+    cursor: pointer;
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.show-all-btn:hover {
+    background-color: rgba(58, 108, 244, 0.2);
+}
+
+.show-all-btn svg {
+    margin-right: 6px;
 }
 
 .nav-links {
@@ -551,7 +574,7 @@ a {
     /* height: 60px; */
     max-width: 1400px;
     margin: 0 auto;
-    padding: 50px;
+    padding: 0 5px;
 }
 
 .video-container {
@@ -770,14 +793,45 @@ a {
     font-size: 20px;
     margin-bottom: 15px;
     display: flex;
+    justify-content: space-between;
+
     align-items: center;
 }
+
+.controls-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.control-btn {
+    background-color: #1f232d;
+    border: 2px solid #2f3543;
+    border-radius: 25px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.control-btn:hover {
+    background-color: #2a303e;
+}
+
+.control-btn.active {
+    border-color: #ebe5e5;
+
+}
+
 
 .episode-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 15px;
     margin-bottom: 40px;
+    border-left: 2px solid #ffd34f;
+    padding: 10px;
 }
 
 .episode-item {
@@ -858,3 +912,11 @@ a {
         max-width: none;
     }
 }  
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #212137;
+    color: #888;
+}

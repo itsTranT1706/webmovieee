@@ -86,10 +86,11 @@ renderWatch = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
     const param2 = urlParams.get(param1) || "";
-    const param3 = window.location.search.match(/\&\&([^=]*)=/)?.[1] || "";
-    console.log(param1);
-    const param4 = urlParams.get(param3) || "";
-    console.log(param4);
+    const param3 = window.location.search.match(/\&\&([^=]*)=/g) || "";
+    // console.log(window.location.search.match(/\&\&([^=]*)=/g));
+    const param4 = urlParams.get(param3[0].match(/\&\&([^=]*)=/)[1]) || "";
+    const param5 = urlParams.get(param3[1].match(/\&\&([^=]*)=/)[1]) || "";
+    // console.log(param5);
     const apiBase = `https://phim.nguonc.com/api/film/${param2}`;
     console.log(apiBase);
     const data = await fetchData(apiBase);
@@ -105,11 +106,10 @@ renderWatch = async () => {
     console.log(iframe);
 
     if (param4=="Full"){
-        iframe.src = movieDetail.episodes[0]["items"][0]["embed"];
+        iframe.src = movieDetail.episodes[param5]["items"][0]["embed"];
     }
     else{
-
-        iframe.src = param4 ? movieDetail.episodes[0]["items"][param4-1]["embed"] : movieDetail.episodes[0]["items"][0]["embed"];
+        iframe.src = param4 ? movieDetail.episodes[param5]["items"][param4-1]["embed"] : movieDetail.episodes[param5]["items"][0]["embed"];
     }
 
     const movie_title = document.querySelector(".movie-title");
@@ -131,6 +131,46 @@ renderWatch = async () => {
         return ` <a  href= "/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate.name)}" class="category">${cate.name}</a> `;
     }).join("");
 
+    // const server = document.createElement(`div`);
+
+    const controlLang = document.querySelector(".controls-container")
+    controlLang.innerHTML = movieDetail.episodes.map((server, index) => {
+
+        return `<div class="control-btn" id ="${index}">
+                        <span>${server["server_name"]}</span>
+                    </div>`
+    }).join("");
+
+    // controlLang.querySelector(".control-btn").classList.add("active");
+    controlLang.querySelectorAll(".control-btn")[param5].classList.add("active");
+    
+    controlLang.querySelectorAll(".control-btn").forEach((controlBtn) => {
+        controlBtn.addEventListener("click", () => {
+            controlLang.querySelectorAll(".control-btn").forEach(ep => ep.classList.remove('active'));
+            controlBtn.classList.add("active");
+            
+            const episode = document.querySelector(".episode-grid");
+            episode.innerHTML = movieDetail.episodes[controlBtn.id]["items"].map((episode) => {
+                return `  <div class="episode-item">
+                <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
+                </div>`
+            }).join("");
+            
+    const episodes = document.querySelectorAll('.episode-item');
+    episodes.forEach(episode => {
+        episode.addEventListener('click', function () {
+            console.log(episode);
+            this.classList.add('active');
+            const episodeNumber = this.querySelector('.episode-number').id;
+            console.log(controlBtn.id);
+            iframe.src = movieDetail.episodes[controlBtn.id]["items"][episodeNumber - 1||0]["embed"];
+            window.scrollTo({ top: 0, behavior: "smooth" });
+
+        });
+    });
+        })
+    })
+
     const episode = document.querySelector(".episode-grid");
     episode.innerHTML = movieDetail.episodes[0]["items"].map((episode) => {
         return `  <div class="episode-item">
@@ -140,6 +180,7 @@ renderWatch = async () => {
 
     // Function to handle episode selection
     const episodeItems = document.querySelectorAll('.episode-item');
+    episodeItems[param4-1||0].classList.add("active");
     episodeItems.forEach(item => {
         item.addEventListener('click', function () {
             episodeItems.forEach(ep => ep.classList.remove('active'));

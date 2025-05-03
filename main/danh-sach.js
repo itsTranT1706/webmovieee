@@ -50,8 +50,8 @@ async function loadMovies(page = 1) {
         <div class="movie-card" data-genre="drama" id="${movie.slug}">
           <img src="${movie.thumb_url}" alt="${movie.name}">
           <div class="movie-info">
-            <span class="rating">PD: 4</span>
-            <span class="episodes">TM: 4</span>
+            <span class="rating">${movie.language}</span>
+            <span class="episodes">${movie.current_episode}</span>
           </div>
           <h3>${movie.name}</h3>
           <p>${movie.director}</p>
