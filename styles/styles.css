@@ -25,6 +25,8 @@
     --dropdown-bg: rgba(18, 20, 30, 0.95);
     --shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 
+    --highlight-color: #3a6cf4;
+
 }
 
 * {
@@ -612,7 +614,7 @@ header {
 
 .fade{
     opacity: 0 !important;
-    transition: opacity 0.5s ;
+    transition: opacity 0.3s ;
     /* transition:  0.5s ease-in-out; */
 
 }
@@ -657,7 +659,7 @@ header {
 
 .trans{
     position: relative;
-    animation: mymove 0.2s;
+    animation: mymove 0.3s;
   animation-fill-mode: forwards;
 }
 
@@ -951,8 +953,11 @@ header {
 }
 
 .movie-section {
-    margin-bottom: 40px;
-    width: 100%;
+    position: relative;
+    margin: 20px 0 40px;
+
+    /* margin-bottom: 40px; */
+    /* width: 100%; */
     
 }
 
@@ -971,6 +976,9 @@ header {
 .section-title h2 {
     font-size: 32px;
     background: linear-gradient(to right, #e9f1f1 0%, #7832ce 100%); 
+    /* background: linear-gradient(to right, #002366 0%, #c08081 100%);  */
+    /* background: linear-gradient(to right, #353839 0%, #ffd700 100%);  */
+    /* background: linear-gradient(to right, #4b0082 0%, #e5e4e2 100%);  */
     background-clip: text;
     color: transparent;
 }
@@ -989,28 +997,27 @@ header {
 }
 
 .movie-carousel {
+    overflow: hidden;
     position: relative;
-    width: 100%;
-    overflow-y: visible;
-    overflow-x: hidden;
-    padding: 20px 0 40px;
+    /* width: 100%; */
+    /* padding: 20px 0 40px; */
     z-index: 20;
 }
 
 .movie-container {
     display: flex ;
     transition: transform 0.5s ease;
+    gap: 16px;
+
 }
 
 .movie-card {
     flex: 0 0 auto;
-    width: 45vh;
-    margin-right: 15px;
+    /* margin-right: 15px; */
     border-radius: var(--border-radius);
-    overflow: visible;
-    position: relative;
+    overflow: hidden;
     transform: scale(1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
@@ -1060,6 +1067,12 @@ header {
     background-color: var(--secondary-tag);
 }
 
+.carousel-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .nav-button {
     position: absolute;
     top: 50%;
@@ -1081,6 +1094,11 @@ header {
 
 .nav-button:hover {
     background-color: rgba(0, 0, 0, 0.9);
+}
+
+.nav-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 .prev-btn {

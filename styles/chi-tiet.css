@@ -25,6 +25,8 @@
     --dropdown-bg: rgba(18, 20, 30, 0.95);
     --shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 
+    --highlight-color: #3a6cf4;
+
 }
 
 
@@ -161,7 +163,7 @@ header {
     top: 100%;
     left: 0;
     width: 100%;
-    max-height: 300px;
+    max-height: 410px;
     overflow-y: auto;
     background-color: var(--secondary-bg);
     border-radius: 8px;
@@ -214,6 +216,27 @@ header {
     color: #8f96a3;
     gap: 8px; /* Hoặc nhiều hơn nếu cần cách đều hơn */
     align-items: center;
+}
+
+.show-all-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: rgba(58, 108, 244, 0.1);
+    color: var(--highlight-color);
+    font-weight: 500;
+    cursor: pointer;
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.show-all-btn:hover {
+    background-color: rgba(58, 108, 244, 0.2);
+}
+
+.show-all-btn svg {
+    margin-right: 6px;
 }
 
 .nav-links {
@@ -729,13 +752,48 @@ a {
     margin-left: 8px;
 }
 
+
+.controls-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-btn {
+    background-color: #1f232d;
+    border: 2px solid #2f3543;
+    border-radius: 25px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.control-btn:hover {
+    background-color: #2a303e;
+}
+
+.control-btn.active {
+    border-color: #ebe5e5;
+
+}
+
 .episodes-grid {
     display: grid;
+    opacity: 1;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 15px;
     margin-bottom: 40px;
+    border-left: 2px solid #ffd34f;
+    padding: 10px;
 }
 
+.episodes-grid.active {
+    opacity: 1;
+
+}
 .episode {
     background-color: #1a1c24;
     border-radius: 8px;
@@ -837,4 +895,12 @@ input:checked + .slider:before {
     opacity: 0.4;
     z-index: 0;
 
+}
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #212137;
+    color: #888;
 }

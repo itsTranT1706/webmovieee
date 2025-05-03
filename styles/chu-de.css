@@ -17,3 +17,10 @@ body {
 .interest-section {
     margin-top: 60px;
 }
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #212137;
+    color: #888;
+}
