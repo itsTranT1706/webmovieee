@@ -512,7 +512,7 @@ async function updateCarousel(country, title, subtitle) {
     if (window.innerWidth >= 1553) {
       visibleCards = 4; // 5 cards on large screens
     } else if (window.innerWidth >= 992) {
-      visibleCards = 3; // 4 cards on medium-large screens
+      visibleCards = 4; // 4 cards on medium-large screens
     } else if (window.innerWidth >= 768) {
       visibleCards = 3; // 3 cards on medium screens
     } else if (window.innerWidth >= 576) {
@@ -586,5 +586,5 @@ async function updateCarousel(country, title, subtitle) {
 }
 document.addEventListener("DOMContentLoaded", updateCarousel("viet-nam", "Phim Việt Nam", "Khung giờ vàng"));
 document.addEventListener("DOMContentLoaded", updateCarousel("han-quoc", "Phim Hàn ", "Drama nảy lửa"));
-document.addEventListener("DOMContentLoaded", updateCarousel("nhat-ban", "Phim Nhật", "wibu "));
+document.addEventListener("DOMContentLoaded", updateCarousel("nhat-ban", "Phim Nhật", "Động anime"));
 

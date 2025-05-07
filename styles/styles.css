@@ -40,9 +40,7 @@
 }
 
 body {
-    /* background-color: #0f0f0f; */
-    background: linear-gradient(to bottom, #1a1a26, #1a1a26);
-
+    background-color: #12151E;
     color: white;
 }
 
@@ -56,10 +54,6 @@ a {
     color: var(--text-color);
 }
 
-/* ul {
-    list-style: none;
-} */
-
 button {
     cursor: pointer;
     background: none;
@@ -67,13 +61,9 @@ button {
     color: var(--text-color);
 }
 
-
-
-
 /* Header styles */
 .site-header {
     height: var(--header-height);
-    /* background-color: var(--primary-bg); */
     background-color: rgba(0, 0, 0, 0);
     transition: background-color 0.4s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
     border-bottom: none !important;
@@ -82,8 +72,7 @@ button {
     left: 0;
     right: 0;
     z-index: 1000;
-    /* border-bottom: 1px solid var(--border-color); */
-    /* opacity: 0.1; */
+  
 }
 
 .site-header.scrolled {
@@ -101,8 +90,6 @@ button {
     justify-content: space-between;
     height: 100%;
     
-    
-
 }
 
 header {
@@ -502,7 +489,7 @@ header {
   .dropdown.active {
     display: block;
     opacity: 1;
-    background-color: #1A1A26;
+    background-color: #12151E;
   }
   
   .dropdown::before {
@@ -606,16 +593,12 @@ header {
     justify-content: flex-end;
     padding: 40vh 40px;
     overflow: hidden;
-    
-    /* z-index: 20; */
     opacity: 1;
-    /* transition: opacity 10s; */
 }
 
 .fade{
     opacity: 0 !important;
     transition: opacity 0.3s ;
-    /* transition:  0.5s ease-in-out; */
 
 }
 
@@ -635,12 +618,11 @@ header {
     content: '';
     position: absolute;
     inset: 0;
-    /* top, right, bottom, left = 0; */
     background:
-        linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
-        linear-gradient(to left, rgba(0, 0, 0, 0) 0%, #1a1a26 100%),
-        linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #1a1a26 180%);
+        linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #12151E 100%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #12151E 100%),
+        linear-gradient(to left, rgba(0, 0, 0, 0) 0%, #12151E 100%),
+        linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #12151E 180%);
     background-repeat: no-repeat;
     background-size: 100% 50px, 100% 100px, 150px 100%, 50px 100%;
     background-position: top, bottom, left, right;
@@ -648,8 +630,6 @@ header {
     pointer-events: none;
 
 }
-
-
 
 .movie-details {
     max-width: 70%;
@@ -675,8 +655,6 @@ header {
     word-wrap: break-word;
     white-space: normal;
     width: 550px;
-
-  
 
 }
 
@@ -813,8 +791,7 @@ header {
     left: 0;
     right: 0;
     height: 150px;
-    /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #0f0f0f 100%); */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #1a1a26 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #12151E 100%);
     z-index: 10;
 }
 
@@ -822,7 +799,6 @@ header {
 .interest-section {
     position: relative;
     z-index: 20;
-    /* padding: 10px 5%; */
     margin-top: -35vh;
     padding: 2rem 2%;
     background-color: rgba(0, 0, 0, 0);
@@ -877,9 +853,7 @@ header {
 }
 
 .category-card.marvel {
-    /* background: linear-gradient(to bottom right, #e96b6b, #ca1313); */
     background: linear-gradient(to bottom right, rgb(119, 97, 180), #AB7B80);
-    /* background: #9C86A0; */
 }
 
 .category-card.fantasy {
@@ -909,8 +883,6 @@ header {
 }
 
 
-
-
 .overlay {
     position: absolute;
     top: 0;
@@ -929,23 +901,11 @@ header {
 }
 
 /* section phim quoc gia */
-
-
-
-/*old  */
-
-/* new  */
-/* #movie-container {
-    display: flex; 
-    height:   38vh;
-    width: 100%;
-    overflow: hidden;
-} */
 #movie-container-hero {
     display: flex;
     flex-direction: column; /* Xếp dọc */
     gap: 1rem;
-    background: linear-gradient(to bottom, #1c1c2b, #1a1a26);
+    background: linear-gradient(to bottom, #1c1c2b, #12151E);
     border-radius: 1rem;
     padding: 2rem 2%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
@@ -956,9 +916,6 @@ header {
     position: relative;
     margin: 20px 0 40px;
 
-    /* margin-bottom: 40px; */
-    /* width: 100%; */
-    
 }
 
 .section-header {
@@ -976,9 +933,6 @@ header {
 .section-title h2 {
     font-size: 32px;
     background: linear-gradient(to right, #e9f1f1 0%, #7832ce 100%); 
-    /* background: linear-gradient(to right, #002366 0%, #c08081 100%);  */
-    /* background: linear-gradient(to right, #353839 0%, #ffd700 100%);  */
-    /* background: linear-gradient(to right, #4b0082 0%, #e5e4e2 100%);  */
     background-clip: text;
     color: transparent;
 }
@@ -1138,10 +1092,10 @@ header {
     inset: 0;
     /* top, right, bottom, left = 0; */
     background:
-        linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #1a1a26 80%),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #1a1a26 80%),
-        linear-gradient(to left, rgba(0, 0, 0, 0) 0%, #1a1a26 80%),
-        linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #1a1a26 80%);
+        linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #12151E 80%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #12151E 80%),
+        linear-gradient(to left, rgba(0, 0, 0, 0) 0%, #12151E 80%),
+        linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #12151E 80%);
     background-repeat: no-repeat;
     background-size: 100% 50px, 100% 80px, 30px 100%, 30px 100%;
     background-position: top, bottom, left, right;
@@ -1362,7 +1316,7 @@ header {
         font-size: 36px;
     }
 }
-@media (min-width: 1329px) and (max-width: 1553px){
+@media (min-width: 1329px) and (max-width: 1567px){
     #more {
         width: minmax(225px,1fr);
         height: 5px !important;

@@ -57,7 +57,7 @@
                 </div>
               </div>
             </div>
-            <div><a class="nav-tab" href="#">Lịch chiếu</a></div>
+            <div><a class="nav-tab" href="#">Forum</a></div>
     
           </div>
     
@@ -116,16 +116,17 @@
                     <div class="meta-item"></div>
                 </div>
 
-                <p class="movie-description">
-                    
-                </p>
-
+                
                 <div class="movie-categories">
                     <div class="category"></div>
                     <div class="category"></div>
                     <div class="category"></div>
                     <div class="category"></div>
                 </div>
+                
+                <p class="movie-description">
+                
+                </p>
 
                 <div class="movie-actions">
                     <div class="rating-info">
@@ -211,6 +212,51 @@
                     <div class="cast-name">Genneya Walton</div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- COMMENT  -->
+    <div class="container">
+        <div class="comments-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-comments"></i>
+                    Bình luận <span class="comment-count">(28)</span>
+                </h2>
+            </div>
+            
+            <!-- Login form (shows when user is not logged in) -->
+            <div id="login-area" class="login-prompt">
+                <p class="login-text">Vui lòng đăng nhập để bình luận</p>
+                <button id="login-btn" class="btn-cmt btn-login">
+                    <i class="fab fa-google"></i>
+                    Đăng nhập với Google
+                </button>
+            </div>
+            
+            <!-- Comment form (shows when user is logged in) -->
+            <div id="comment-form-area" style="display: none;">
+                <form id="comment-form" class="comment-form">
+                    <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..."></textarea>
+                    <div class="form-actions">
+                        <div id="user-info" class="user-info">
+                            <img id="user-avatar" src="/api/placeholder/32/32" alt="Avatar" class="user-avatar">
+                            <span id="user-name" class="user-name">User Name</span>
+                        </div>
+                        <div>
+                            <button type="button" id="logout-btn" class="btn-cmt btn-secondary-cmt">Đăng xuất</button>
+                            <button type="submit" class="btn-cmt btn-primary-cmt">Đăng bình luận</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Comments list -->
+            <div class="comments-list" id="comments-list">
+                <!-- Comment items will be loaded here -->
+            </div>
+            
+            <button class="loadmore-btn" id="load-more">Xem thêm bình luận</button>
         </div>
     </div>
     <footer>

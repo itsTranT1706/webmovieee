@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div><a class="nav-tab" href="#">Lịch chiếu</a></div>
+                <div><a class="nav-tab" href="#">Forum</a></div>
 
             </div>
 
@@ -92,37 +92,37 @@
             </div>
 
             <div class="details">
-                <h1 class="title">Viện Nghiên Cứu Khoai Tây</h1>
-                <h2 class="english-title">The Potato Lab</h2>
+                <h1 class="title"></h1>
+                <h2 class="english-title"></h2>
 
                 <div class="info-row">
                     <div class="info-item">
                         <i class="fas fa-star"></i>
-                        <span>IMDb 6.7</span>
+                        <span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-calendar"></i>
-                        <span>2025</span>
+                        <span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-film"></i>
-                        <span>Phần 1</span>
+                        <span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-list"></i>
-                        <span>Tập 10</span>
+                        <span></span>
                     </div>
                 </div>
 
                 <div class="genre-tags">
-                    <span class="tag">Tình Cảm</span>
-                    <span class="tag">Hài</span>
-                    <span class="tag">Lãng Mạn</span>
+                    <span class="tag"></span>
+                    <span class="tag"></span>
+                    <span class="tag"></span>
                 </div>
 
                 <div class="info-item">
                     <i class="fas fa-play-circle"></i>
-                    <span>Đã chiếu: 10 / 12 tập</span>
+                    <span></span>
                 </div>
 
                 <div class="action-buttons">
@@ -155,11 +155,15 @@
             </div>
         </div>
 
-        <div class="footer des">
-            <p>Mô tả:</p>
-            <p id="description" style="margin-top: 10px;">
-                Cuộc sống của nhà nghiên cứu đầy đam mê nọ thay đổi khi một giám đốc nghiêm khắc đến viện nghiên cứu
-                khoai tây của cô, chứng minh tình yêu có thể nảy mầm ở nơi không ngờ tới nhất. </p>
+        <div class="infor">
+            <div class= "des">
+                <p>Giới thiệu:</p>
+                <p id="description" style="margin-top: 10px;">
+                </p>
+            </div>
+            <div class = "cast">
+                
+            </div>
         </div>
 
         <!-- Tabs -->
@@ -183,19 +187,55 @@
 
             </div>
 
-            <div class="comments-heading">
-                <i class="fas fa-comment"></i>
-                <span>Bình luận (28)</span>
+
+        </div>
+        
+    </div>
+    
+    <!-- COMMENT  -->
+        <div class="container">
+            <div class="comments-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-comments"></i>
+                        Bình luận <span class="comment-count">(28)</span>
+                    </h2>
+                </div>
+                
+                <!-- Login form (shows when user is not logged in) -->
+                <div id="login-area" class="login-prompt">
+                    <p class="login-text">Vui lòng đăng nhập để bình luận</p>
+                    <button id="login-btn" class="btn-cmt btn-login">
+                        <i class="fab fa-google"></i>
+                        Đăng nhập với Google
+                    </button>
+                </div>
+                
+                <!-- Comment form (shows when user is logged in) -->
+                <div id="comment-form-area" style="display: none;">
+                    <form id="comment-form" class="comment-form">
+                        <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..."></textarea>
+                        <div class="form-actions">
+                            <div id="user-info" class="user-info">
+                                <img id="user-avatar" src="/api/placeholder/32/32" alt="Avatar" class="user-avatar">
+                                <span id="user-name" class="user-name">User Name</span>
+                            </div>
+                            <div>
+                                <button type="button" id="logout-btn" class="btn-cmt btn-secondary-cmt">Đăng xuất</button>
+                                <button type="submit" class="btn-cmt btn-primary-cmt">Đăng bình luận</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Comments list -->
+                <div class="comments-list" id="comments-list">
+                    <!-- Comment items will be loaded here -->
+                </div>
+                
+                <button class="loadmore-btn" id="load-more">Xem thêm bình luận</button>
             </div>
         </div>
-
-
-
-
-
-
-    </div>
-
 
     <footer>
         <p>© 2025 Phe Phim vl.</p>
