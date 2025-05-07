@@ -26,6 +26,12 @@
 
   --highlight-color: #3a6cf4;
 
+  --button-bg: #2a2a2a;
+  --button-hover: #333333;
+  --transition: all 0.3s ease;
+  --primary-color: #828080;
+
+
 }
 
 
@@ -37,7 +43,7 @@
 }
 
 body {
-  background-color: #0f1117;
+  background-color: #12151E;
   color: #ffffff;
 }
 

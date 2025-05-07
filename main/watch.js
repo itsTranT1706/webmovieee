@@ -8,17 +8,6 @@ function removeVietnameseTones(str) {
         .trim();
 }
 
-
-
-// const urlParams = new URLSearchParams(window.location.search);
-// const param1 = window.location.search.match(/\?([^=]*)=/)[1] ;
-// const param3 = window.location.search.match(/\&\&([^=]*)=/)[1]; 
-// console.log(param1);
-// const param2 = urlParams.get(param1) || "";
-// const param4 = urlParams.get(param3) || "";
-// console.log(param4);
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const playPauseBtn = document.getElementById('playPauseBtn');
     const videoPlayer = document.getElementById('videoPlayer');
@@ -36,13 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         isPlaying = !isPlaying;
     });
-
-    // For handling embedded video
-    function setupEmbeddedVideo(embedCode) {
-        // This is where you would integrate your embedded video code
-        // For example:
-        // videoPlayer.innerHTML = embedCode;
-    }
 
     // Function to handle episode selection
     const episodeItems = document.querySelectorAll('.episode-item');
@@ -105,7 +87,7 @@ renderWatch = async () => {
     const iframe = document.querySelector("iframe");
     console.log(iframe);
 
-    if (param4=="Full"){
+    if (param4=="Full" || param4=="FULL"){
         iframe.src = movieDetail.episodes[param5]["items"][0]["embed"];
     }
     else{
