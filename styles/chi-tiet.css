@@ -103,7 +103,13 @@ header {
     display: flex;
     flex-direction: column;
 }
+.logo-text {
+    display: flex;
+}
+#style div {
+    color: #3498db;
 
+}
 .logo img {
     height: 40px;
     margin-right: 5px;

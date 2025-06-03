@@ -886,7 +886,7 @@ async function renderDetail() {
     const urlParams = new URLSearchParams(window.location.search);
     const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
     const param2 = urlParams.get(param1) || "";
-    const apiBase = `https://phim.nguonc.com/api/film/${param2}`;
+    const apiBase = `http://localhost:8000/api/movies/phim/${param2}`;
     console.log(apiBase);
     const data = await fetchData(apiBase);
     const movieDetail = data.movie;
@@ -894,19 +894,19 @@ async function renderDetail() {
 
     const heroBack = document.querySelector(".hero-container");
     const img = heroBack.querySelector("img");
-    console.log(img);
-    img.src = movieDetail.poster_url;
+    console.log("Asdcsd",movieDetail.name);
+    img.src = movieDetail.thumb_url;
 
     const content = document.querySelector(".movie-info");
-    console.log(content);
+    // console.log(content);
     const contentHTML = `
     <div class="poster">
-                <img src="${movieDetail.thumb_url}" alt="Movie poster">
+                <img src="${movieDetail.poster_url}" alt="Movie poster">
             </div>
             
             <div class="details">
                 <h1 class="title">${movieDetail.name}</h1>
-                <h2 class="english-title">${movieDetail.original_name}</h2>
+                <h2 class="english-title">${movieDetail.origin_name}</h2>
                 
                 <div class="info-row">
                     <div class="info-item">
@@ -915,11 +915,11 @@ async function renderDetail() {
                     </div>
                     <div class="info-item">
                         <i class="fas fa-film"></i>
-                        <span>${movieDetail.language}</span>
+                        <span>${movieDetail.lang}</span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-calendar"></i>
-                        <span>${movieDetail.category["3"]["list"][0]["name"]}</span>
+                        <span>${movieDetail.year}</span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-list"></i>
@@ -928,27 +928,28 @@ async function renderDetail() {
                 </div>
                 `;
 
-    const cateHTML = ` <div class="genre-tags">` + movieDetail.category["2"]["list"].map((cate) => {
-        return `<a href="../pages/danh-sach.html?the-loai=${removeVietnameseTones(cate.name)}" class="tag">${cate.name}</a>`;
+    const cateHTML = ` <div class="genre-tags">` + movieDetail.category.map((cate) => {
+        return `<a href="../pages/danh-sach.html?the-loai=${(cate.slug)}" class="tag">${cate.name}</a>`;
     }).join("") + `</div>`;
 
     // console.log(contentHTML);
 
-    let current_episode = "";
+    let episode_current = "";
 
-    if (movieDetail.category["1"]["list"][0]["name"] == "Phim bộ") {
-        current_episode = ` <div class="info-item">
+    if (movieDetail.type== "series") {
+        episode_current = ` <div class="info-item">
                     <i class="fas fa-play-circle"></i>
-                    <span> ${movieDetail.current_episode} / ${movieDetail.total_episodes} </span>
+                    <span> ${movieDetail.episode_current} / ${movieDetail.episode_total} </span>
                 </div>`;
     }
     else {
-        current_episode = `<div class="info-item">
+        episode_current = `<div class="info-item">
                     <i class="fas fa-play-circle"></i>
-                    <span> ${movieDetail.current_episode} </span>
+                    <span> ${movieDetail.episode_current} </span>
                 </div>`;
     }
-    console.log(current_episode);
+    // console.log("current",episode_current);
+
     const control = `<div class="action-buttons">
                     <button class="btn btn-primary" id= "xem-ngay">
                         <i class="fas fa-play"></i>
@@ -979,31 +980,34 @@ async function renderDetail() {
             </div>
         </div>        
     `;
-    content.innerHTML = contentHTML + cateHTML + current_episode + control;
+
+    content.innerHTML = contentHTML + cateHTML + episode_current + control;
 
     const des = document.querySelector(".des");
     const description = des.querySelector("#description");
-    description.innerHTML = movieDetail.description;
+    description.innerHTML = movieDetail.content;
 
     // console.log(movieDetail.episode)
-    const controlLang = document.querySelector(".controls-container")
-    controlLang.innerHTML = movieDetail.episodes.map((server, index) => {
+    const controlLang = document.querySelector(".controls-container");
+    // console.log(movieDetail);
+    controlLang.innerHTML = data.episodes.map((server, index) => {
 
         return `<div class="control-btn" id ="${index}">
                         <span>${server["server_name"]}</span>
                     </div>`
     }).join("");
 
-    controlLang.querySelector(".control-btn").classList.add("active");
+    controlLang.querySelector(".control-btn").classList.add("active"); //đánh active vào server đầu tiên
     controlLang.querySelectorAll(".control-btn").forEach((controlBtn) => {
         controlBtn.addEventListener("click", () => {
             controlLang.querySelectorAll(".control-btn").forEach(ep => ep.classList.remove('active'));
+
             controlBtn.classList.add("active");
 
             const episode = document.querySelector(".episodes-grid");
-            episode.innerHTML = movieDetail.episodes[controlBtn.id]["items"].map((episode) => {
+            episode.innerHTML = data.episodes[controlBtn.id]["server_data"].map((episode, index) => {
                 return `  <div class="episode">
-                    <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
+                    <div class="episode-number" id = "${index}">${episode.name}</div>
                 </div>`
             }).join("");
 
@@ -1013,9 +1017,9 @@ async function renderDetail() {
         episode.addEventListener('click', function () {
             console.log(episode);
 
-            const episodeNumber = this.querySelector('.episode-number').id;
-            console.log(episodeNumber);
-            window.location = `/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber}&&server=${controlBtn.id}`;
+            const episodeNumber = parseInt(this.querySelector('.episode-number').id);
+            // console.log(episodeNumber);
+            window.location = `/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber+1}&&server=${controlBtn.id}`;
 
         });
     });
@@ -1026,12 +1030,11 @@ async function renderDetail() {
 
 
     const episode = document.querySelector(".episodes-grid");
-    episode.innerHTML = movieDetail.episodes[0]["items"].map((episode) => {
+    episode.innerHTML = data.episodes[0]["server_data"].map((episode, index) => {
         return `  <div class="episode">
-                    <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
+                    <div class="episode-number" id = "${index}">${episode.name}</div>
                 </div>`
     }).join("");
-
 
 
     //demo
@@ -1047,9 +1050,9 @@ async function renderDetail() {
         episode.addEventListener('click', function () {
             console.log(episode);
 
-            const episodeNumber = this.querySelector('.episode-number').id;
+            const episodeNumber =  parseInt(this.querySelector('.episode-number').id)  ;
             console.log(episodeNumber);
-            window.location = `/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber}&&server=0`;
+            window.location = `/pages/watch.html?phim=${movieDetail.slug}&&tap=${episodeNumber+1}&&server=0`;
 
         });
     });
