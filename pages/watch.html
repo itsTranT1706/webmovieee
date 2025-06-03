@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xem Phim</title>
     <link rel="stylesheet" href="/styles/watch.css">
+    <link rel="stylesheet" href="/styles/comment.css">
     <link rel="stylesheet" href="/styles/login.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -274,50 +275,43 @@
         </div>
     </div>
 
-    <!-- COMMENT  -->
-    <div class="container">
-        <div class="comments-section">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="fas fa-comments"></i>
-                    Bình luận <span class="comment-count">(28)</span>
-                </h2>
-            </div>
-            
-            <!-- Login form (shows when user is not logged in) -->
-            <div id="login-area" class="login-prompt">
-                <p class="login-text">Vui lòng đăng nhập để bình luận</p>
-                <button id="login-btn" class="btn-cmt btn-login">
-                    <i class="fab fa-google"></i>
-                    Đăng nhập với Google
-                </button>
-            </div>
-            
-            <!-- Comment form (shows when user is logged in) -->
-            <div id="comment-form-area" style="display: none;">
-                <form id="comment-form" class="comment-form">
-                    <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..."></textarea>
-                    <div class="form-actions">
-                        <div id="user-info" class="user-info">
-                            <img id="user-avatar" src="/api/placeholder/32/32" alt="Avatar" class="user-avatar">
-                            <span id="user-name" class="user-name">User Name</span>
+ <!-- COMMENT  -->
+        <div class="container">
+            <div class="comments-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-comments"></i>
+                        Bình luận <span class="comment-count">(28)</span>
+                    </h2>
+                </div>
+                
+                <!-- Login form (shows when user is not logged in) -->
+               
+                
+                <!-- Comment form (shows when user is logged in) -->
+                <div id="comment-form-area" style="display: none;">
+                    <form id="comment-form" class="comment-form">
+                        <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..."></textarea>
+                        <div class="form-actions">
+                            <div id="user-info" class="user-info">
+                                <img id="user-avatar" src="/api/placeholder/32/32" alt="Avatar" class="user-avatar">
+                                <span id="user-name" class="user-name">User Name</span>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn-cmt btn-primary-cmt">Đăng bình luận</button>
+                            </div>
                         </div>
-                        <div>
-                            <button type="button" id="logout-btn" class="btn-cmt btn-secondary-cmt">Đăng xuất</button>
-                            <button type="submit" class="btn-cmt btn-primary-cmt">Đăng bình luận</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                
+                <!-- Comments list -->
+                <div class="comments-list" id="comments-list">
+                    <!-- Comment items will be loaded here -->
+                </div>
+                
             </div>
-            
-            <!-- Comments list -->
-            <div class="comments-list" id="comments-list">
-                <!-- Comment items will be loaded here -->
-            </div>
-            
-            <button class="loadmore-btn" id="load-more">Xem thêm bình luận</button>
         </div>
-    </div>
+
     <footer>
         <p>© 2025 Phe Phim vl.</p>
     </footer>
