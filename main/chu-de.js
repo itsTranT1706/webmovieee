@@ -1,13 +1,36 @@
 // bạn quan tâm gì category
 const category = document.querySelector(".category-grid");
 const arrColor = ["marvel", "fantasy", "sitcom", "action", "scifi", "mature"];
-const arrCate = ["Hành Động", "Phiêu Lưu", "Hoạt Hình", "Hình Sự", "Tài Liệu", "Chính Kịch", "Gia Đình", "Giả Tưởng", "Lịch Sử", "Kinh Dị", "Nhạc", "Bí Ẩn", "Lãng Mạn", "Khoa Học Viễn Tưởng", "Gây Cấn", "Chiến Tranh", "Tâm Lý", "Tình Cảm", "Cổ Trang", "Miền Tây", "Phim 18+"];
-const cates = ["hanh-dong", "phieu-luu", "hoat-hinh", "hinh-su", "tai-lieu", "chinh-kich", "gia-dinh", "gia-tuong", "lich-su", "kinh-di", "nhac", "bi-an", "lang-man", "khoa-hoc-vien-tuong", "gay-can", "chien-tranh", "tam-ly", "tinh-cam", "co-trang", "mien-tay", "phim-18"];
+const arrCate = ["Hành Động","Cổ Trang","Chiến Tranh","Viễn Tưởng","Kinh Dị","Tài Liệu","Bí Ẩn","Phim 18+","Tình Cảm","Tâm Lý","Thể Thao","Phiêu Lưu","Âm Nhạc","Gia Đình","Học Đường","Hài Hước","Hình Sự","Võ Thuật","Khoa Học","Thần Thoại","Chính Kịch","Kinh Điển"];
+const cates = [
+    "hanh-dong",
+    "co-trang",
+    "chien-tranh",
+    "vien-tuong",
+    "kinh-di",
+    "tai-lieu",
+    "bi-an",
+    "phim-18+",
+    "tinh-cam",
+    "tam-ly",
+    "the-thao",
+    "phieu-luu",
+    "am-nhac",
+    "gia-dinh",
+    "hoc-duong",
+    "hai-huoc",
+    "hinh-su",
+    "vo-thuat",
+    "khoa-hoc",
+    "than-thoai",
+    "chinh-kich",
+    "kinh-dien"
+  ];
 let str = "";
 // console.log(window.location.pathname);
 let length = arrCate.length;
 if (!window.location.pathname.includes("/pages/chu-de.html")>0) {
-    length -= 15;
+    length -= 16;
 }
 // console.log(length);
 for (let i = 0; i < length; i++) {

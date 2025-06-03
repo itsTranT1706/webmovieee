@@ -117,7 +117,13 @@ header {
     display: flex;
     flex-direction: column;
 }
+.logo-text {
+    display: flex;
+}
+#style div {
+    color: #3498db;
 
+}
 .logo img {
     height: 40px;
     margin-right: 5px;
@@ -569,20 +575,7 @@ header {
 
 
 
-.login-btn {
-    display: flex;
-    align-items: center;
-    background-color: #e4e3e3;
-    color: var(--primary-bg);
-    padding: 13px 25px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-}
 
-.login-btn i {
-    margin-right: 5px;
-}
 
 .hero {
     position: relative;
@@ -806,7 +799,9 @@ header {
 }
 
 .interest-section h2 {
+    border-left: 5px solid rgb(43, 141, 232);
     margin-bottom: 25px;
+    padding-left: 7px;
     font-size: 24px;
 }
 

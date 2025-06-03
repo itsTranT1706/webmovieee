@@ -3,9 +3,9 @@ const param1 = window.location.search.match(/\?([^=]*)=/)?.[1] || "";
 console.log(param1);
 const param2 = urlParams.get(param1) || "";
 
-const apiBase = `https://phim.nguonc.com/api/films`;
+const apiBase = `http://localhost:8000/api/movies`;
 let api = ""; 
-if (param1=="search"){
+if (param1=="tim-kiem"){
    api = `${apiBase}/${param1}?keyword=${param2}`;
   console.log(api)
 } 
@@ -21,9 +21,11 @@ const movieGridElement = document.querySelector(".movieGrid");
 
 async function fetchMovieData(page = 1) {
   try {
-    const res = await fetch(`${api}&&page=${page}`);
+    console.log(api)
+    const res = await fetch(`${api}&page=${page}`);
     if (!res.ok) throw new Error("API error");
     // console.log("res", await res)
+    // console.log("res", res.body);
     return await res.json();
   } catch (err) {
     console.error("Lỗi khi fetch dữ liệu:", err);
@@ -33,28 +35,22 @@ async function fetchMovieData(page = 1) {
 }
 
 async function loadMovies(page = 1) {
-  const data = await fetchMovieData(page);
-  console.log(data);
+  const data1 = await fetchMovieData(page);
+  const data = data1.data;
+  const domainImg = (data.APP_DOMAIN_CDN_IMAGE != null)? `${data.APP_DOMAIN_CDN_IMAGE}/` : "";
   if (!data) return;
 
-  if (param2 !== "") {
-    let temp = data?.cat?.title;
-    if (temp == null){
-       temp = `Tìm kiếm cho ${param2}` ;
-    }
-    document.querySelector(".header").innerHTML = `<h1>${temp}</h1>`;
-
-  }
+  document.querySelector(".header").innerHTML = `<h1>${data.titlePage}</h1>`;
 
   const html = data.items.map(movie => `
         <div class="movie-card" data-genre="drama" id="${movie.slug}">
-          <img src="${movie.thumb_url}" alt="${movie.name}">
+          <img src="${domainImg}${movie.poster_url}" alt="${movie.name}">
           <div class="movie-info">
-            <span class="rating">${movie.language}</span>
-            <span class="episodes">${movie.current_episode}</span>
+            <span class="rating">${movie.lang}</span>
+            <span class="episodes">${movie.episode_current}</span>
           </div>
           <h3>${movie.name}</h3>
-          <p>${movie.director}</p>
+          <p>${movie.origin_name}</p>
         </div>
       `).join("");
 
@@ -71,8 +67,8 @@ async function loadMovies(page = 1) {
   })
 
   // Update pagination
-  currentPage = data.paginate.current_page;
-  totalPages = Math.ceil(data.paginate.total_items / data.paginate.items_per_page);
+  currentPage = data.params.pagination.currentPage;
+  totalPages = data.params.pagination.totalPages;
   generatePagination();
 
 }

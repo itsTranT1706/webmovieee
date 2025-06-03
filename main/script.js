@@ -21,13 +21,13 @@ async function fetchData(url) {
   }
 }
 
+ 
 async function filterMovies(searchTerm) {
   if (!searchTerm) return [];
   searchTerm = searchTerm.toLowerCase();
   console.log("alo", searchTerm);
-  const movieRaw = await fetchData(`https://phim.nguonc.com/api/films/search?keyword=${searchTerm}`);
-  console.log(`https://phim.nguonc.com/api/films/search?keyword=${searchTerm}`);
-  return movieRaw.items;
+  const movieRaw = await fetchData(`http://localhost:8000/api/movies/tim-kiem?keyword=${searchTerm}`);
+  return movieRaw.data;
 
 }
 
@@ -90,16 +90,16 @@ function renderSuggestions(suggestions) {
     const item = document.createElement('div');
     // const cate = movie.cate
     item.className = 'suggestion-item';
-
+    console.log()
     item.innerHTML = `
-              <img class="suggestion-poster" src="${movie.thumb_url}" alt="${movie.name}">
+              <img class="suggestion-poster" src="https://phimimg.com/${movie.poster_url}" alt="${movie.name}">
               <div class="suggestion-info">
                   <div class="suggestion-title">${movie.name}</div>
-                  <div class="suggestion-year">${movie.original_name}</div>
+                  <div class="suggestion-year">${movie.origin_name}</div>
                   <div class="suggestion-year">
                                                    <span class="genre-tag">${movie.quality}</span>
-                                                   <span class="genre-tag">${movie.language}</span>
-                                                   <span class="genre-tag">${movie.current_episode}</span>
+                                                   <span class="genre-tag">${movie.lang}</span>
+                                                   <span class="genre-tag">${movie.episode_current}</span>
                                                    
                           </div>
           `;
@@ -125,7 +125,7 @@ function renderSuggestions(suggestions) {
     `;
 
     showAllBtn.addEventListener('click', () => {
-      window.location = `/pages/danh-sach.html?search=${searchInput.value}`;
+      window.location = `/pages/danh-sach.html?tim-kiem=${searchInput.value}`;
     });
 
     suggestionBox.appendChild(showAllBtn);
@@ -155,7 +155,7 @@ searchInput.addEventListener('input', () => {
     if (searchInput.value.trim() !== '') {
       const filteredMovies = await filterMovies(searchInput.value);
       // console.log(filteredMovies);
-      renderSuggestions(filteredMovies);
+      renderSuggestions(filteredMovies.items);
       suggestionBox.classList.add('visible');
     }
   }, 1000);
@@ -166,7 +166,7 @@ searchInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
     console.log(searchInput.value);
-    window.location = `/pages/danh-sach.html?search=${searchInput.value}`
+    window.location = `/pages/danh-sach.html?tim-kiem=${searchInput.value}`
     // window.location = `/demo2.html`
 
     clearTimeout(debounceTimer);
@@ -270,16 +270,17 @@ document.addEventListener('click', (e) => {
 // Update Hero section
 async function updateHero(slug) {
   // console.log("api", `https://phim.nguonc.com/api/film/${slug}`);
-  const data = await fetchData(`https://phim.nguonc.com/api/film/${slug}`);
+  const data = await fetchData(`http://localhost:8000/api/movies/phim/${slug}`);
+  console.log("data", data)
   // const data = await fetchData(`https://ophim1.com/phim/${slug}`);
-  console.log(`https://ophim1.com/phim/${slug}`);
+  // console.log(`https://ophim1.com/phim/${slug}`);
   if (!data) return;
 
   document.querySelector(".movie-title-hero").textContent = data.movie.name;
   document.querySelector(".imdb-rating").textContent = data.movie.quality;
-  document.querySelector(".language").textContent = data.movie.language;
-  document.querySelector(".created").textContent = data.movie.created.split("-")[0];
-  document.querySelector(".current_episode").textContent = data.movie.current_episode;
+  document.querySelector(".language").textContent = data.movie.lang;
+  document.querySelector(".created").textContent = data.movie.year;
+  document.querySelector(".current_episode").textContent = data.movie.episode_current;
   document.querySelector(".time").textContent = data.movie.time;
   document.querySelector(".controls").innerHTML = `<div class="play-btn">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
@@ -300,11 +301,11 @@ async function updateHero(slug) {
                     </div>`;
 
   const genreTag = document.querySelector(".categories");
-  genreTag.innerHTML = data.movie.category["2"]["list"]
+  genreTag.innerHTML = data.movie.category
     .map(item => `<a href="/pages/danh-sach.html?the-loai=${removeVietnameseTones(item.name)}" class="category">${item.name}</a>`)
     .join('');
 
-  document.querySelector(".hero-description").innerHTML = `<p>${data.movie.description}</p>`;
+  document.querySelector(".hero-description").innerHTML = `<p>${data.movie.content}</p>`;
 
   // Navigation buttons
   document.querySelector(".info-btn")?.addEventListener("click", () => {
@@ -323,7 +324,7 @@ async function setupBanner() {
   const banner = document.querySelector(".hero");
   const thumbContainer = document.querySelector(".thumbnails");
 
-  const filmList = await fetchData("https://phim.nguonc.com/api/films/the-loai/khoa-hoc-vien-tuong?page=156");
+  const filmList = await fetchData("http://localhost:8000/api/movies/phim-moi-nhat");
   if (!filmList || !filmList.items.length) return;
 
   const thumbnailsHTML = filmList.items.slice(2, 9).map((film, index) => {
@@ -378,8 +379,8 @@ setupBanner();
 
 // //CAROUSEL
 async function updateCarousel(country, title, subtitle) {
-  const movieData = await fetchData(`https://phim.nguonc.com/api/films/quoc-gia/${country}`);
-  if (!movieData?.items?.length) return;
+  const movieData = await fetchData(`http://localhost:8000/api/movies/quoc-gia/${country}`);
+  if (!movieData.data?.items?.length) return;
 
   const section = document.getElementById("movie-container-hero");
 
@@ -423,7 +424,7 @@ async function updateCarousel(country, title, subtitle) {
   function generateCards() {
     container.innerHTML = '';
 
-    for (const film of movieData.items) {
+    for (const film of movieData.data.items) {
       // const detail = await fetchData(`https://phim.nguonc.com/api/film/${film.slug}`);
       // const movie = detail.movie;
       const movie = film;
@@ -436,7 +437,8 @@ async function updateCarousel(country, title, subtitle) {
       //  card.setAttribute("id", movie.slug);
       const img = card.querySelector('img');
       // console.log(img);
-      img.src = movie.poster_url;
+      img.src = `${movieData.data.APP_DOMAIN_CDN_IMAGE}/${movie.poster_url}`;
+      // console.log(img.src)
       // img.alt = movie.name;
 
       card.querySelector('.movie-title').textContent = movie.name;
@@ -448,17 +450,17 @@ async function updateCarousel(country, title, subtitle) {
 
       const tags = card.querySelector(".movie-tags");
       tags.innerHTML = "";
-      if (movie.language) {
+      if (movie.lang) {
         const tagLang = document.createElement("span");
         tagLang.className = "tag pd-tag";
-        tagLang.textContent = movie.language;
+        tagLang.textContent = movie.lang;
         tags.appendChild(tagLang);
       }
 
-      if (movie.current_episode) {
+      if (movie.episode_current) {
         const tagEp = document.createElement("span");
         tagEp.className = "tag tm-tag";
-        tagEp.textContent = movie.current_episode;
+        tagEp.textContent = movie.episode_current;
         tags.appendChild(tagEp);
       }
 

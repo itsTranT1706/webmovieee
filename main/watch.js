@@ -73,50 +73,52 @@ renderWatch = async () => {
     const param4 = urlParams.get(param3[0].match(/\&\&([^=]*)=/)[1]) || "";
     const param5 = urlParams.get(param3[1].match(/\&\&([^=]*)=/)[1]) || "";
     // console.log(param5);
-    const apiBase = `https://phim.nguonc.com/api/film/${param2}`;
+    const apiBase = `http://localhost:8000/api/movies/phim/${param2}`;
     console.log(apiBase);
     const data = await fetchData(apiBase);
     const movieDetail = data.movie;
-    console.log(movieDetail);
+    // console.log(movieDetail);
 
     const poster = document.querySelector(".movie-poster");
     const img = poster.querySelector("img");
     // console.log(img);
-    img.src = movieDetail.thumb_url;
+    img.src = movieDetail.poster_url;
 
     const iframe = document.querySelector("iframe");
-    console.log(iframe);
+    // console.log(iframe);
 
     if (param4=="Full" || param4=="FULL"){
-        iframe.src = movieDetail.episodes[param5]["items"][0]["embed"];
+        iframe.src = data.episodes[param5]["server_data"][0]["link_embed"];
     }
     else{
-        iframe.src = param4 ? movieDetail.episodes[param5]["items"][param4-1]["embed"] : movieDetail.episodes[param5]["items"][0]["embed"];
+        // console.log(data.episodes);
+        iframe.src = param4 ? data.episodes[param5]["server_data"][param4-1]["link_embed"] : data.episodes[param5]["server_data"][0]["link_embed"];
     }
 
     const movie_title = document.querySelector(".movie-title");
     const movie_subtitle = document.querySelector(".movie-subtitle");
     movie_title.textContent = movieDetail.name;
-    movie_subtitle.textContent = movieDetail.original_name;
+    movie_subtitle.textContent = movieDetail.origin_name;
+    // console.log(movieDetail.origin_name);
 
     const meta = document.querySelector(".movie-meta");
     meta.innerHTML = `<div class="meta-item imdb">${movieDetail.quality}</div>
-                    <div class="meta-item">${movieDetail.language}</div>
-                    <div class="meta-item">${movieDetail.category["3"]["list"][0]["name"]}</div>
-                    <div class="meta-item">${movieDetail.category["1"]["list"][0]["name"]}</div>
-                    <div class="meta-item">Đã chiếu ${movieDetail.current_episode}/${movieDetail.total_episodes}</div>
+                    <div class="meta-item">${movieDetail.lang}</div>
+                    <div class="meta-item">${movieDetail.year}</div>
+                    <div class="meta-item">${movieDetail.time}</div>
+                    <div class="meta-item">Đã chiếu ${movieDetail.episode_current}</div>
                     `;
     const des = document.querySelector(".movie-description");
-    des.innerHTML = movieDetail.description;
+    des.innerHTML = movieDetail.content;
     const gens = document.querySelector(".movie-categories");
-    gens.innerHTML = movieDetail.category["2"]["list"].map((cate) => {
+    gens.innerHTML = movieDetail.category.map((cate) => {
         return ` <a  href= "/pages/danh-sach.html?the-loai=${removeVietnameseTones(cate.name)}" class="category">${cate.name}</a> `;
     }).join("");
 
     // const server = document.createElement(`div`);
 
     const controlLang = document.querySelector(".controls-container")
-    controlLang.innerHTML = movieDetail.episodes.map((server, index) => {
+    controlLang.innerHTML = data.episodes.map((server, index) => {
 
         return `<div class="control-btn" id ="${index}">
                         <span>${server["server_name"]}</span>
@@ -132,9 +134,9 @@ renderWatch = async () => {
             controlBtn.classList.add("active");
             
             const episode = document.querySelector(".episode-grid");
-            episode.innerHTML = movieDetail.episodes[controlBtn.id]["items"].map((episode) => {
+            episode.innerHTML = data.episodes[controlBtn.id]["server_data"].map((episode, index) => {
                 return `  <div class="episode-item">
-                <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
+                <div class="episode-number" id = "${index}">${episode.name}</div>
                 </div>`
             }).join("");
             
@@ -143,9 +145,9 @@ renderWatch = async () => {
         episode.addEventListener('click', function () {
             console.log(episode);
             this.classList.add('active');
-            const episodeNumber = this.querySelector('.episode-number').id;
-            console.log(controlBtn.id);
-            iframe.src = movieDetail.episodes[controlBtn.id]["items"][episodeNumber - 1||0]["embed"];
+            const episodeNumber = parseInt(this.querySelector('.episode-number').id);
+            console.log(episodeNumber);
+            iframe.src = movieDetail.episodes[controlBtn.id]["server_data"][episodeNumber || 0 ]["link_embed"];
             window.scrollTo({ top: 0, behavior: "smooth" });
 
         });
@@ -154,9 +156,9 @@ renderWatch = async () => {
     })
 
     const episode = document.querySelector(".episode-grid");
-    episode.innerHTML = movieDetail.episodes[0]["items"].map((episode) => {
+    episode.innerHTML = data.episodes[0]["server_data"].map((episode, index) => {
         return `  <div class="episode-item">
-                    <div class="episode-number" id = "${episode.name}">Tập ${episode.name}</div>
+                    <div class="episode-number" id = "${index}">${episode.name}</div>
                 </div>`
     }).join("");
 
@@ -169,8 +171,8 @@ renderWatch = async () => {
             this.classList.add('active');
             // Here you would load the selected episode
             const episodeNumber = this.querySelector('.episode-number').id;
-            console.log(movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"]);
-            iframe.src = movieDetail.episodes[0]["items"][episodeNumber - 1]["embed"];
+            // console.log(data.episodes[0]["server_data"][episodeNumber]["link_embed"]);
+            iframe.src = data.episodes[0]["server_data"][episodeNumber]["link_embed"];
 
             // Scroll to top of player
             window.scrollTo({ top: 0, behavior: "smooth" });

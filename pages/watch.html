@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xem Phim</title>
     <link rel="stylesheet" href="/styles/watch.css">
+    <link rel="stylesheet" href="/styles/login.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -20,7 +21,7 @@
             <a href="/" class="logo">
               <img id="logo" src="../image/logo.webp" alt="RoPhim Logo">
               <div id="style">
-                <span class="logo-text">PhePhim</span>
+                <span class="logo-text">Phe<div>Phim</div></span>
                 <small>Phim hay vl</small>
               </div>
             </a>
@@ -44,7 +45,7 @@
           <div class="nav-tabs">
     
             <div><a class="nav-tab" href="../pages/chu-de.html">Chủ Đề</a></div>
-            <div><a class="nav-tab" href="../pages/danh-sach.html?phim-moi-cap-nhat=">Duyệt tìm</a></div>
+            <div><a class="nav-tab" href="../pages/danh-sach.html?nam=2025">Duyệt tìm</a></div>
             <div><a class="nav-tab" href="../pages/danh-sach.html?the-loai=phim-le">Phim Lẻ</a></div>
             <div><a class="nav-tab" href="../pages/danh-sach.html?the-loai=phim-bo">Phim Bộ</a></div>
             <div><a class="nav-tab" href="../pages/danh-sach.html?the-loai=tv-shows">TV Shows</a></div>
@@ -57,22 +58,80 @@
                 </div>
               </div>
             </div>
-            <div><a class="nav-tab" href="#">Forum</a></div>
+            <div><a class="nav-tab" href="#">Xem chung</a></div>
     
           </div>
-    
           <div class="header-right">
-    
-            <a href="#" class="login-btn">
-              <i class="fas fa-user"></i>
-              Đăng nhập
-            </a>
-            <!-- <img src="../image/logo.webp.me/images/event_304/vn-flag-full.gif" alt="Computer man" class = "flag" style="width:48px;height:48px;"> -->
+            <button class="login-btn" onclick="openModal()">Đăng nhập</button>
+            <div class="user-section" style="display: none;">
+                <button class="user-btn" onclick="toggleDropdown()">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <span id="userName">User</span>
+                </button>
+                <div class="dropdown-login" id="userDropdown">
+                    <div class="dropdown-item" onclick="showWatchHistory()">Lịch sử xem</div>
+                <div class="dropdown-item" onclick="showFavorites()">Yêu thích</div>
+                <div class="dropdown-item" onclick="showAccountInfo()">Thông tin tài khoản</div>
+                <div class="dropdown-item logout" onclick="logout()">Đăng xuất</div>
+                </div>
+            </div>
           </div>
         </div>
       </header>
 
 
+       <!-- Modal login -->
+    <div class="modal" id="authModal">
+      <div class="modal-content">
+          <button class="close-btn" onclick="closeModal()">&times;</button>
+          
+          <div class="form-container">
+              <h2 class="form-title">Welcome Back!</h2>
+              
+              <div class="form-tabs">
+                  <button class="tab-btn active" onclick="showLogin()">Login</button>
+                  <button class="tab-btn" onclick="showRegister()">Register</button>
+              </div>
+
+              <div class="success-message" id="successMessage"></div>
+
+              <!-- Login Form -->
+              <form class="form active" id="loginForm">
+                  <div class="form-group">
+                      <label for="loginEmail">Email</label>
+                      <input type="text" id="loginEmail" placeholder="Enter your username" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="loginPassword">Password</label>
+                      <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                  </div>
+                  <button type="submit" class="submit-btn">Login</button>
+              </form>
+
+              <!-- Register Form -->
+              <form class="form" id="registerForm">
+                  <div class="form-group">
+                      <label for="registerName">Full Name</label>
+                      <input type="text" id="registerName" placeholder="Enter your full name" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="registerEmail">Email</label>
+                      <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="registerPassword">Password</label>
+                      <input type="password" id="registerPassword" placeholder="Create a password" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="confirmPassword">Confirm Password</label>
+                      <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                  </div>
+                  <button type="submit" class="submit-btn">Register</button>
+              </form>
+          </div>
+      </div>
+
+    </div>
 
 
 
@@ -146,7 +205,7 @@
                 </div>
 
                 <div style="margin-top: 20px;">
-                    <a href="#" style="color: var(--primary-color); text-decoration: none;">Thông tin phim <i
+                    <a href="/pages/chi-tiet.html?phim=${}` style="color: var(--primary-color); text-decoration: none;">Thông tin phim <i
                             class="fas fa-chevron-right" style="font-size: 12px;"></i></a>
                 </div>
             </div>
@@ -265,5 +324,6 @@
 </body>
 <script src="/main/script.js"></script>
 <script src="/main/watch.js"></script>
+<script src="/main/login.js"></script>
 
 </html>
