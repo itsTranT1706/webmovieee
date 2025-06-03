@@ -75,6 +75,7 @@
 
  // API Functions
  async function registerUser(userData) {
+    console.log(userData)
      try {
          const response = await fetch(`${API_BASE_URL}/auth/register`, {
              method: 'POST',
@@ -85,6 +86,7 @@
          });
 
          const data = await response.json();
+         console.log(data)
 
          if (!response.ok) {
              throw new Error(data.message || 'Registration failed');
@@ -97,26 +99,65 @@
  }
 
  async function loginUser(credentials) {
-     try {
-         const response = await fetch(`${API_BASE_URL}/auth/login`, {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify(credentials)
-         });
+    console.log(credentials)
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+        credentials: 'include',
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+  
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 
-         const data = await response.json();
+ async function refreshAccessToken() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/refresh-token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
 
-         if (!response.ok) {
-             throw new Error(data.message || 'Login failed');
-         }
+    const data = await response.json();
 
-         return data;
-     } catch (error) {
-         throw error;
-     }
- }
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to refresh token');
+    }
+
+    access_token = data.access_token;
+    localStorage.setItem('access_token', access_token);
+
+    return access_token;
+  } catch (error) {
+    logout();
+    throw new Error('Session expired. Please login again.');
+  }
+}
+
+function isTokenExpired(token) {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expiry = payload.exp * 1000;
+      return Date.now() >= expiry;
+    } catch (e) {
+      return true;
+    }
+  }
+
  // Form submissions
  document.getElementById('registerForm').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -135,24 +176,34 @@
   }
 
   const userData = {
-      name: name,
+      username: name,
       email: email,
-      password: password
+      password: password,
+      confirmPassword: confirmPassword,
+      role: 1
   };
 
   setButtonLoading(submitBtn, true);
 
   try {
       const response = await registerUser(userData);
-      showSuccessMessage('Registration successful! Please login.');
-      
-      // Clear form
-      this.reset();
-      
-      // Switch to login after 2 seconds
-      setTimeout(() => {
-          showLogin();
-      }, 2000);
+      if (response.status=="ERR") {
+        alert (response.message);
+        
+      }
+      else {
+
+          console.log("res", response)
+          showSuccessMessage('Registration successful! Please login.');
+          
+          // Clear form
+          this.reset();
+          
+          // Switch to login after 2 seconds
+          setTimeout(() => {
+              showLogin();
+          }, 2000);
+      }
       
   } catch (error) {
       showErrorMessage(error.message || 'Registration failed. Please try again.');
@@ -161,44 +212,47 @@
   }
 });
 
-document.getElementById('loginForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
   
-  const submitBtn = this.querySelector('.submit-btn');
-  submitBtn.dataset.originalText = submitBtn.textContent;
+    const submitBtn = this.querySelector('.submit-btn');
+    submitBtn.dataset.originalText = submitBtn.textContent;
   
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-
-  const credentials = {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+  
+    const credentials = {
       email: email,
-      password: password
-  };
-
-  setButtonLoading(submitBtn, true);
-
-  try {
+      password: password,
+    };
+  
+    setButtonLoading(submitBtn, true);
+  
+    try {
       const response = await loginUser(credentials);
-      
-      // Store auth data
-      access_token = response.token || response.access_token;
-      currentUser = response.user || response.data;
-      
-      // Save to localStorage for persistence
-      localStorage.setItem('access_token', access_token);
-      localStorage.setItem('userData', JSON.stringify(currentUser));
-      
-      // Update UI
-      updateUserInterface();
-      closeModal();
-      this.reset();
-      
-  } catch (error) {
+      if (response.status === 'ERR') {
+        alert(response.message);
+        return;
+      } else {
+        // Store auth data
+        access_token = response.token || response.access_token;
+        currentUser = response.user || response.data;
+  
+        // Save to localStorage for persistence
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('userData', JSON.stringify(currentUser));
+  
+        // Update UI
+        updateUserInterface();
+        closeModal();
+        this.reset();
+      }
+    } catch (error) {
       showErrorMessage(error.message || 'Login failed. Please check your credentials.');
-  } finally {
+    } finally {
       setButtonLoading(submitBtn, false);
-  }
-});
+    }
+  });
 
 // Update UI after login
 function updateUserInterface() {
@@ -280,8 +334,9 @@ async function showFavorites() {
 }
 
 function showAccountInfo() {
+    console.log(currentUser)
   const userInfo = `Account Info:
-Name: ${currentUser.name || currentUser.full_name || 'N/A'}
+Name: ${currentUser.username || 'N/A'}
 Email: ${currentUser.email || 'N/A'}
 ID: ${currentUser.id || currentUser._id || 'N/A'}`;
   
@@ -290,44 +345,64 @@ ID: ${currentUser.id || currentUser._id || 'N/A'}`;
 }
 
 async function logout() {
- 
-  // Clear local data
-  currentUser = null;
-  access_token = null;
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('userData');
+    try {
+      await fetch(`${API_BASE_URL}/auth/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+    } catch (error) {
+      console.error('Logout request failed:', error);
+    }
   
-  // Update UI
-  document.querySelector('.login-btn').style.display = 'block';
-  document.querySelector('.user-section').style.display = 'none';
-  document.getElementById('userDropdown').classList.remove('show');
-}
+    currentUser = null;
+    access_token = null;
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('userData');
+  
+    document.querySelector('.login-btn').style.display = 'block';
+    document.querySelector('.user-section').style.display = 'none';
+    document.getElementById('userDropdown').classList.remove('show');
+  }
+
 
 // API request helper with auth
 async function makeAuthenticatedRequest(endpoint, options = {}) {
+  if (access_token && isTokenExpired(access_token)) {
+    await refreshAccessToken();
+  }
+
   const defaultOptions = {
-      headers: {
-          'Authorization': `Bearer ${access_token}`,
-          'Content-Type': 'application/json',
-          ...options.headers
-      }
+    headers: {
+      'Authorization': `Bearer ${access_token}`,
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+    credentials: 'include',
   };
-  
+
   try {
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-          ...options,
-          headers: defaultOptions.headers
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      ...options,
+      headers: defaultOptions.headers,
+      credentials: 'include',
+    });
+
+    if (response.status === 401) {
+      await refreshAccessToken();
+      defaultOptions.headers['Authorization'] = `Bearer ${access_token}`;
+      return await fetch(`${API_BASE_URL}${endpoint}`, {
+        ...options,
+        headers: defaultOptions.headers,
+        credentials: 'include',
       });
-      
-      if (response.status === 401) {
-          // Token expired or invalid
-          logout();
-          throw new Error('Session expired. Please login again.');
-      }
-      
-      return response;
+    }
+
+    return response;
   } catch (error) {
-      throw error;
+    throw error;
   }
 }
 
