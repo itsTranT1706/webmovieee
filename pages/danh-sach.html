@@ -6,6 +6,7 @@
     <title>Movie List Page</title>
     <link rel="stylesheet" href="/styles/login.css">
     <link rel="stylesheet" href="/styles/danhsach.css">
+    <link rel="stylesheet" href="/styles/filter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -130,6 +131,132 @@
       </div>
 
     </div>
+
+
+
+<!-- Filter  -->
+<div class="filter-container">
+  <div class="filter-header" onclick="toggleFilter()">
+      <span class="filter-toggle" id="filterToggle">▶</span>
+      <span class="filter-title">Bộ lọc</span>
+  </div>
+  
+  <div class="filter-content" id="filterContent">
+      <div class="filter-section">
+          <div class="filter-section-title">Quốc gia:</div>
+          <div class="filter-options">
+              <div class="filter-option active" style="--delay: 1">Tất cả</div>
+              <div class="filter-option" style="--delay: 2">Âu Mỹ</div>
+              <div class="filter-option" style="--delay: 2">Anh</div>
+              <div class="filter-option" style="--delay: 2">Trung Quốc</div>
+              <div class="filter-option" style="--delay: 2">Indonesia</div>
+              <div class="filter-option" style="--delay: 2">Việt Nam</div>
+              <div class="filter-option" style="--delay: 2">Pháp</div>
+              <div class="filter-option" style="--delay: 2">Hồng Kông </div>
+              <div class="filter-option" style="--delay: 2">Hàn Quốc</div>
+              <div class="filter-option" style="--delay: 2">Nhật Bản</div>
+              <div class="filter-option" style="--delay: 2">Thái Lan</div>
+              <div class="filter-option" style="--delay: 2">Đài Loan</div>
+              <div class="filter-option" style="--delay: 2">Nga</div>
+              <div class="filter-option" style="--delay: 2">Hà Lan</div>
+              <div class="filter-option" style="--delay: 2">Philippines</div>
+              <div class="filter-option" style="--delay: 2">Ấn Độ</div>
+          </div>
+      </div>
+
+      <div class="filter-section">
+          <div class="filter-section-title">Loại phim:</div>
+          <div class="filter-options">
+              <div class="filter-option active" style="--delay: 14">Tất cả</div>
+              <div class="filter-option" style="--delay: 15">Phim lẻ</div>
+              <div class="filter-option" style="--delay: 16">Phim bộ</div>
+              <div class="filter-option" style="--delay: 16">TV shows</div>
+              <div class="filter-option" style="--delay: 16">Hoạt hình</div>
+              <div class="filter-option" style="--delay: 16">Phim vietsub</div>
+              <div class="filter-option" style="--delay: 16">Phim thuyết minh</div>
+              <div class="filter-option" style="--delay: 16">Phim lồng tiếng</div>
+          </div>
+      </div>
+
+      <div class="filter-section">
+          <div class="filter-section-title">Thể loại:</div>
+          <div class="filter-options">
+              <div class="filter-option active" style="--delay: 23">Tất cả</div>
+              <div class="filter-option" style="--delay: 24">Hành Động</div>
+              <div class="filter-option" style="--delay: 24">Cổ Trang</div>
+              <div class="filter-option" style="--delay: 24">Chiến Tranh</div>
+              <div class="filter-option" style="--delay: 24">Viễn Tưởng</div>
+              <div class="filter-option" style="--delay: 24">Kinh Dị</div>
+              <div class="filter-option" style="--delay: 24">Tài Liệu</div>
+              <div class="filter-option" style="--delay: 24">Bí Ẩn</div>
+              <div class="filter-option" style="--delay: 24">Phim 18+</div>
+              <div class="filter-option" style="--delay: 24">Tình Cảm</div>
+              <div class="filter-option" style="--delay: 24">Tâm Lý</div>
+              <div class="filter-option" style="--delay: 24">Thể Thao</div>
+              <div class="filter-option" style="--delay: 24">Phiêu Lưu</div>
+              <div class="filter-option" style="--delay: 24">Âm Nhạc</div>
+              <div class="filter-option" style="--delay: 24">Gia Đình</div>
+              <div class="filter-option" style="--delay: 24">Học Đường</div>
+              <div class="filter-option" style="--delay: 24">Hài Hước</div>
+              <div class="filter-option" style="--delay: 24">Hình Sự</div>
+              <div class="filter-option" style="--delay: 24">Võ Thuật</div>
+              <div class="filter-option" style="--delay: 24">Khoa Học</div>
+              <div class="filter-option" style="--delay: 24">Thần Thoại</div>
+              <div class="filter-option" style="--delay: 24">Chính Kịch</div>
+              <div class="filter-option" style="--delay: 24">Kinh Điển</div>
+          </div>
+      </div>
+
+      <div class="filter-section">
+          <div class="filter-section-title">Phiên bản:</div>
+          <div class="filter-options">
+              <div class="filter-option active" style="--delay: 51">Tất cả</div>
+              <div class="filter-option" style="--delay: 52">Vietsub</div>
+              <div class="filter-option" style="--delay: 53">Lồng tiếng</div>
+              <div class="filter-option" style="--delay: 54">Thuyết minh </div>
+          </div>
+      </div>
+
+      <div class="filter-section">
+          <div class="filter-section-title">Năm sản xuất:</div>
+          <div class="filter-options">
+              <div class="filter-option active" style="--delay: 56">Tất cả</div>
+              <div class="filter-option" style="--delay: 57">2025</div>
+              <div class="filter-option" style="--delay: 58">2024</div>
+              <div class="filter-option" style="--delay: 59">2023</div>
+              <div class="filter-option" style="--delay: 60">2022</div>
+              <div class="filter-option" style="--delay: 61">2021</div>
+              <div class="filter-option" style="--delay: 62">2020</div>
+              <div class="filter-option" style="--delay: 63">2019</div>
+              <div class="filter-option" style="--delay: 64">2018</div>
+              <div class="filter-option" style="--delay: 65">2017</div>
+              <div class="filter-option" style="--delay: 66">2016</div>
+              <div class="filter-option" style="--delay: 67">2015</div>
+              <div class="filter-option" style="--delay: 68">2014</div>
+              <div class="filter-option" style="--delay: 69">2013</div>
+              <div class="filter-option" style="--delay: 70">2012</div>
+              <div class="filter-option" style="--delay: 71">2011</div>
+              <div class="filter-option" style="--delay: 72">2010</div>
+              <div class="filter-option" style="--delay: 72">1970</div>
+          </div>
+      </div>
+
+      <div class="filter-section">
+          <div class="filter-section-title">Sắp xếp:</div>
+          <div class="filter-options">
+              <div class="filter-option" style="--delay: 74">Mới cập nhật</div>
+              <div class="filter-option" style="--delay: 75">Theo năm</div>
+          </div>
+
+      <div class="filter-actions">
+          <button class="btn btn-primary" onclick="applyFilters()">Lọc kết quả</button>
+          <button class="btn btn-secondary" onclick="resetFilters()">Đặt lại</button>
+      </div>
+  </div>
+</div>
+
+
+
 
 
 

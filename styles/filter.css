@@ -1,0 +1,221 @@
+
+.filter-container {
+    /* max-width: 1200px; */
+    margin: 10vh 3vh;
+    background: rgba(26, 26, 46, 0.8);
+    border-radius: 12px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.filter-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-header:hover {
+    transform: translateX(5px);
+}
+
+.filter-toggle {
+    font-size: 18px;
+    margin-right: 12px;
+    transition: transform 0.3s ease;
+    color: rgb(50, 151, 218);
+}
+
+.filter-toggle.expanded {
+    transform: rotate(90deg);
+}
+
+.filter-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+}
+
+.filter-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.filter-content.expanded {
+    max-height: 2000px;
+    opacity: 1;
+}
+
+.filter-section {
+    margin-bottom: 24px;
+}
+
+.filter-section-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+}
+
+.filter-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(255, 215, 0, 0.3), transparent);
+    margin-left: 12px;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.filter-option:hover::before {
+    left: 100%;
+}
+
+.filter-option:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.filter-option.active {
+    background: linear-gradient(45deg, rgb(50, 151, 218), rgb(8, 140, 228));
+    color: #000000;
+    border-color: #ffd700;
+    font-weight: 500;
+}
+
+.filter-option.active:hover {
+    background: linear-gradient(45deg, rgb(50, 151, 218), rgb(50, 151, 228));
+}
+
+.filter-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn {
+    padding: 10px 24px;
+    border-radius: 25px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, rgb(50, 151, 218), rgb(50, 151, 218));
+    color: #000000;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, rgb(50, 151, 218), rgb(50, 151, 218));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-container {
+        padding: 16px;
+        margin: 10px;
+    }
+
+    .filter-options {
+        gap: 6px;
+    }
+
+    .filter-option {
+        padding: 5px 12px;
+        font-size: 13px;
+    }
+
+    .filter-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-option {
+        padding: 4px 10px;
+        font-size: 12px;
+    }
+
+    .filter-section-title {
+        font-size: 14px;
+    }
+}
+
+/* Animation for filter options appearing */
+.filter-option {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.filter-content.expanded .filter-option {
+    animation-delay: calc(var(--delay, 0) * 0.05s);
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

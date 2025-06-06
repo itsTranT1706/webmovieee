@@ -45,6 +45,7 @@ for (let i = 0; i < length; i++) {
                 </a>`
 
 }
+
 if (length < 7) {
     str += `<a href="/pages/chu-de.html" class="category-card more" id="more">
     <h3>+chủ đề</h3>
